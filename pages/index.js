@@ -514,7 +514,7 @@ const getProductDesc = (item) => {
               <SwiperSlide key={item.id}>
                 <div className='slideItemProduct'>
                   <div className='imageContainer'>
-                    <img src={`https://prahwa.net/storage/${item.image_png}`} alt={item.title} />
+                    <img src={`${process.env.NEXT_PUBLIC_API_URL}/storage/${item.image_png}`} alt={item.title} />
                   </div>
                   <h1>{stripH1Tags(getRecipeName(item))}</h1>
                   <div className='contectProductContainer'>

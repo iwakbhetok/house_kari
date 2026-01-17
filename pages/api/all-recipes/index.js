@@ -2,9 +2,9 @@ import axios from 'axios';
 
 export default async function handler(req, res) {
   try {
-    const response = await axios.get('https://prahwa.net/apiv2/recipes', {
+    const response = await axios.get(process.env.API_URL + '/apiv2/recipes', {
       headers: {
-        'api-key': 'mhHoCDQEPiYD7vU37K5AX0bKuP86a31wU2P8N86L'
+        'api-key': process.env.API_KEY
       }
     });
     res.status(200).json(response.data);

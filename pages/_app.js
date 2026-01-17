@@ -13,7 +13,7 @@ function App({ Component, pageProps }) {
         strategy="beforeInteractive"
         dangerouslySetInnerHTML={{
           __html: `
-            window.trackingApiKey = 'mhHoCDQEPiYD7vU37K5AX0bKuP86a31wU2P8N86L';
+            window.trackingApiKey = process.env.API_KEY;
           `,
         }}
       />

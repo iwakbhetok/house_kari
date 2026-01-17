@@ -17,12 +17,12 @@ export default async function handler(req, res) {
 
       // Make a request to the external API
       const response = await axios.post(
-        'https://prahwa.net/apiv2/contacts',
+        process.env.API_URL + '/apiv2/contacts',
         formData,
         {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'api-key': 'mhHoCDQEPiYD7vU37K5AX0bKuP86a31wU2P8N86L'
+            'api-key': process.env.API_KEY
           }
         }
       );

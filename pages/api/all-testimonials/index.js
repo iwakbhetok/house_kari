@@ -4,9 +4,9 @@ import axios from 'axios';
 
 export default async function handler(req, res) {
   try {
-    const response = await axios.get('https://prahwa.net/apiv2/review', {
+    const response = await axios.get(process.env.API_URL + '/apiv2/review', {
       headers: {
-        'api-key': 'mhHoCDQEPiYD7vU37K5AX0bKuP86a31wU2P8N86L' // Ganti dengan API key Anda
+        'api-key': process.env.API_KEY // Ganti dengan API key Anda
       }
     });
     const testimonial = response.data;

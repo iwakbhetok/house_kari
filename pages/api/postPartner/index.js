@@ -26,7 +26,7 @@
 //         headers: {
 //           ...form.getHeaders(),
 //           'Accept': 'application/json',
-//           'api_key': 'mhHoCDQEPiYD7vU37K5AX0bKuP86a31wU2P8N86L',
+//           'api_key': process.env.API_KEY,
 //         },
 //       });
 
@@ -61,12 +61,12 @@ export default async function handler(req, res) {
 
       // Make a request to the external API
       const response = await axios.post(
-        'https://prahwa.net/apiv2/become-partners',
+        process.env.API_URL + '/apiv2/become-partners',
         formData,
         {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'api_key': 'mhHoCDQEPiYD7vU37K5AX0bKuP86a31wU2P8N86L'
+            'api_key': process.env.API_KEY
           }
         }
       );

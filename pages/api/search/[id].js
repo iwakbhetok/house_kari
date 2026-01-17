@@ -11,9 +11,9 @@ export default async function handler(req, res) {
 
   try {
     // Make the request to the external API
-    const response = await axios.get(`https://prahwa.net/apiv2/search`, {
+    const response = await axios.get(process.env.API_URL + `/apiv2/search`, {
       params: { key: id },
-      headers: { 'api-key': 'mhHoCDQEPiYD7vU37K5AX0bKuP86a31wU2P8N86L' }
+      headers: { 'api-key': process.env.API_KEY }
     });
 
     // Return the response data
