@@ -1,0 +1,238 @@
+.slide {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .slideWrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .slideItem {
+    flex: 1 0 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease-in-out;
+    opacity: 1;
+  }
+  
+  .slideItem.active {
+    opacity: 1 !important;
+    z-index: 10;
+  }
+  .slideItem img{
+    width: 100%;
+    height: 46vw;
+    object-fit: cover;
+    object-position: center;
+  }
+  @media (max-width:768px) {
+    .slideItem img{
+      height: 55vw;
+    }
+  }
+  
+  .navigation {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 1rem;
+  }
+  
+  .navButton {
+    background: none;
+    border: none;
+    color: black;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  .navButton:hover {
+    color: blue;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 4vw;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .paginationButton {
+    background: none;
+    border: none;
+    outline: none;
+    border-radius: 100vw;
+    width: .68vw;
+    margin: 0 .5vw;
+    height: .68vw;
+    background-color: white;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+    opacity: .6;
+  }
+  
+  .paginationButton:hover {
+    color: white;
+    opacity: 1;
+  }
+  
+  .paginationButton.active {
+    color: white;
+    opacity: 1;
+  }
+  
+  .divider{
+    width: 100%;
+    height: 1.2vw;
+    background: linear-gradient(269.85deg, #D08A22 -7.51%, #FFE620 48.54%, #CB811A 106.88%);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+
+  .product_banner{
+    position: absolute;
+    left: 2vw;
+    bottom: 3.4vw;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.444) 0%, rgba(255, 255, 255, 0.74) 100%);
+    border: .12vw solid white;
+    box-shadow: 0px 4px 16px 0px #67250040;
+    backdrop-filter: blur(1vw); /* Menentukan intensitas blur */
+    -webkit-backdrop-filter: blur(1vw);
+    padding: .8vw;
+    border-radius: 2vw;
+    overflow: hidden;
+    cursor: pointer;
+    animation: 3.6s gerak linear infinite alternate;
+  }
+
+  @keyframes gerak {
+    0%{
+        transform: translateY(0);
+    }
+    100%{
+        transform: translateY(-.8vw);
+    }
+  }
+
+  .product_banner_image{
+    width: 13vw;
+    height: 6.8vw;
+    position: relative;
+    overflow: hidden;
+    border-radius: 1.4vw;
+  }
+  .product_banner_image img{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .product_banner_overlay{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    /* background: linear-gradient(180deg, rgba(255, 255, 255, 0.233) 0%, rgba(255, 255, 255, 0.411) 100%); */
+    background-blend-mode: multiply;
+    transition: .4s all;
+  }
+  
+  .product_banner:hover .product_banner_overlay{
+    opacity: 1;
+    z-index: 10;
+  }
+
+  .product_banner_overlay svg{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    font-size: 3.3vw;
+    color: var(--old_red);
+    transform: translate(-50%, -50%);
+  }
+
+  .product_banner_image_overlay{
+    opacity: 0;
+    transition: .2s all;
+    border-radius: 1.4vw;
+  }
+
+  .product_banner:hover .product_banner_image_overlay{
+    transition: .2s all;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    opacity: 1;
+    border-radius: 1.4vw;
+    backdrop-filter: blur(.2vw); /* Menentukan intensitas blur */
+    -webkit-backdrop-filter: blur(.2vw);
+    background: linear-gradient(180deg, rgba(255, 248, 221, 0.5) 0%, #FECF57 100%);
+  }
+
+  .skeleton_banner{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  @media (max-width:768px) {
+    .product_banner{
+      left: 3.5vw;
+      bottom: 5vw;
+      border: .15vw solid white;
+      padding: 2vw;
+      border-radius: 3vw;
+    }
+    .product_banner_image{
+      width: 22vw;
+      height: 12vw;
+      border-radius: 1.4vw;
+    }
+    .product_banner_image img{
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .pagination {
+      bottom: 8vw;
+      gap: 1vw;
+    }
+    
+    .paginationButton {
+      width: 1.3vw;
+      margin: 0 .5vw;
+      height: 1.3vw;
+      background-color: white;
+      cursor: pointer;
+      transition: color 0.3s ease-in-out;
+      opacity: .6;
+    }
+  }

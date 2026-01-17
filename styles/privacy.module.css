@@ -1,0 +1,75 @@
+.privacy{
+    width: 100%;
+    padding: 1.2vw 9vw;
+}
+.privacy h1{
+    font-size: 1.7vw;
+    color: #651318;
+    margin-bottom: 1.4vw;
+}
+.privacy ul{
+    margin-left: 1.3vw;
+    list-style: decimal;
+}
+.privacy ul li{
+    font-weight: 600;
+    font-size: 1vw;
+    margin-bottom: 1vw;
+}
+.privacy ul li ul{
+    list-style: circle;
+    margin-top: 1vw;
+    margin-left: 1.5vw;
+}
+.privacy ul li ul li{
+    font-weight: 400 !important;
+    font-size: .9vw;
+    margin-bottom: 0;
+}
+.privacy ul li ul li:last-child{
+    margin-bottom: 1vw;
+}
+.privacy ul li p{
+    font-weight: 400 !important;
+    font-size: .9vw;
+}
+.phising{
+    margin-left: 2vw;
+    list-style: circle !important;
+}
+.kiat{
+    list-style: none !important;
+}
+
+@media (max-width:768px) {
+    .privacy{
+        padding: 2vw 6.4vw;
+    }
+    .privacy h1{
+        font-size: 4vw;
+        margin-bottom: 3vw;
+    }
+    .privacy ul{
+        margin-left: 3.6vw;
+    }
+    .privacy ul li{
+        font-size: 3.1vw;
+        margin-bottom: 3vw;
+    }
+    .privacy ul li ul{
+        margin-top: 3vw;
+        margin-left: 3.6vw;
+    }
+    .privacy ul li ul li{
+        font-size: 2.7vw;
+    }
+    .privacy ul li ul li:last-child{
+        margin-bottom: 3vw;
+    }
+    .privacy ul li p{
+        font-size: 2.7vw;
+    }
+    .phising{
+        margin-left: 3.6vw;
+    }
+}

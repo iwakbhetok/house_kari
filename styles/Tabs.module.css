@@ -1,0 +1,173 @@
+.tabs {
+    width: 100%;
+    z-index: 3;
+  }
+  
+  .tabHeaders {
+    display: flex;
+    justify-content: center;
+    gap: 1.4vw;
+    margin-bottom: 2.5vw;
+  }
+  
+  .tabHeader {
+    padding: .7vw 2vw;
+    cursor: pointer;
+    background: transparent;
+    border: .11vw solid var(--old_red);
+    border-radius: 100vw;
+    font-size: .89vw;
+    font-weight: 600;
+    color: var(--old_red);
+  }
+  
+  .tabHeader.active {
+    color: white;
+    border: .11vw solid transparent;
+    background-color: var(--red);
+  }
+  
+  .tabContent {
+    padding: 1vw;
+  }
+
+  .select_menu_product {
+    position: relative;
+    display: none;
+  }
+  
+  .dropdownButton {
+    background-color: white;
+    border: .1vw solid #651318;
+    border-radius: .5vw;
+    padding: .7vw .9vw;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: max-content;
+    outline: none;
+    font-size: .85vw;
+    font-weight: 700;
+    color: #651318;
+    gap: 1.3vw;
+    width: max-content;
+  }
+  .dropdownButton svg{
+    font-size: 1vw;
+  }
+  .dropdownButton.activeButton{
+    border-radius: .5vw .5vw 0 0;
+    border-bottom: none;
+    background-color: #FFFCF4;
+  }
+  
+  .dropdownMenu {
+    position: absolute;
+    background-color: #fff;
+    border: .1vw solid #651318;
+    border-top: none;
+    width: 100%;
+    z-index: 1;
+    top: 100%;
+    left: 0;
+    border-radius: 0 0 .5vw .5vw;
+    z-index: 10;
+  }
+  
+  .dropdownMenuItem {
+    cursor: pointer;
+    padding: .4vw .9vw;
+    font-size: .85vw;
+    color: #651318;
+  }
+  .dropdownMenuItem:last-child{
+    border-radius: 0 0 .5vw .5vw;
+  }
+  
+  .dropdownMenuItem:hover {
+    background-color: transparent;
+  }
+  
+  .dropdownButton svg {
+    margin-left: .7vw;
+  }
+  
+  @media (max-width:768px) {
+    .tabs {
+      text-align: center;
+    }
+    .tabHeaders{
+      display: none;
+    }
+    .select_menu_product{
+      display: inline-block;
+    }
+    .dropdownButton {
+      border: .12vw solid #651318;
+      border-radius: 2vw;
+      padding: 1.8vw 3.5vw;
+      font-size: 3vw;
+      margin: auto;
+      margin-bottom: 7.6vw;
+      gap: 1vw;
+    }
+    .dropdownButton svg{
+      font-size: 2.9vw;
+    }
+    .dropdownButton.activeButton{
+      border-radius: 2vw 2vw 2vw 2vw;
+      border: .12vw solid #651318;
+    }
+
+    .circle_menu{
+      display: flex;
+      justify-content: center;
+      position: sticky;
+      padding: 2.7vw 0;
+      background-color: white;
+      width: 100%;
+      top: 0;
+      margin-bottom:1.7vw;
+      left: 0;
+    }
+    .circle_menu_box{
+      width: 16vw;
+      height: 1.2vw;
+      border-radius: 100vw;
+      background-color: #dbdbdb;
+    }
+
+    .dropdownMenu {
+      border: none;
+      border-top: none;
+      width: 100%;
+      z-index: 1;
+      position: fixed;
+      top: inherit;
+      bottom: 0;
+      left: 0;
+      border-radius: 6vw 6vw 0 0;
+      z-index: 18;
+      padding: 3vw 7vw;
+      padding-top: 0;
+      border-top: .1vw solid #dbdbdb;
+      display: inherit;
+      transform: translateY(150%);
+      transition: .4s all;
+      text-align: start;
+    }
+    .dropdownMenu.active{
+      display: inherit;
+      transform: translateY(0);
+      overflow-y: scroll;
+    }
+    .dropdownMenuItem {
+      padding: 3.7vw 0;
+      font-size: 3.6vw;
+      border-bottom: .12vw solid #65131852;
+    }
+    .dropdownMenuItem:last-child{
+      border-bottom: none;
+    }
+  }

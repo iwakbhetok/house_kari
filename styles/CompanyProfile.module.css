@@ -1,0 +1,593 @@
+.section1{
+    display: grid;
+    grid-template-columns: 41% 59%;
+}
+.section1_image{
+    width: 100%;
+    height: 34.5vw;
+    position: relative;
+}
+.section1_image img{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    object-fit: cover;
+    object-position: center;
+}
+.section1_content{
+    padding: 5.3vw 5.3vw;
+    padding-right: 12.5vw;
+}
+.section1_content h1{
+    font-size: 1.4vw;
+    color: var(--old_red);
+    margin-bottom: .5vw;
+}
+.section1_content h3{
+    font-size: 1vw;
+    color: var(--old_red);
+}
+.section1_content p{
+    margin-top: .9vw;
+    font-size: 1.05vw;
+    color: black;
+}
+
+.section2{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 8.8vw 0;
+}
+.pattern_center{
+    position: absolute;
+    z-index: 0;
+    left: 50%;
+    top: 4.3vw;
+    width: 13.6vw;
+    transform: translateX(-50%);
+}
+.section2 h1{
+    font-size: 1.4vw;
+    color: var(--old_red);
+    margin-bottom: 2.3vw;
+}
+.section2 p{
+    font-size: 1vw;
+    font-style: italic;
+    width: 34vw;
+    text-align: center;
+    color: #363636;
+}
+
+.filosofi_icon_1{
+    position: absolute;
+    left: 0;
+    top: 5vw;
+    width: 19vw;
+}
+.filosofi_icon_2{
+    position: absolute;
+    right: 0;
+    top: 2.4vw;
+    width: 19.8vw;
+}
+
+.bg_section{
+    background: linear-gradient(360deg, #FCF1D2 0%, #FFFFFF 100%);
+}
+
+.divider{
+    width: 100%;
+    height: 1.2vw;
+    background: linear-gradient(269.85deg, #D08A22 -7.51%, #FFE620 48.54%, #CB811A 106.88%);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 4;
+  }
+
+  .two_block{
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .vision_box{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background-image: url(../public/images/visi_bg.png);
+    background-size: cover;
+    background-position: center;
+    padding: 8vw 11vw;
+    position: relative;
+    height: 27vw;
+  }
+  .overlay_visi{
+    background: #651318C7;
+    background-blend-mode: multiply;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    transition: .3s all;
+  }
+  .vision_box:hover .overlay_visi{
+    backdrop-filter: blur(1vw);
+    -webkit-backdrop-filter: blur(1vw);
+    background-blend-mode: multiply;
+  }
+  .vision_box h1{
+    font-size: 1.7vw;
+    color: white;
+    z-index: 1;
+    transform: scale(1);
+    transition: .4s all;
+  }
+  .vision_box:hover h1{
+    transform: scale(0);
+    position: absolute;
+    left: -500%;
+  }
+  .vision_box ul, .vision_box p{
+    z-index: 1;
+  }
+  .vision_box p{
+    font-size: 1.2vw;
+    color: white;
+    font-weight: 500;
+    text-align: center;
+    transform: scale(0);
+    transition: .4s all;
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    left: -220%;
+    z-index: -1;
+  }
+  .vision_box:hover p{
+    position: relative;
+    transform: scale(1);
+    opacity: 1;
+    left: inherit;
+    z-index: 1;
+  }
+  .mision_box{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background-image: url(../public/images/misi_bg.png);
+    background-size: cover;
+    background-position: center;
+    padding: 8vw 9vw;
+    height: 27vw;
+    position: relative;
+  }
+  .overlay_misi{
+    /* backdrop-filter: blur(1vw);
+    -webkit-backdrop-filter: blur(1vw);
+    background: #FFF4D3AB;
+    background-blend-mode: multiply; */
+    position: absolute;
+    background: #FFF4D3AB;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    transition: .3s all;
+  }
+  .mision_box:hover .overlay_misi{
+    backdrop-filter: blur(1vw);
+    -webkit-backdrop-filter: blur(1vw);
+    background: #FFF4D3AB;
+    background-blend-mode: multiply;
+  }
+  .mision_box h1{
+    font-size: 1.7vw;
+    color: #651318;
+    z-index: 1;
+    transform: scale(1);
+    transition: .4s all;
+  }
+  .mision_box:hover h1{
+    transform: scale(0);
+    position: absolute;
+    left: -500%;
+  }
+  .mision_box ul, .mision_box p{
+    z-index: 1;
+  }
+  .mision_box ul{
+    transform: scale(0);
+    transition: .4s all;
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    left: -220%;
+    z-index: -1;
+  }
+  .mision_box:hover ul{
+    position: relative;
+    transform: scale(1);
+    opacity: 1;
+    left: inherit;
+    z-index: 1;
+  }
+  .mision_box p{
+    font-size: 1.05vw;
+    color: #2D1F03;
+    font-weight: 500;
+  }
+  .mision_box ul li{
+    font-size: 1.05vw;
+    color: #2D1F03;
+    font-weight: 500;
+    margin-bottom: .1vw;
+  }
+  
+  .select_menu_product {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdownButton {
+    background-color: white;
+    border: .1vw solid #651318;
+    border-radius: .5vw;
+    padding: .7vw .9vw;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: max-content;
+    outline: none;
+    font-size: .85vw;
+    font-weight: 700;
+    color: #651318;
+    gap: 1.3vw;
+    width: max-content;
+  }
+  .dropdownButton svg{
+    font-size: 1vw;
+  }
+  .dropdownButton.activeButton{
+    border-radius: .5vw .5vw 0 0;
+    border-bottom: none;
+    background-color: #FFFCF4;
+  }
+  
+  .dropdownMenu {
+    position: absolute;
+    background-color: #fff;
+    border: .1vw solid #651318;
+    border-top: none;
+    width: 100%;
+    z-index: 1;
+    top: 100%;
+    left: 0;
+    border-radius: 0 0 .5vw .5vw;
+    z-index: 10;
+    display: none;
+  }
+  .dropdownMenu.active{
+    display: block;
+  }
+  
+  .dropdownMenuItem {
+    cursor: pointer;
+    padding: .4vw .9vw;
+    font-size: .85vw;
+    color: #651318;
+  }
+  .dropdownMenuItem:last-child{
+    border-radius: 0 0 .5vw .5vw;
+  }
+  
+  .dropdownMenuItem:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .dropdownButton svg {
+    margin-left: .7vw;
+  }
+
+  .careers{
+    width: 100%;
+    position: relative;
+    padding: 4.3vw 10.5vw;
+    background: linear-gradient(360deg, #FFEAAE 0%, #FFFFFF 100%);
+  }
+  .headingCareers{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.2vw;
+  }
+  .headingCareers h1{
+    font-size: 1.8vw;
+    color: var(--old_red);
+  }
+
+  .boxCareers{
+    padding: 1.87vw 0;
+    border-bottom: .1vw solid #363636;
+  }
+  .boxCareers:last-child{
+    border-bottom: none;
+  }
+  .boxCareers h3{
+    font-size: 1.35vw;
+    color: var(--old_red);
+    margin-bottom: 1vw;
+  }
+  .boxCareers p{
+    font-size: 1.05vw;
+    padding-right: 11.7vw;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 1.6vw;
+  }
+  .btnCareers{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .dateCareers{
+    padding: .48vw 1.4vw;
+    border-radius: 100vw;
+    border: .1vw solid #8A0008;
+  }
+  .dateCareers span{
+    font-size: .85vw;
+    font-weight: 700;
+    color: #363636;
+  }
+  .btnCareers button{
+    font-size: .91vw;
+    margin-right: .1vw;
+    padding: .8vw 5.7vw;
+    border-radius: 100vw;
+    background-color: #E60011;
+    border: none;
+    outline: none;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .careers_icon{
+    position: absolute;
+    right: 3.5vw;
+    bottom: 1.8vw;
+    width: 10vw;
+  }
+
+  .circle_menu{
+    display: none;
+  }
+
+  .noJobsMessage{
+    text-align:center;
+    padding-bottom: 9vw;
+  }
+
+  .noJobsMessage h1{
+    font-size: 2vw;
+    color: #65131880;
+  }
+
+  @media (max-width:768px) {
+    .noJobsMessage{
+      padding: 0 19vw;
+    }
+    .noJobsMessage h1{
+      font-size: 4vw;
+    }
+    .section1{
+      grid-template-columns: 100%;
+    }
+    .section1_image{
+      height: 67vw;
+    }
+    .section1_content{
+      padding: 9.8vw 7vw;
+      padding-right: 7vw;
+    }
+    .section1_content h1{
+      font-size: 4.1vw;
+      margin-bottom: 1.6vw;
+    }
+    .section1_content h3{
+      font-size: 2.9vw;
+      margin-bottom: 3.8vw;
+    }
+    .section1_content p{
+      margin-top: 3.8vw;
+      font-size: 2.7vw;
+    }
+
+    .section2{
+      padding: 14vw 0;
+      padding-bottom: 19vw;
+    }
+    .section2 h1{
+      font-size: 4.1vw;
+      margin-bottom: 2.3vw;
+    }
+    .section2 p{
+      font-size: 3vw;
+      width: 68%;
+    }
+    .filosofi_icon_1{
+      top: 1.6vw;
+      width: 19vw;
+    }
+    .filosofi_icon_2{
+      top:inherit;
+      bottom: 1vw;
+      width: 19.8vw;
+    }
+
+    .two_block{
+      grid-template-columns: repeat(1, 1fr);
+    }
+    .vision_box{
+      padding: 8vw 6vw;
+      height: 53vw;
+    }
+    .vision_box h1{
+      font-size: 4.1vw;
+    }
+    .vision_box p{
+      font-size: 2.7vw;
+    }
+
+    .mision_box{
+      padding: 12vw 12vw;
+      height: 53vw;
+    }
+    .mision_box h1{
+      font-size: 4.1vw;
+    }
+    .mision_box p{
+      font-size: 2.8vw;
+    }
+    .mision_box ul li{
+      font-size: 2.8vw;
+      margin-bottom: .7vw;
+    }
+    
+
+    .careers{
+      padding: 10vw 7vw;
+    }
+    .headingCareers{
+      display: flex;
+      align-items: center;
+      gap: 3vw;
+      justify-content: center;
+      flex-direction: column;
+      margin-bottom: 5vw;
+    }
+    .headingCareers h1{
+      font-size: 4.1vw;
+    }
+    .boxCareers{
+      padding: 4.6vw 0;
+      border-bottom: .12vw solid #363636;
+    }
+    .boxCareers h3{
+      font-size: 3.9vw;
+      margin-bottom: 2vw;
+    }
+    .boxCareers p{
+      font-size: 2.8vw;
+      padding-right: 11.7vw;
+      margin-bottom: 8vw;
+    }
+    .btnCareers{
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 2vw;
+    }
+    .dateCareers{
+      padding: .1vw 3.3vw;
+      padding-bottom: .6vw;
+      border: .12vw solid #8A0008;
+    }
+    .dateCareers span{
+      font-size: 2.3vw;
+    }
+    .btnCareers button{
+      font-size: 2.7vw;
+      margin-right: .1vw;
+      padding: 0 5.7vw;
+      height: 6vw;
+    }
+
+    .dropdownButton {
+      border: .12vw solid #651318;
+      border-radius: 2vw;
+      padding: 1.8vw 3.5vw;
+      font-size: 3vw;
+      margin: auto;
+      gap: 1vw;
+    }
+    .dropdownButton svg{
+      font-size: 2.9vw;
+    }
+    .dropdownButton.activeButton{
+      border-radius: 2vw 2vw 2vw 2vw;
+      margin-bottom: 2vw;
+      border: .12vw solid #651318;
+    }
+
+    .circle_menu{
+      display: flex;
+      justify-content: center;
+      position: sticky;
+      padding: 2.7vw 0;
+      background-color: white;
+      width: 100%;
+      top: 0;
+      margin-bottom:1.7vw;
+      left: 0;
+    }
+    .circle_menu_box{
+      width: 16vw;
+      height: 1.2vw;
+      border-radius: 100vw;
+      background-color: #dbdbdb;
+    }
+
+    .dropdownMenu {
+      border: none;
+      border-top: none;
+      width: 100%;
+      z-index: 1;
+      position: fixed;
+      top: inherit; 
+      bottom: 0;
+      left: 0;
+      border-radius: 6vw 6vw 0 0;
+      z-index: 18;
+      padding: 3vw 7vw;
+      padding-top: 0;
+      border-top: .1vw solid #dbdbdb;
+      display: inherit;
+      transform: translateY(150%);
+      transition: .4s all;
+    }
+    .dropdownMenu.active{
+      display: inherit;
+      transform: translateY(0);
+      overflow-y: scroll;
+    }
+    .dropdownMenuItem {
+      padding: 3.7vw 0;
+      font-size: 3.6vw;
+      border-bottom: .12vw solid #65131852;
+    }
+    .dropdownMenuItem:last-child{
+      border-bottom: none;
+    }
+
+    .careers_icon{
+      right: 3.5vw;
+      bottom: 1.8vw;
+      width: 21vw;
+    }
+  }

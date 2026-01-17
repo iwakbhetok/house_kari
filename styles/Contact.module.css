@@ -1,0 +1,530 @@
+.section1{
+    display: grid;
+    grid-template-columns: 42% 58%;
+    position: relative;
+    padding-bottom: 1.2vw;
+}
+.section2{
+    display: grid;
+    grid-template-columns: 42% 58%;
+    position: relative;
+}
+.maps{
+    width: 100%;
+    height: auto;
+    position: relative;
+}
+.maps iframe{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    outline: none;
+    border: none;
+}
+
+.section1_layout{
+    background: linear-gradient(90deg, #651318 0%, #B4000B 100%);
+    width: 100%;
+    position: relative;
+    padding: 3vw 9vw;
+}
+.section1_form{
+    margin-bottom: 1.9vw;
+}
+.section1_form h1{
+    font-size: 1.4vw;
+    color: white;
+    font-weight: 700;
+    margin-bottom: .7vw;
+}
+.form_field_double{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1.3vw;
+}
+.form_field{
+    display: flex;
+    flex-direction: column;
+    gap: .3vw;
+    margin-bottom: .8vw;
+}
+.form_field label{
+    font-size: .8vw;
+    color: white;
+    font-style: italic;
+    font-weight: 300;
+}
+.form_field input{
+    width: 100%;
+    font-size: .85vw;
+    font-style: italic;
+    padding: .6vw .85vw;
+    border-radius: .3vw;
+    outline: none;
+    background-color: #FFFCF4;
+    border: .12vw solid #5E5E5E;
+}
+.form_field textarea{
+    width: 100%;
+    height: 6vw;
+    resize: none;
+    font-size: .85vw;
+    font-style: italic;
+    padding: .6vw .85vw;
+    border-radius: .3vw;
+    outline: none;
+    background-color: #FFFCF4;
+    border: .12vw solid #5E5E5E;
+}
+.section1_form form button{
+    font-size: .86vw;
+    font-weight: 600;
+    color: white;
+    padding: .82vw 4vw;
+    border-radius: 100vw;
+    border: none;
+    outline: none;
+    background-color: var(--red);
+    cursor: pointer;
+}
+
+.notifPost{
+  text-align: start;
+  color: white;
+  font-size: 1vw;
+  margin-top: 1.4vw;
+}
+
+/* CustomCheckbox.module.css */
+
+.customCheckbox {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: .83vw;
+    font-weight: 300;
+    color: white;
+    margin-bottom: 1vw;
+  }
+  
+  .hiddenCheckbox {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .customCheckmark {
+    display: inline-block;
+    width: 1.3vw;
+    height: 1.3vw;
+    background: #D9D9D94D;
+    border-radius: .3vw;
+    margin-right: .6vw;
+    position: relative;
+    transition: background-color 0.3s;
+    border: .12vw solid #5D5D5D;
+  }
+  
+  .customCheckmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  .customCheckbox input:checked + .customCheckmark:after {
+    display: block;
+  }
+  
+  .customCheckbox .customCheckmark:after {
+    left: .4vw;
+    top: .2vw;
+    width: .22vw;
+    height: .46vw;
+    border: solid white;
+    border-width: 0 .12vw .12vw 0;
+    transform: rotate(45deg);
+  }
+  
+  .addressDetail{
+    margin-bottom: 1.5vw;
+  }
+  .addressDetail h3{
+    font-size: .86vw;
+    color: white;
+    margin-bottom: .2vw;
+  }
+  .addressDetail p{
+    font-size: .86vw;
+    color: white;
+    font-weight: 400;
+    padding-right: 12vw;
+  }
+
+  .contact_detail h3{
+    font-size: .86vw;
+    color: white;
+    margin-bottom: .8vw;
+  }
+  .contact_layout{
+    display: flex;
+    gap: 1.6vw;
+    align-items: center;
+  }
+  .contact_box{
+    display: flex;
+    align-items: flex-start;
+    gap: .66vw;
+  }
+  .contact_box svg{
+    font-size: 1.5vw;
+    color: white;
+  }
+  .contact_box h5{
+    font-size: .85vw;
+    color: white;
+    font-weight: 600;
+  }
+
+  .contact_icon{
+    width: 15.7vw;
+    position: absolute;
+    right: 0;
+    bottom: 5vw;
+  }
+
+  .divider{
+    width: 100%;
+    height: 1.2vw;
+    background: linear-gradient(269.85deg, #D08A22 -7.51%, #FFE620 48.54%, #CB811A 106.88%);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 3;
+  }
+
+  .section2_layout{
+    padding: 3.8vw 10.5vw;
+    padding-top: 4vw;
+    background: linear-gradient(90deg, #651318 0%, #B4000B 100%);
+    width: 100%;
+    position: relative;
+    padding-right: 7.6vw;
+  }
+  .section2_image{
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .section2_image img{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .section1_form_second input::placeholder{
+    color: #651318;
+  }
+  
+  .section1_form_second textarea::placeholder{
+    color: #651318;
+  }
+
+.form_field_select{
+    display: flex;
+    background-color: #FFFCF4;
+    border: .12vw solid #5E5E5E;
+    padding: 0 .85vw;
+    align-items: center;
+    border-radius: .3vw;
+}
+  .form_field_select select{
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    border: none;
+    outline: none;
+    font-size: .97vw;
+    font-style: italic;
+    padding: .6vw 0;
+    color: #651318;
+  }
+  .form_field_select svg{
+    font-size: 1vw;
+    color: #651318;
+  }
+
+  .contact_icon_2{
+    position: absolute;
+    bottom: -9vw;
+    left: 0;
+    width: 11.6vw;
+  }
+
+  .custom_select {
+    position: relative;
+  }
+  
+  .select_value {
+    width: 100%;
+    font-size: .84vw;
+    font-style: italic;
+    padding: .6vw .85vw;
+    border-radius: .3vw;
+    outline: none;
+    background-color: #FFFCF4;
+    border: .12vw solid #5E5E5E;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: #651318;
+  }
+  .select_value svg{
+    font-size: .86vw;
+    color: #651318;
+    transition: .4s all;
+  }
+  .select_value.active{
+    border-bottom: none;
+    background-color: #FFFCF4;
+    border-radius: .3vw .3vw 0 0;
+  }
+  .select_value.active svg{
+    transform: rotate(180deg);
+  }
+  
+  .options {
+    max-height: 0;
+    position: relative;
+    width: 100%;
+    background: #fff;
+    z-index: -1;
+    border-left: .12vw solid #5E5E5E;
+    border-right: .12vw solid #5E5E5E;
+    border-bottom: .12vw solid #5E5E5E;
+    border-radius: 0 0 .3vw .3vw;
+    overflow: hidden;
+    transition: .7s all;
+  }
+  
+  .options.active {
+    max-height: 500px;
+    z-index: 10;
+  }
+  
+  .option {
+    font-size: .85vw;
+    padding: .6vw .85vw;
+    cursor: pointer;
+    color: #651318;
+  }
+  .select_value span{
+    display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding-right: 4vw;
+  }
+  
+  .option.activeOption {
+    background-color: #f0f0f0;
+  }
+  .option:hover{
+    background-color: #f0f0f0;
+  }
+
+  @media (max-width:768px) {
+    .notifPost{
+      text-align: start;
+      color: #fff;
+      font-size: 3.6vw;
+      margin-top: 4.4vw;
+    }
+    .section1{
+      grid-template-columns: 100%;
+      padding-bottom: 1.2vw;
+    }
+    .maps{
+      width: 100%;
+      height: 95vw;
+    }
+    .section1_layout{
+      padding: 7vw 6vw;
+      overflow-x: hidden;
+    }
+    .section1_form{
+      margin-bottom: 9vw;
+    }
+    .section1_form h1{
+      font-size: 4.1vw;
+      margin-bottom: 3.4vw;
+    }
+    .form_field_double{
+      grid-template-columns: repeat(1, 1fr);
+      grid-gap: 0;
+    }
+    .form_field{
+      display: flex;
+      flex-direction: column;
+      gap: .6vw;
+      margin-bottom: 3vw;
+    }
+    .form_field label{
+      font-size: 2.4vw;
+   }
+   .form_field input{
+      font-size: 3.4vw;
+      padding:2vw 4vw;
+      border-radius: 1.5vw;
+    }
+    .form_field textarea{
+      height: 16vw;
+      font-size: 3.4vw;
+      padding: 2vw 4vw;
+      border-radius:1.5vw;
+    }
+    .section1_form form button{
+      font-size: 3.5vw;
+      padding: 1.3vw 7vw;
+    }
+    .customCheckbox {
+      font-size: 2.9vw;
+      margin-bottom: 6vw;
+    }
+    .customCheckmark {
+      width: 2.8vw;
+      height: 2.8vw;
+      border-radius: .6vw;
+      margin-right: 1.7vw;
+    }
+    .customCheckbox .customCheckmark:after {
+      left: .9vw;
+      top: .43vw;
+      width: .5vw;
+      height: 1vw;
+      border-width: 0 .16vw .16vw 0;
+    }
+
+    .addressDetail{
+      margin-bottom: 6vw;
+    }
+    .addressDetail h3{
+      font-size: 2.9vw;
+      margin-bottom: .9vw;
+    }
+    .addressDetail p{
+      font-size: 2.9vw;
+      padding-right: 12vw;
+    }
+
+    .contact_detail h3{
+      font-size: 2.9vw;
+      margin-bottom: 3vw;
+    }
+    .contact_layout{
+      gap: 5vw;
+    }
+    .contact_box{
+      display: flex;
+      align-items: flex-start;
+      gap: 2vw;
+    }
+    .contact_box svg{
+      font-size: 6vw
+    }
+    .contact_box h5{
+      font-size: 2.9vw;
+    }
+    .section2{
+      display: flex;
+      flex-direction: column-reverse;
+      grid-template-columns: 100%;
+      position: relative;
+      width: 100%;
+    }
+    .section2_layout{
+      padding: 5vw 6vw;
+      padding-top: 8vw;
+      background: linear-gradient(90deg, #651318 0%, #B4000B 100%);
+      width: 100%;
+      position: relative;
+      padding-right: 6vw;
+      overflow: hidden;
+    }
+    .section2_image{
+      height: 65vw;
+    }
+    .form_field_select{
+      padding: 0 4vw;
+      align-items: center;
+      border-radius: .6vw;
+  }
+    .form_field_select select{
+      font-size: 3.4vw;
+      padding: 2vw 0;
+    }
+    .form_field_select svg{
+      font-size: 1vw;
+      color: #651318;
+    }
+    .options {
+      border-radius: 4vw 4vw 0 0;
+      height: max-content;
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      transform: translateY(100%);
+      padding: 6vw;
+    }
+    .options.active{
+      transform: translateY(0);
+      height: max-content;
+    }
+    .select_value {
+      font-size: 3.4vw;
+      padding: 2vw 4vw;
+      border-radius: 1.5vw;
+    }
+    .select_value.active{
+      border-radius: 1.5vw 1.5vw 0 0;
+    }
+    .select_value svg{
+      font-size: 3.4vw;
+    }
+    .option {
+      font-size: 3.8vw;
+      padding: 4vw 0;
+      border-bottom: .1vw solid rgba(0, 0, 0, 0.26);
+    }
+    .option.activeOption {
+      background-color: transparent;
+      font-weight: 600;
+    }
+    .option:hover{
+      background-color: transparent;
+    }
+    .option:last-child{
+      border-bottom: none;
+    }
+    .contact_icon_2{
+      position: absolute;
+      bottom: -10vw;
+      left: inherit;
+      right: -2vw;
+      width: 28.6vw;
+      transform: rotate(250deg);
+    }
+    .contact_icon{
+      width: 35.7vw;
+      right: -2vw;
+      bottom: 38vw;
+    }
+  }
