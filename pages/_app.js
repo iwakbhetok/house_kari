@@ -7,6 +7,25 @@ import Script from "next/script";
 function App({ Component, pageProps }) {
   return (
     <>
+    {process.env.NEXT_PUBLIC_GA_ID && (
+          <>
+            {/* Google Analytics */}
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga-init" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
+                  page_path: window.location.pathname,
+                });
+              `}
+            </Script>
+          </>
+        )}
       {/* Tracking API key (safe place) */}
       <Script
         id="tracking-api-key"
