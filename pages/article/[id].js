@@ -13,12 +13,29 @@ import SlideArticlesSecond from "../components/slide_articles_second";
 import SlideArticlesSecondMobile from "../components/slide_articles_second_mobile";
 
 const API_PRODUCT_DETAIL_URL = process.env.NEXT_PUBLIC_API_ARTICLE_DETAIL_URL || '/api/list-article-category';
+/* ---------- FIX: Safe API base resolver ---------- */
+const getApiBaseUrl = (context) => {
+  if (process.env.NEXT_PUBLIC_API_ARTICLE_DETAIL_URL) {
+    return process.env.NEXT_PUBLIC_API_ARTICLE_DETAIL_URL;
+  }
+
+  if (context?.req) {
+    const protocol =
+      context.req.headers["x-forwarded-proto"] || "http";
+    const host = context.req.headers.host;
+    return `${protocol}://${host}/api/list-article-category`;
+  }
+
+  return "/api/list-article-category"; // client fallback
+};
 
 export async function getServerSideProps(context) {
     const { id } = context.params; 
   
     try {
-      const response = await fetch(`${API_PRODUCT_DETAIL_URL}/${id}`);
+      // const response = await fetch(`${API_PRODUCT_DETAIL_URL}/${id}`);
+      const apiBase = getApiBaseUrl(context);
+      const response = await fetch(`${apiBase}/${id}`);
       if (!response.ok) {
         throw new Error('Failed to fetch product detail');
       }
@@ -105,7 +122,12 @@ useEffect(() => {
     const fetchArticles = async () => {
       if (id) {
         try {
-          const response = await axios.get(`${API_PRODUCT_DETAIL_URL}/${id}`);
+          // const response = await axios.get(`${API_PRODUCT_DETAIL_URL}/${id}`);
+          const baseUrl = process.env.NEXT_PUBLIC_API_ARTICLE_DETAIL_URL
+                            ? process.env.NEXT_PUBLIC_API_ARTICLE_DETAIL_URL
+                            : `/api/article-detail`;
+
+          const response = await axios.get(`${baseUrl}/${id}`);
           const articles = response.data.data;
   
           // Assuming the date field is in 'YYYY-MM-DD' format; adjust if necessary
@@ -130,7 +152,12 @@ useEffect(() => {
     const fetchArticlesSlide = async () => {
       if (id) {
         try {
-          const response = await axios.get(`${API_PRODUCT_DETAIL_URL}/${id}`);
+          // const response = await axios.get(`${API_PRODUCT_DETAIL_URL}/${id}`);
+          const baseUrl = process.env.NEXT_PUBLIC_API_ARTICLE_DETAIL_URL
+                            ? process.env.NEXT_PUBLIC_API_ARTICLE_DETAIL_URL
+                            : `/api/article-detail`;
+
+          const response = await axios.get(`${baseUrl}/${id}`);
           setArticlesSlide(response.data.data); // Perhatikan pengaturan data detail di sini
           setLoading(false);
           console.log('Fetched product:', response.data.data);

@@ -10,13 +10,30 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const API_PRODUCT_DETAIL_URL = process.env.NEXT_PUBLIC_API_PRODUCT_DETAIL_URL || '/api/product-detail';
+// const API_PRODUCT_DETAIL_URL = process.env.NEXT_PUBLIC_API_PRODUCT_DETAIL_URL || '/api/product-detail';
+/* ---------- FIX: Safe API base resolver ---------- */
+const getApiBaseUrl = (context) => {
+  if (process.env.NEXT_PUBLIC_API_PRODUCT_DETAIL_URL) {
+    return process.env.NEXT_PUBLIC_API_PRODUCT_DETAIL_URL;
+  }
+
+  if (context?.req) {
+    const protocol =
+      context.req.headers["x-forwarded-proto"] || "http";
+    const host = context.req.headers.host;
+    return `${protocol}://${host}/api/product-detail`;
+  }
+
+  return "/api/product-detail"; // client fallback
+};
 
 export async function getServerSideProps(context) {
     const { id } = context.params;
   
     try {
-      const response = await fetch(`${API_PRODUCT_DETAIL_URL}/${id}`);
+      const apiBase = getApiBaseUrl(context);
+      const response = await fetch(`${apiBase}/${id}`);
+      // const response = await fetch(`${API_PRODUCT_DETAIL_URL}/${id}`);
       if (!response.ok) {
         throw new Error('Failed to fetch product detail');
       }
@@ -78,7 +95,13 @@ const ProductDetails = () => {
     const fetchProduct = async () => {
       if (id) {
         try {
-          const response = await axios.get(`${API_PRODUCT_DETAIL_URL}/${id}`);
+          // const response = await axios.get(`${API_PRODUCT_DETAIL_URL}/${id}`);
+          const baseUrl = process.env.NEXT_PUBLIC_API_PRODUCT_DETAIL_URL
+                            ? process.env.NEXT_PUBLIC_API_PRODUCT_DETAIL_URL
+                            : `/api/product-detail`;
+
+          const response = await axios.get(`${baseUrl}/${id}`);
+
           setDetail(response.data.data); // Perhatikan pengaturan data detail di sini
           setLoading(false);
           console.log('Fetched product:', response.data.data);
