@@ -11,6 +11,6 @@ services:
       - "3000:3000"
     environment:
       NODE_ENV: production
-    command: sh -c "npm install && npm run build && npm run start"
+    command: sh -c "git clone https://iwakbhetok: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@github.com/iwakbhetok/house_kari.git . && npm install && npm run build && npm run start"
     restart: unless-stopped
 
