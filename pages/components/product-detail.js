@@ -25,7 +25,7 @@ const ProductDetails = ({ productId }) => {
         <div>
             <h1>{product.name}</h1>
             <p>{product.description}</p>
-            <img src={`https://prahwa.net/${product.image}`} alt={product.name} />
+            <img src={`https://ops.housejapanesecurry.com/${product.image}`} alt={product.name} />
             <p>Category: {product.category.name}</p>
             <p>E-commerce Links: {product.ecommerce_links}</p>
         </div>

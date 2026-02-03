@@ -396,7 +396,7 @@ const Header = () => {
 
   const backgroundStyle = {
     backgroundImage: themeHeader
-      ? `url(https://prahwa.net/storage/${themeHeader})`
+      ? `url(https://ops.housejapanesecurry.com/storage/${themeHeader})`
       : 'url(/images/nav_bg.png)'
   };
 
@@ -444,7 +444,7 @@ const Header = () => {
         <header className={styles.header}>
           <div className={styles.logo}>
             <Link href='/'>
-              <img src={`https://prahwa.net/storage/${logo.image}`}  alt="House Kari Logo" />
+              <img src={`https://ops.housejapanesecurry.com/storage/${logo.image}`}  alt="House Kari Logo" />
             </Link>
           </div>
           <div className={styles.btnMobile}>

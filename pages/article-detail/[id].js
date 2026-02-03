@@ -183,7 +183,7 @@ export default function ArticleDetail({ recipe }) {
     const modifyImageURLs = (html) => {
         const imgRegex = /<img\s+([^>]*src=['"]([^'"]+)['"][^>]*)>/gi;
         return html.replace(imgRegex, (match, p1, p2) => {
-            const newSrc = `https://prahwa.net/storage/${p2}`;
+            const newSrc = `https://ops.housejapanesecurry.com/storage/${p2}`;
             return match.replace(p2, newSrc);
         });
     };
@@ -219,7 +219,7 @@ export default function ArticleDetail({ recipe }) {
             <div className={styles.sectionDetail}>
                 <img src="/images/article_detail_icon_2.png" alt="House Kari" className={styles.article_detail_icon_2} />
                 <div className={styles.sectionDetail_image}>
-                    <img src={`https://prahwa.net/storage/${detail.image}`} alt={detail.name} />
+                    <img src={`https://ops.housejapanesecurry.com/storage/${detail.image}`} alt={detail.name} />
                 </div>
                 <h1>{stripH1Tags(getProductName(detail), 'h1')}</h1>
                 <h5 className={styles.articleDate}>{t('postedBy')} {detail.penulis} / {t('on')} {formatDate(detail.date)} / {t('in')} {(getProductCategory(detail))}</h5>

@@ -22,7 +22,7 @@
 //       form.append('phone_number', phone_number || '');
 
 //       // Mengirim request POST ke API eksternal
-//       const response = await axios.post('https://prahwa.net/apiv2/become-partners', form, {
+//       const response = await axios.post('https://ops.housejapanesecurry.com/apiv2/become-partners', form, {
 //         headers: {
 //           ...form.getHeaders(),
 //           'Accept': 'application/json',

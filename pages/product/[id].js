@@ -285,7 +285,7 @@ const ProductDetails = () => {
           <div className={styles.section3_box}>
             <img src="/images/btn_hover.png" alt="House Kari" className={styles.btn_hover} />
             <div className={styles.section3_image}>
-              <img src={`https://prahwa.net/storage/${detail.image}`} alt={detail.name} />
+              <img src={`https://ops.housejapanesecurry.com/storage/${detail.image}`} alt={detail.name} />
             </div>
             <div className={styles.section3_content}>
               <h1>{stripH1Tags(getProductName(detail))} {formatWeight(detail.weight)}</h1>
@@ -316,7 +316,7 @@ const ProductDetails = () => {
                             }}
                           >
                             <img
-                              src={`https://prahwa.net/storage/${logo}`}
+                              src={`https://ops.housejapanesecurry.com/storage/${logo}`}
                               alt={key}
                             />
                           </button>
@@ -338,7 +338,7 @@ const ProductDetails = () => {
           <div className={styles.section3_box}>
             <div className={styles.section3_box_mobile}>
                 <div className={styles.section3_image}>
-                    <img src={`https://prahwa.net/storage/${detail.image}`} alt={detail.name} />
+                    <img src={`https://ops.housejapanesecurry.com/storage/${detail.image}`} alt={detail.name} />
                 </div>
             </div>
             <div className={styles.section3_box_mobile_content}>
@@ -371,7 +371,7 @@ const ProductDetails = () => {
                                 }}
                               >
                                 <img
-                                  src={`https://prahwa.net/storage/${logo}`}
+                                  src={`https://ops.housejapanesecurry.com/storage/${logo}`}
                                   alt={key}
                                 />
                               </button>
@@ -398,7 +398,7 @@ const ProductDetails = () => {
               {recommend && recommend.length > 0 && recommend.filter(product => product.id !== Number(id)).map((product, index) => (
                 <div className={`${styles.boxProduct} ${styles.boxProductWhite}`} key={index}>
                   <div className={styles.imageProduct}>
-                    <img src={`https://prahwa.net/storage/${product.image}`} alt={product.name} />
+                    <img src={`https://ops.housejapanesecurry.com/storage/${product.image}`} alt={product.name} />
                   </div>
                   <div className={styles.contentProduct}>
                     <h1>{getProductRecommend(product)}</h1>

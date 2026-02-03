@@ -88,7 +88,7 @@ export default function SlideTestimonialsMobile({items = []}) {
               {item.images ? (
                 <div className="imageTestimonials">
                   <img
-                    src={`https://prahwa.net/storage/${item.images}`}
+                    src={`https://ops.housejapanesecurry.com/storage/${item.images}`}
                     alt={item.title}
                   />
                 </div>

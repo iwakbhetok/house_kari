@@ -128,7 +128,7 @@ export default function SlideArticlesSecond({ items = [], classNames, pagination
               <div className='box_articles_slide'>
                 <div className='box_articles_images'>
                   <Link href={`/article-detail/[id]`} as={`/article-detail/${blog.id}`}>
-                    <img src={`https://prahwa.net/storage/${blog.image}`} alt={blog.title} />
+                    <img src={`https://ops.housejapanesecurry.com/storage/${blog.image}`} alt={blog.title} />
                   </Link>
                 </div>
                 <div className='box_articles_content'>

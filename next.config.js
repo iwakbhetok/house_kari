@@ -6,6 +6,6 @@ module.exports = {
     BASE_URL: process.env.BASE_URL || 'http://localhost:3000',
   },
   images: {
-    domains: ['prahwa.net'],
+    domains: ['ops.housejapanesecurry.com'],
   },
 };

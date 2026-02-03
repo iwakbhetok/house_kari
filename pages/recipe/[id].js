@@ -290,7 +290,7 @@ const RecipeDetail = () => {
             <div className={styles.section4_layout}>
                   <div className={styles.section4_image_layout}>
                     <div className={imageClass}>
-                        <img src={`https://prahwa.net/storage/${detail.image}`} alt={detail.name} />
+                        <img src={`https://ops.housejapanesecurry.com/storage/${detail.image}`} alt={detail.name} />
                         <div className={styles.section4_overlay}></div>
                     </div>
                     <div className={section4VideoClass}>
@@ -362,17 +362,17 @@ const RecipeDetail = () => {
                 {detail.coockbook_en || detail.coockbook_chi || detail.coockbook ? (
                     <>
                         {detail.coockbook_en && (
-                            <Link href={`https://prahwa.net/storage/${detail.coockbook_en}`} target='_blank'>
+                            <Link href={`https://ops.housejapanesecurry.com/storage/${detail.coockbook_en}`} target='_blank'>
                                 <button>Western Cookbook</button>
                             </Link>
                         )}
                         {detail.coockbook_chi && (
-                            <Link href={`https://prahwa.net/storage/${detail.coockbook_chi}`} target='_blank'>
+                            <Link href={`https://ops.housejapanesecurry.com/storage/${detail.coockbook_chi}`} target='_blank'>
                                 <button>Chinese Cookbook</button>
                             </Link>
                         )}
                         {detail.coockbook && (
-                            <Link href={`https://prahwa.net/storage/${detail.coockbook}`} target='_blank'>
+                            <Link href={`https://ops.housejapanesecurry.com/storage/${detail.coockbook}`} target='_blank'>
                                 <button>Indonesian Cookbook</button>
                             </Link>
                         )}

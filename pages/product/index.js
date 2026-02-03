@@ -218,7 +218,7 @@ export default function Product() {
                     .map(product => (
                       <div key={product.id} className={styles.boxProduct}>
                         <div className={styles.imageProduct}>
-                          <img src={`https://prahwa.net/storage/${product.image}`} alt={product.name} />
+                          <img src={`https://ops.housejapanesecurry.com/storage/${product.image}`} alt={product.name} />
                         </div>
                         <div className={styles.contentProduct}>
                           <h1>{getProductName(product)}</h1>

@@ -390,7 +390,7 @@ const formatDate = (dateString) => {
                   <div key={index} className={styles.blog_recent_box}>
                     <div className={styles.blog_recent_image}>
                       <Link href={`/article-detail/[id]`} as={`/article-detail/${blog.id}`}>
-                        <img src={`https://prahwa.net/storage/${blog.image}`} alt={blog.title} />
+                        <img src={`https://ops.housejapanesecurry.com/storage/${blog.image}`} alt={blog.title} />
                       </Link>
                     </div>
                     <div className={styles.blog_recent_content}>

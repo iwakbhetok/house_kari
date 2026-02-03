@@ -103,7 +103,7 @@ const Footer = () => {
             rel='noopener noreferrer' // Menambahkan rel untuk keamanan
           >
             <img 
-              src={`https://prahwa.net/storage/${socialmedia.image}`} 
+              src={`https://ops.housejapanesecurry.com/storage/${socialmedia.image}`} 
               alt={`Social media icon for ${socialmedia.name}`} // Menambahkan alt text
               className={styles.socialMediaIcon} // Menambahkan kelas jika diperlukan
             />
@@ -116,7 +116,7 @@ const Footer = () => {
       <div className={styles.img_footer}>
       {themeHeader ? (
         <img
-          src={`https://prahwa.net/storage/${themeHeader}`}
+          src={`https://ops.housejapanesecurry.com/storage/${themeHeader}`}
           className="img_footer"
           alt="Theme Header"
         />

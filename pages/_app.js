@@ -39,7 +39,7 @@ function App({ Component, pageProps }) {
 
       {/* External tracking script */}
       {/* <Script
-        src="https://prahwa.net/tracking.js"
+        src="https://ops.housejapanesecurry.com/tracking.js"
         strategy="afterInteractive"
         onLoad={() => {
           console.log("Tracking script loaded successfully.");

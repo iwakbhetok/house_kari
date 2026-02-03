@@ -261,7 +261,7 @@ useEffect(() => {
               {articles.map((article) => (
                 <div key={article.id} className={styles.blog_recent_box}>
                   <div className={styles.blog_recent_image}>
-                    <img src={`https://prahwa.net/storage/${article.image}`} alt={article.title} />
+                    <img src={`https://ops.housejapanesecurry.com/storage/${article.image}`} alt={article.title} />
                   </div>
                   <div className={styles.blog_recent_content}>
                     <span>{t('posted')} {formatDate(article.date)}</span>

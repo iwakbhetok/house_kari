@@ -538,7 +538,7 @@ const getProductDesc = (item) => {
               <SwiperSlide key={item.id}>
                   <div className='slideItemProduct'>
                     <div className='imageContainer'>
-                      <img src={`https://prahwa.net/storage/${item.image_png}`} alt={item.title} />
+                      <img src={`https://ops.housejapanesecurry.com/storage/${item.image_png}`} alt={item.title} />
                     </div>
                       <h1>{stripH1Tags(getProductName(item))}</h1>
                       <div className='contectProductContainer'>
@@ -578,7 +578,7 @@ const getProductDesc = (item) => {
             articles.map((article) => (
               <div key={article.id} className={styles.blog_recent_box}>
                 <div className={styles.blog_recent_image}>
-                  <img src={`https://prahwa.net/storage/${article.image}`} alt={article.title} />
+                  <img src={`https://ops.housejapanesecurry.com/storage/${article.image}`} alt={article.title} />
                 </div>
                 <div className={styles.blog_recent_content}>
                   <span>{t('posted')} {formatDate(article.date)}</span>

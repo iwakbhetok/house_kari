@@ -62,7 +62,7 @@ const Slide = ({ showNavigation = true, showPagination = true, autoplayInterval 
         ) : (
           banners.map((banner, index) => (
             <div key={index} className={styles.slideItem}>
-              <img src={`https://prahwa.net/storage/${banner.image}`} alt={banner.type}/>
+              <img src={`https://ops.housejapanesecurry.com/storage/${banner.image}`} alt={banner.type}/>
             </div>
           ))
         )}
