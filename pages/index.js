@@ -456,7 +456,7 @@ const getProductDesc = (item) => {
       <Slide showNavigation={false} showPagination={true} />
       <div className={styles.section_2}>
         <div className={styles.section_2_box}>
-          <img src='/images/img_home_1.png' alt='House Kari Story' />
+          <img src='/images/img_home_1.webp' alt='House Kari Story' />
         </div>
         <div className={styles.section_2_content}>
           <h1 className={styles.heading_main}>{t('section1Home.profilPerusahaan')}</h1>
@@ -610,7 +610,7 @@ const getProductDesc = (item) => {
       </div>
       <div className={styles.section_6}>
           <div className={styles.section_6_image}>
-            <img src='/images/form_image.png' alt='House Kari'/>
+            <img src='/images/form_image.webp' alt='House Kari'/>
           </div>
           <div className={styles.section_6_form}>
             <div className={styles.section_6_heading}>
