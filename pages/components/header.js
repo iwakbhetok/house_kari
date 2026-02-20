@@ -520,10 +520,30 @@ const Header = () => {
                   </ul>
                 </li>
                 <li>
+                  <span
+                    className={`${openDropdown === 'contact' || isActiveMenu(['/contact']) ? styles.activeSpan : ''}`}
+                    onClick={() => toggleDropdown('contact')}
+                  >
+                    {t('menu.contact')} <IoChevronDown />
+                  </span>
+                  <ul className={openDropdown === 'contact' ? styles.show : ''}>
+                    <li>
+                      <Link href="/rfq" className={getLinkClass('/rfq')} onClick={clickMenu}>
+                        Request for Quote
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/contact" className={getLinkClass('/contact')} onClick={clickMenu}>
+                        {t('menu.contact')}
+                      </Link>
+                    </li>
+                  </ul>
+                </li>
+                {/* <li>
                   <Link href="/contact" className={getLinkClass('/contact')} onClick={clickMenu}>
                     {t('menu.contact')}
                   </Link>
-                </li>
+                </li> */}
               </ul>
               <button className={styles.closeMenu} onClick={handleHamburger}><IoCloseOutline/></button>
               <div className={styles.divider_right}></div>
