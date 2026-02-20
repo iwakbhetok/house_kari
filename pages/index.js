@@ -456,7 +456,8 @@ const getProductDesc = (item) => {
       <Slide showNavigation={false} showPagination={true} />
       <div className={styles.section_2}>
         <div className={styles.section_2_box}>
-          <img src='/images/img_home_1.webp' alt='House Kari Story' />
+          {/* <img src='/images/img_home_1.webp' alt='House Kari Story' /> */}
+          <Image src='/images/img_home_1.webp' alt='House Kari Story' width={717} height={500} />
         </div>
         <div className={styles.section_2_content}>
           <h1 className={styles.heading_main}>{t('section1Home.profilPerusahaan')}</h1>
