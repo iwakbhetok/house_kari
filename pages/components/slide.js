@@ -5,11 +5,18 @@ import { AiOutlineSearch } from "react-icons/ai";
 import Link from 'next/link';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import posthog from "posthog-js";
 
 const Slide = ({ showNavigation = true, showPagination = true, autoplayInterval = 6000 }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [banners, setBanners] = useState([]);
   const [loading, setLoading] = useState(true);
+  const handleHomepageBannerClick = () => {
+    posthog.capture("click_homepage_banner_product", {
+      location: "homepage_slider",
+      destination: "/product",
+    });
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -84,7 +91,9 @@ const Slide = ({ showNavigation = true, showPagination = true, autoplayInterval 
           ))}
         </div>
       )}
-      <Link href="/product">
+      <Link href="/product" 
+      id="click_btn_homepage_banner_product"
+      onClick={handleHomepageBannerClick}>
         <div className={styles.product_banner}>
           <div className={styles.product_banner_image}>
             <img src='/images/product_banner.png' alt='House Kari Product'/>
