@@ -13,6 +13,8 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { useEffect } from 'react';
+import Image from 'next/image';
+
 
 export async function getStaticProps({ locale }) {
   return {
@@ -125,7 +127,14 @@ export default function SlideArticlesSecondMobile({ items = [], classNames, pagi
             <div className='box_articles_slide'>
               <div className='box_articles_images'>
                 <Link href={`/recipe/[id]`} as={`/recipe/${blog.id}`}>
-                <img src={`https://ops.housejapanesecurry.com/storage/${blog.image}`} alt={blog.title} />
+                <Image
+                    src={`https://ops.housejapanesecurry.com/storage/${blog.image}`}
+                    alt={blog.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    quality={75}
+                    className="object-cover"
+                  />
                 </Link>
               </div>
               <div className='box_articles_content'>

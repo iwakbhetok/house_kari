@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import posthog from "posthog-js";
+import Image from 'next/image';
 
 const Slide = ({ showNavigation = true, showPagination = true, autoplayInterval = 6000 }) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -69,7 +70,16 @@ const Slide = ({ showNavigation = true, showPagination = true, autoplayInterval 
         ) : (
           banners.map((banner, index) => (
             <div key={index} className={styles.slideItem}>
-              <img src={`https://ops.housejapanesecurry.com/storage/${banner.image}`} alt={banner.type}/>
+              {/* <img src={`https://ops.housejapanesecurry.com/storage/${banner.image}`} alt={banner.type}/> */}
+              <div className={styles.bannerWrapper}>
+                  <Image
+                    src={`https://ops.housejapanesecurry.com/storage/${banner.image}`}
+                    alt={banner.type}
+                    fill
+                    sizes="(max-width: 1200px) 100vw, 50vw"
+                    quality={100}
+                  />
+              </div>
             </div>
           ))
         )}

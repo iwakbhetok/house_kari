@@ -236,3 +236,24 @@
       opacity: .6;
     }
   }
+
+  .bannerWrapper {
+    position: relative;
+    width: 100%;
+    height: 25vh; /* mobile default */
+    overflow: hidden;
+  }
+
+  /* Tablet */
+  @media (min-width: 768px) {
+    .bannerWrapper {
+      height: 60vh;
+    }
+  }
+
+  /* Desktop */
+  @media (min-width: 1200px) {
+    .bannerWrapper {
+      height: 84vh;
+    }
+  }

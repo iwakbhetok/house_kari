@@ -554,6 +554,13 @@ const getProductDesc = (item) => {
       </div>
       <div className={styles.section_4}>
         <img src='/images/section_4_icon_1.png' alt='House Kari' className={styles.section_4_icon_1} />
+        {/* <Image
+          src={`/images/section_4_icon_1.png`}
+          alt='House Kari'
+          fill
+          quality={85}
+          className={styles.section_4_icon_1} 
+        /> */}
         <img src='/images/section_4_icon_2.png' alt='House Kari' className={styles.section_4_icon_2} />
         <div className={styles.space_between_heading}>
           <h1 className={styles.heading_main}>{t('newestArticle')}</h1>
@@ -578,7 +585,15 @@ const getProductDesc = (item) => {
             articles.map((article) => (
               <div key={article.id} className={styles.blog_recent_box}>
                 <div className={styles.blog_recent_image}>
-                  <img src={`https://ops.housejapanesecurry.com/storage/${article.image}`} alt={article.title} />
+                  {/* <img src={`https://ops.housejapanesecurry.com/storage/${article.image}`} alt={article.title} /> */}
+                  <Image
+                      src={`https://ops.housejapanesecurry.com/storage/${article.image}`}
+                      alt={article.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      quality={75}
+                      className="object-cover"
+                    />
                 </div>
                 <div className={styles.blog_recent_content}>
                   <span>{t('posted')} {formatDate(article.date)}</span>
