@@ -69,7 +69,7 @@ const Slide = ({
                 priority={index === 0}
                 fetchPriority={index === 0 ? "high" : "auto"}
                 sizes="100vw"
-                quality={70}
+                quality={75}
                 style={{ objectFit: "cover" }}
               />
             </div>

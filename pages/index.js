@@ -478,12 +478,13 @@ const getProductDesc = (item) => {
         <div className={styles.section_2_box}>
           {/* <img src='/images/img_home_1.webp' alt='House Kari Story' /> */}
           <Image src='/images/img_home_1.webp'
-            alt='House Kari Story'
-            width={717}
-            height={500}
-            priority
-            sizes="(max-width: 768px) 100vw, 717px"
-            quality={85} />
+              alt='House Kari Story'
+              width={717}
+              height={500}
+              priority
+              fetchPriority="high"
+              sizes="(max-width: 768px) 100vw, 717px"
+              quality={85} />
         </div>
         <div className={styles.section_2_content}>
           <h1 className={styles.heading_main}>{t('section1Home.profilPerusahaan')}</h1>
@@ -580,7 +581,7 @@ const getProductDesc = (item) => {
         <div className={styles.divider}></div>
       </div>
       <div className={styles.section_4}>
-        <img src='/images/section_4_icon_1.png' alt='House Kari' className={styles.section_4_icon_1} />
+        <img src='/images/section_4_icon_1.webp' alt='House Kari' className={styles.section_4_icon_1} />
         {/* <Image
           src={`/images/section_4_icon_1.png`}
           alt='House Kari'
@@ -588,7 +589,7 @@ const getProductDesc = (item) => {
           quality={85}
           className={styles.section_4_icon_1} 
         /> */}
-        <img src='/images/section_4_icon_2.png' alt='House Kari' className={styles.section_4_icon_2} />
+        <img src='/images/section_4_icon_2.webp' alt='House Kari' className={styles.section_4_icon_2} />
         <div className={styles.space_between_heading}>
           <h1 className={styles.heading_main}>{t('newestArticle')}</h1>
           <Link href='/article/9'><p className={styles.desc_main_margin}>{t('readMoreArticle')}...</p></Link>
