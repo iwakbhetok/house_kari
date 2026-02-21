@@ -29,14 +29,34 @@ const items = [
 ];
 
 export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['common'])),
-    },
-  };
+  try {
+    const bannerRes = await fetch(
+      'https://housejapanesecurry.com/api/banner'
+    );
+
+    const bannerData = await bannerRes.json();
+
+    return {
+      props: {
+        banners: bannerData.data || [],
+        ...(await serverSideTranslations(locale, ['common'])),
+      },
+      revalidate: 60,
+    };
+  } catch (error) {
+    console.error("Banner fetch error:", error);
+
+    return {
+      props: {
+        banners: [],
+        ...(await serverSideTranslations(locale, ['common'])),
+      },
+      revalidate: 60,
+    };
+  }
 }
 
-export default function Home() {
+export default function Home({ banners }) {
   const { t, i18n } = useTranslation('common');
   const [isOpen, setIsOpen] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState('Choose Recipe');
@@ -453,11 +473,17 @@ const getProductDesc = (item) => {
 
   return (
     <>
-      <Slide showNavigation={false} showPagination={true} />
+      <Slide banners={banners} showNavigation={false} showPagination={true} />
       <div className={styles.section_2}>
         <div className={styles.section_2_box}>
           {/* <img src='/images/img_home_1.webp' alt='House Kari Story' /> */}
-          <Image src='/images/img_home_1.webp' alt='House Kari Story' width={717} height={500} />
+          <Image src='/images/img_home_1.webp'
+            alt='House Kari Story'
+            width={717}
+            height={500}
+            priority
+            sizes="(max-width: 768px) 100vw, 717px"
+            quality={85} />
         </div>
         <div className={styles.section_2_content}>
           <h1 className={styles.heading_main}>{t('section1Home.profilPerusahaan')}</h1>
