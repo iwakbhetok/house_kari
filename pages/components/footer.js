@@ -5,6 +5,7 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'; 
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 export async function getStaticProps({ locale }) {
   return {
@@ -86,7 +87,14 @@ const Footer = () => {
     <>
     <footer className={styles.footer}>
       <div className={styles.identity}>
-        <img src='/images/logo.png' alt='House Kari Logo' /> 
+        {/* <img src='/images/logo.png' alt='House Kari Logo' />  */}
+        <Image
+          src="/images/logo.png"
+          alt='House Kari Logo'
+          width={148}
+          height={37}
+          quality={75}
+        />
         <div className={styles.identity_layout}>
           <h1>PT HOUSE AND VOX INDONESIA</h1>
           <p>{address.address}</p>

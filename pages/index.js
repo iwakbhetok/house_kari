@@ -718,8 +718,24 @@ const getProductDesc = (item) => {
           </div>
       </div>
       <div className={styles.section_7}>
-        <img src='/images/section_7_icon.png' alt='House Kari' className={styles.section_7_icon}/>
-        <img src='/images/ginger_icon.png' alt='House Kari' className={styles.ginger_icon}/>
+        {/* <img src='/images/section_7_icon.png' alt='House Kari' className={styles.section_7_icon}/> */}
+        <Image
+          src="/images/section_7_icon.png"
+          alt="House Kari"
+          width={227}
+          height={172}
+          quality={75}
+          className={styles.section_7_icon}
+        />
+        {/* <img src='/images/ginger_icon.png' alt='House Kari' className={styles.ginger_icon}/> */}
+        <Image
+          src="/images/ginger_icon.png"
+          alt="House Kari"
+          width={115}
+          height={191}
+          quality={75}
+          className={styles.ginger_icon}
+        />
         <div className={styles.padding_container}>
           <div className={styles.space_between_heading}>
             <h1 className={styles.heading_main}>{t('testimoniHeading')}</h1>
