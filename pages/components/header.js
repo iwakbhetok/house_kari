@@ -535,9 +535,9 @@ const Header = () => {
                   <li>
                     <button onClick={() => handleLanguageChange('English')}>English</button>
                   </li>
-                  <li>
+                  {/* <li>
                     <button onClick={() => handleLanguageChange('Chinese')}>Chinese</button>
-                  </li>
+                  </li> */}
                   <li>
                     <button onClick={() => handleLanguageChange('Indonesian')}>Indonesian</button>
                   </li>

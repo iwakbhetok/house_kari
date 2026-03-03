@@ -366,11 +366,11 @@ const RecipeDetail = () => {
                                 <button>Western Cookbook</button>
                             </Link>
                         )}
-                        {detail.coockbook_chi && (
+                        {/* {detail.coockbook_chi && (
                             <Link href={`https://ops.housejapanesecurry.com/storage/${detail.coockbook_chi}`} target='_blank'>
                                 <button>Chinese Cookbook</button>
                             </Link>
-                        )}
+                        )} */}
                         {detail.coockbook && (
                             <Link href={`https://ops.housejapanesecurry.com/storage/${detail.coockbook}`} target='_blank'>
                                 <button>Indonesian Cookbook</button>
