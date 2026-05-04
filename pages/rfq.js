@@ -14,46 +14,56 @@ export async function getStaticProps({ locale }) {
   };
 }
 
-// ─── Static product catalog (replace with Payload CMS fetch later) ────────────
-const PRODUCTS = [
-  {
-    id: 1,
-    name: "House Curry Japan 935g",
-    pricePerCarton: 285000,
-    unitsPerCarton: 12,
-    multipleOf: 5,
-  },
-  {
-    id: 2,
-    name: "House Curry Japan 200g",
-    pricePerCarton: 195000,
-    unitsPerCarton: 24,
-    multipleOf: null,
-  },
-  {
-    id: 3,
-    name: "House Curry Japan 92g (Halal)",
-    pricePerCarton: 145000,
-    unitsPerCarton: 48,
-    multipleOf: null,
-  },
-  {
-    id: 4,
-    name: "House Curry Japan Mild 200g",
-    pricePerCarton: 195000,
-    unitsPerCarton: 24,
-    multipleOf: null,
-  },
-  {
-    id: 5,
-    name: "House Curry Japan Hot 200g",
-    pricePerCarton: 195000,
-    unitsPerCarton: 24,
-    multipleOf: null,
-  },
+// ─── Country phone codes ──────────────────────────────────────────────────────
+const PHONE_CODES = [
+  { code: "+62", country: "Indonesia" },
+  { code: "+60", country: "Malaysia" },
+  { code: "+65", country: "Singapore" },
+  { code: "+63", country: "Philippines" },
+  { code: "+66", country: "Thailand" },
+  { code: "+84", country: "Vietnam" },
+  { code: "+855", country: "Cambodia" },
+  { code: "+856", country: "Laos" },
+  { code: "+95", country: "Myanmar" },
+  { code: "+673", country: "Brunei" },
+  { code: "+81", country: "Japan" },
+  { code: "+82", country: "South Korea" },
+  { code: "+86", country: "China" },
+  { code: "+852", country: "Hong Kong" },
+  { code: "+886", country: "Taiwan" },
+  { code: "+91", country: "India" },
+  { code: "+61", country: "Australia" },
+  { code: "+1", country: "United States" },
+  { code: "+44", country: "United Kingdom" },
+  { code: "+971", country: "UAE" },
+  { code: "+966", country: "Saudi Arabia" },
 ];
 
-const RETAIL_THRESHOLD = 3; // ≤ 3 cartons → show price; > 3 → quote
+// ─── Static product catalog (replace with Payload CMS fetch later) ────────────
+const PRODUCTS = [
+  { id: 1, name: "House Japanese Curry Original 935g", pricePerCarton: 285000, unitsPerCarton: 20, shelfLifeMonths: 18 },
+  { id: 2, name: "House Japanese Curry Spicy 935g",    pricePerCarton: 285000, unitsPerCarton: 20, shelfLifeMonths: 18 },
+  { id: 3, name: "House Japanese Curry Original 300g", pricePerCarton: 195000, unitsPerCarton: 60, shelfLifeMonths: 18 },
+  { id: 4, name: "House Japanese Curry Spicy 300g",    pricePerCarton: 195000, unitsPerCarton: 60, shelfLifeMonths: 18 },
+  { id: 5, name: "House Curry Powder 250g",            pricePerCarton: 145000, unitsPerCarton: 10, shelfLifeMonths: 24 },
+  { id: 6, name: "House Wasabi Powder 500g",           pricePerCarton: 180000, unitsPerCarton: 10, shelfLifeMonths: 24 },
+  { id: 7, name: "House Brown Roux 1kg",               pricePerCarton: 250000, unitsPerCarton: 20, shelfLifeMonths: 18 },
+];
+
+const RETAIL_THRESHOLD = 3;  // ≤ 3 cartons per item → show price; > 3 → quote
+const MIN_ORDER_CARTONS = 3; // total cart must reach this to proceed
+
+// ─── Shipment options ─────────────────────────────────────────────────────────
+const SHIPMENT_OPTIONS = [
+  {
+    group: "International",
+    options: ["Ray Speed", "DHL", "General Cargo - AIR", "General Cargo - Ocean"],
+  },
+  {
+    group: "Domestic",
+    options: ["Mas Cargo - LAND", "Mas Cargo - AIR", "Deliveree", "Trucking Delivery"],
+  },
+];
 
 const formatIDR = (n) =>
   new Intl.NumberFormat("id-ID", {
@@ -94,9 +104,8 @@ export default function RFQPage() {
     company: "",
     name: "",
     email: "",
+    phoneCode: "+62",
     phone: "",
-    city: "",
-    notes: "",
     agree: false,
   });
   const [contactErrors, setContactErrors] = useState({});
@@ -106,6 +115,8 @@ export default function RFQPage() {
   const [quantity, setQuantity] = useState(1);
   const [cartItems, setCartItems] = useState([]);
   const [productError, setProductError] = useState("");
+  const [selectedShipment, setSelectedShipment] = useState("");
+  const [shipmentError, setShipmentError] = useState("");
 
   // ── Helpers ──────────────────────────────────────────────────────────────
   const currentProduct = PRODUCTS.find((p) => p.id === parseInt(selectedProductId));
@@ -116,15 +127,14 @@ export default function RFQPage() {
     return { type: "quote", label: "Sales rep will contact you" };
   };
 
-  const getQuantityError = (product, qty) => {
+  const getQuantityError = (qty) => {
     if (qty < 1) return "Minimum 1 carton";
-    if (product.multipleOf && qty % product.multipleOf !== 0)
-      return `Must be in multiples of ${product.multipleOf} cartons`;
     return null;
   };
 
+  const totalCartQty = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   const priceInfo = currentProduct ? getPriceInfo(currentProduct, quantity) : null;
-  const qtyError = currentProduct ? getQuantityError(currentProduct, quantity) : null;
+  const qtyError = getQuantityError(quantity);
 
   // ── Step 1 handlers ──────────────────────────────────────────────────────
   const handleContactChange = (e) => {
@@ -141,8 +151,7 @@ export default function RFQPage() {
     if (!contact.name.trim()) errs.name = "Required";
     if (!contact.email.trim()) errs.email = "Required";
     else if (!/^\S+@\S+\.\S+$/.test(contact.email)) errs.email = "Invalid email";
-    if (!contact.phone.trim()) errs.phone = "Required";
-    if (!contact.city.trim()) errs.city = "Required";
+    if (!contact.phone.trim()) errs.phone = "Phone number is required";
     if (!contact.agree) errs.agree = "You must agree to the privacy policy";
     setContactErrors(errs);
     return Object.keys(errs).length === 0;
@@ -185,13 +194,22 @@ export default function RFQPage() {
 
   const handleReset = () => {
     setStep(1);
-    setContact({ company: "", name: "", email: "", phone: "", city: "", notes: "", agree: false });
+    setContact({ company: "", name: "", email: "", phoneCode: "+62", phone: "", agree: false });
     setCartItems([]);
     setQuantity(1);
     setQuoteNumber("");
     setContactErrors({});
     setProductError("");
     setSelectedProductId(PRODUCTS[0].id);
+    setSelectedShipment("");
+    setShipmentError("");
+  };
+
+  const handleProceedToPreview = () => {
+    if (totalCartQty < MIN_ORDER_CARTONS) return;
+    if (!selectedShipment) { setShipmentError("Please select a shipment method"); return; }
+    setShipmentError("");
+    setStep(3);
   };
 
   // ── WhatsApp deep link ────────────────────────────────────────────────
@@ -220,7 +238,7 @@ export default function RFQPage() {
           <p className={styles.heroEyebrow}>B2B Wholesale</p>
           <h1>Request for Quotation</h1>
           <p className={styles.heroSub}>
-            Tell us your needs and we will prepare a formal quotation within 1–2 business days.
+            Let us know what you need and we'll contact you shortly.
           </p>
         </div>
       </div>
@@ -266,22 +284,14 @@ export default function RFQPage() {
           {step === 1 && (
             <>
               <div className={styles.sectionHeader}>
-                <h2>Company &amp; Contact Information</h2>
-                <p>Fill in your details so we can prepare a personalised quotation.</p>
+                <h2>Let's get started.</h2>
+                <p>Please share your details and we will prepare your personalized quotation.</p>
               </div>
 
               <div className={styles.formCard}>
                 <div className={styles.formGrid}>
-                  <Field label="Company Name *" error={contactErrors.company}>
-                    <input
-                      name="company"
-                      value={contact.company}
-                      onChange={handleContactChange}
-                      placeholder="PT. Your Company Name"
-                    />
-                  </Field>
 
-                  <Field label="Contact Person *" error={contactErrors.name}>
+                  <Field label="Full Name *" error={contactErrors.name}>
                     <input
                       name="name"
                       value={contact.name}
@@ -300,33 +310,40 @@ export default function RFQPage() {
                     />
                   </Field>
 
-                  <Field label="Phone / WhatsApp *" error={contactErrors.phone}>
+                  <Field label="Company Name *" error={contactErrors.company}>
                     <input
-                      name="phone"
-                      value={contact.phone}
+                      name="company"
+                      value={contact.company}
                       onChange={handleContactChange}
-                      placeholder="+62 81x xxxx xxxx"
+                      placeholder="PT. Your Company Name"
                     />
                   </Field>
 
-                  <Field label="City / Delivery Area *" error={contactErrors.city}>
-                    <input
-                      name="city"
-                      value={contact.city}
-                      onChange={handleContactChange}
-                      placeholder="e.g. Jakarta, Surabaya..."
-                    />
+                  <Field label="Phone Number *" error={contactErrors.phone}>
+                    <div className={styles.phoneRow}>
+                      <select
+                        name="phoneCode"
+                        value={contact.phoneCode}
+                        onChange={handleContactChange}
+                        className={styles.phoneCodeSelect}
+                      >
+                        {PHONE_CODES.map((pc) => (
+                          <option key={pc.code} value={pc.code}>
+                            {pc.code} - {pc.country}
+                          </option>
+                        ))}
+                      </select>
+                      <input
+                        name="phone"
+                        value={contact.phone}
+                        onChange={handleContactChange}
+                        placeholder="81x xxxx xxxx"
+                        className={styles.phoneInput}
+                      />
+                    </div>
                   </Field>
 
-                  <Field label="Notes / Specifications">
-                    <textarea
-                      name="notes"
-                      value={contact.notes}
-                      onChange={handleContactChange}
-                      placeholder="Special requirements, delivery schedule, etc."
-                      rows={3}
-                    />
-                  </Field>
+
                 </div>
 
                 <label className={styles.checkboxRow}>
@@ -353,7 +370,7 @@ export default function RFQPage() {
                     className={styles.btnPrimary}
                     onClick={() => { if (validateContact()) setStep(2); }}
                   >
-                    Next: Select Products →
+                    Create Account &amp; Continue →
                   </button>
                 </div>
               </div>
@@ -366,30 +383,37 @@ export default function RFQPage() {
               <div className={styles.sectionHeader}>
                 <h2>Product Selection</h2>
                 <p>
-                  Prices shown for ≤ {RETAIL_THRESHOLD} cartons. Bulk orders will be quoted
-                  personally by our sales team.
+                  Minimum order is <strong>{MIN_ORDER_CARTONS} cartons</strong> in total.
+                  Prices shown for ≤ {RETAIL_THRESHOLD} cartons per item — bulk orders will be quoted by our sales team.
                 </p>
               </div>
 
               <div className={styles.formCard}>
                 {/* ── Selector ── */}
                 <div className={styles.selectorGrid}>
-                  <Field label="Select Product">
-                    <select
-                      value={selectedProductId}
-                      onChange={(e) => {
-                        setSelectedProductId(e.target.value);
-                        setQuantity(1);
-                        setProductError("");
-                      }}
-                    >
-                      {PRODUCTS.map((p) => (
-                        <option key={p.id} value={p.id}>
-                          {p.name}
-                        </option>
-                      ))}
-                    </select>
-                  </Field>
+                  <div>
+                    <Field label="Products">
+                      <select
+                        value={selectedProductId}
+                        onChange={(e) => {
+                          setSelectedProductId(e.target.value);
+                          setQuantity(1);
+                          setProductError("");
+                        }}
+                      >
+                        {PRODUCTS.map((p) => (
+                          <option key={p.id} value={p.id}>
+                            {p.name}
+                          </option>
+                        ))}
+                      </select>
+                    </Field>
+                    {currentProduct && (
+                      <p className={styles.productMeta}>
+                        {currentProduct.unitsPerCarton} pcs in 1 carton &nbsp;|&nbsp; Shelf Life: {currentProduct.shelfLifeMonths} months
+                      </p>
+                    )}
+                  </div>
 
                   <Field label="Quantity (cartons)">
                     <div className={styles.stepper}>
@@ -434,11 +458,6 @@ export default function RFQPage() {
                     ) : (
                       <span className={`${styles.pricePill} ${styles.pillQuote}`}>
                         📋 {priceInfo.label}
-                      </span>
-                    )}
-                    {currentProduct.multipleOf && (
-                      <span className={styles.noteText}>
-                        * Must be ordered in multiples of {currentProduct.multipleOf} cartons
                       </span>
                     )}
                   </div>
@@ -518,16 +537,61 @@ export default function RFQPage() {
                   </div>
                 )}
 
+                {/* ── Minimum order indicator ── */}
+                <div className={styles.minOrderBar}>
+                  <span>
+                    Total: <strong>{totalCartQty} carton{totalCartQty !== 1 ? "s" : ""}</strong>
+                  </span>
+                  {totalCartQty < MIN_ORDER_CARTONS && (
+                    <span className={styles.minOrderWarning}>
+                      Minimum {MIN_ORDER_CARTONS} cartons required ({MIN_ORDER_CARTONS - totalCartQty} more needed)
+                    </span>
+                  )}
+                </div>
+
+                <div className={styles.divider} style={{ marginTop: "20px" }} />
+
+                {/* ── Shipment options ── */}
+                <div className={styles.shipmentSection}>
+                  <p className={styles.shipmentTitle}>Shipment Method *</p>
+                  {shipmentError && (
+                    <p className={styles.fieldError} style={{ marginBottom: "10px" }}>
+                      {shipmentError}
+                    </p>
+                  )}
+                  <div className={styles.shipmentGroups}>
+                    {SHIPMENT_OPTIONS.map((group) => (
+                      <div key={group.group} className={styles.shipmentGroup}>
+                        <p className={styles.shipmentGroupLabel}>{group.group}</p>
+                        <div className={styles.shipmentOptions}>
+                          {group.options.map((opt) => (
+                            <label
+                              key={opt}
+                              className={`${styles.shipmentCard} ${selectedShipment === opt ? styles.shipmentCardActive : ""}`}
+                            >
+                              <input
+                                type="radio"
+                                name="shipment"
+                                value={opt}
+                                checked={selectedShipment === opt}
+                                onChange={() => { setSelectedShipment(opt); setShipmentError(""); }}
+                              />
+                              <span>{opt}</span>
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
                 <div className={styles.btnRow}>
-                  <button className={styles.btnSecondary} onClick={() => setStep(1)}>
-                    ← Back
-                  </button>
                   <button
                     className={styles.btnPrimary}
-                    onClick={() => cartItems.length > 0 && setStep(3)}
-                    disabled={cartItems.length === 0}
+                    onClick={handleProceedToPreview}
+                    disabled={totalCartQty < MIN_ORDER_CARTONS}
                   >
-                    Preview Quotation →
+                    Preview Quotation and Submit →
                   </button>
                 </div>
               </div>
@@ -569,13 +633,15 @@ export default function RFQPage() {
                       <h4 className={styles.previewSectionTitle}>Company Details</h4>
                       <InfoRow label="Company" value={contact.company} />
                       <InfoRow label="Contact" value={contact.name} />
-                      <InfoRow label="City" value={contact.city} />
-                      {contact.notes && <InfoRow label="Notes" value={contact.notes} />}
                     </div>
                     <div className={styles.previewSection}>
                       <h4 className={styles.previewSectionTitle}>Contact Information</h4>
                       <InfoRow label="Email" value={contact.email} />
-                      <InfoRow label="Phone" value={contact.phone} />
+                      <InfoRow label="Phone" value={`${contact.phoneCode} ${contact.phone}`} />
+                      <InfoRow
+                        label="Shipment"
+                        value={`${selectedShipment} — ${SHIPMENT_OPTIONS.find((g) => g.options.includes(selectedShipment))?.group}`}
+                      />
                     </div>
                   </div>
 
@@ -645,8 +711,8 @@ export default function RFQPage() {
                 <div className={styles.checkCircle}>
                   <IoCheckmark size={32} />
                 </div>
-                <h3>Quotation Request Submitted!</h3>
-                <p>Our sales team will contact you within 1–2 business days.</p>
+                <h3>Thank you for submitted!</h3>
+                <p>We will get back to you soon.</p>
               </div>
               <div className={styles.goldStripe} />
               <div className={styles.successBody}>
@@ -656,7 +722,7 @@ export default function RFQPage() {
                 </div>
                 <p className={styles.successMsg}>
                   A copy of your quotation has been sent to <strong>{contact.email}</strong>.<br />
-                  Use your quotation number when contacting us via WhatsApp for faster service.
+                  For immediate assistance, kindly reach out to us via WhatsApp.
                 </p>
                 <div className={styles.successActions}>
                   <a
