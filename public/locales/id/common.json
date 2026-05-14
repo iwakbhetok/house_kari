@@ -300,5 +300,102 @@
   "teksPrivacy89": "Gunakan firewall pada sistem operasi di komputer Anda atau instal personal firewall dan pastikan bahwa pengaturan firewall yang terpasang dapat mengamankan PC Anda",
   "teksPrivacy90": "Sebaiknya Anda tidak mengakses atau bahkan mendownload file/program-program di internet dari situs yang tidak dikenal/tidak dapat diyakini keabsahannya.",
   "teksPrivacy91": "Scan file-file yang berasal dari disket, CD maupun USB drive yang Anda terima.",
-  "teksPrivacy92": "Pastikan bahwa sistem operasi maupun aplikasi di komputer Anda sudah dilindungi dengan sistem proteksi terkini."
+  "teksPrivacy92": "Pastikan bahwa sistem operasi maupun aplikasi di komputer Anda sudah dilindungi dengan sistem proteksi terkini.",
+  "rfq": {
+    "meta": {
+      "title": "Permintaan Penawaran Harga — House of Japanese Curry",
+      "description": "Ajukan permintaan pembelian dalam jumlah besar dan terima penawaran resmi dari tim penjualan kami."
+    },
+    "hero": {
+      "eyebrow": "Grosir B2B",
+      "title": "Permintaan Penawaran Harga",
+      "subtitle": "Beritahu kami apa yang Anda butuhkan dan kami akan segera menghubungi Anda."
+    },
+    "steps": {
+      "contactInfo": "Info Kontak",
+      "products": "Produk",
+      "preview": "Pratinjau"
+    },
+    "step1": {
+      "heading": "Mari kita mulai.",
+      "subheading": "Silakan bagikan detail Anda dan kami akan menyiapkan penawaran yang dipersonalisasi untuk Anda.",
+      "fullName": "Nama Lengkap *",
+      "fullNamePlaceholder": "Nama lengkap",
+      "email": "Alamat Email *",
+      "emailPlaceholder": "email@perusahaan.com",
+      "company": "Nama Perusahaan *",
+      "companyPlaceholder": "PT. Nama Perusahaan Anda",
+      "phone": "Nomor Telepon *",
+      "phonePlaceholder": "81x xxxx xxxx",
+      "agree": "Saya setuju dengan <link>Kebijakan Privasi</link> dan bersedia dihubungi terkait penawaran ini.",
+      "continueBtn": "Buat Akun & Lanjutkan →",
+      "errorRequired": "Wajib diisi",
+      "errorInvalidEmail": "Email tidak valid",
+      "errorPhoneRequired": "Nomor telepon wajib diisi",
+      "errorAgree": "Anda harus menyetujui kebijakan privasi"
+    },
+    "step2": {
+      "heading": "Pilihan Produk",
+      "subheading": "Minimum pemesanan adalah <strong>{{count}} karton</strong> secara total. Harga ditampilkan untuk ≤ {{threshold}} karton per item — pemesanan massal akan dikutip oleh tim penjualan kami.",
+      "productLabel": "Produk",
+      "quantityLabel": "Jumlah (karton)",
+      "productMeta": "{{units}} pcs dalam 1 karton | Kedaluwarsa: {{months}} bulan",
+      "pricePerCarton": "/ karton",
+      "salesRepContact": "Tim penjualan akan menghubungi Anda",
+      "minQtyError": "Minimal 1 karton",
+      "addToQuote": "Tambah ke Penawaran",
+      "emptyCart": "Belum ada produk yang ditambahkan. Pilih produk di atas dan klik \"Tambah ke Penawaran\".",
+      "tableProduct": "Produk",
+      "tableQty": "Jml (karton)",
+      "tableUnitPrice": "Harga Satuan",
+      "tableSubtotal": "Subtotal",
+      "toBeQuoted": "Akan dikutip",
+      "tbq": "TBQ",
+      "totalLabel": "Total:",
+      "carton": "karton",
+      "cartons": "karton",
+      "minOrderWarning": "Minimum {{min}} karton diperlukan (kurang {{remaining}} karton lagi)",
+      "shipmentTitle": "Metode Pengiriman *",
+      "shipmentError": "Silakan pilih metode pengiriman",
+      "international": "Internasional",
+      "domestic": "Domestik",
+      "previewBtn": "Pratinjau Penawaran dan Kirim →"
+    },
+    "step3": {
+      "heading": "Pratinjau Penawaran",
+      "subheading": "Tinjau permintaan Anda sebelum kami membuat dokumen resmi.",
+      "docEyebrow": "House of Japanese Curry — B2B",
+      "docTitle": "Permintaan Penawaran Harga",
+      "submissionDate": "Tanggal Pengajuan",
+      "companyDetails": "Detail Perusahaan",
+      "contactInfo": "Informasi Kontak",
+      "companyLabel": "Perusahaan",
+      "contactLabel": "Kontak",
+      "emailLabel": "Email",
+      "phoneLabel": "Telepon",
+      "shipmentLabel": "Pengiriman",
+      "requestedProducts": "Produk yang Diminta",
+      "tableNum": "#",
+      "tableProduct": "Produk",
+      "tableQty": "Jml (karton)",
+      "tableUnitPrice": "Harga Satuan",
+      "tableSubtotal": "Subtotal",
+      "willBeQuoted": "Akan dikutip",
+      "tbq": "TBQ",
+      "validityNote": "Setelah konfirmasi, penawaran resmi yang berlaku hingga <strong>{{date}}</strong> akan dikirimkan ke <strong>{{email}}</strong>.",
+      "editBtn": "← Edit",
+      "confirmBtn": "✓ Konfirmasi & Buat Penawaran"
+    },
+    "step4": {
+      "heading": "Terima kasih telah mengajukan!",
+      "subheading": "Kami akan segera menghubungi Anda.",
+      "quoteNumberLabel": "Nomor Penawaran Anda",
+      "successMsg": "Salinan penawaran Anda telah dikirimkan ke <strong>{{email}}</strong>.<br/>Untuk bantuan segera, silakan hubungi kami melalui WhatsApp.",
+      "whatsappBtn": "Lanjutkan via WhatsApp",
+      "anotherRfqBtn": "Ajukan RFQ Lainnya"
+    },
+    "whatsapp": {
+      "message": "Halo, saya telah mengajukan RFQ di website Anda. Nomor Penawaran saya adalah *{{quoteNumber}}*. Mohon bantuan lebih lanjut."
+    }
+  }
 }

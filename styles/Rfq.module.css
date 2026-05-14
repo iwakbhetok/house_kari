@@ -214,8 +214,8 @@
   gap: 8px;
 }
 .phoneCodeSelect {
-  flex: 0 0 55%;
-  max-width: 25%;
+  flex: 0 0 38%;
+  max-width: 38%;
   min-width: 0;
   font-size: 0.85vw;
   font-style: italic;

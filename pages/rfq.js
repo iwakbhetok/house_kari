@@ -3,6 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import styles from "@/styles/Rfq.module.css";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation, Trans } from "next-i18next";
 import { FaWhatsapp, FaPlus } from "react-icons/fa";
 import { IoCheckmark } from "react-icons/io5";
 
@@ -16,27 +17,27 @@ export async function getStaticProps({ locale }) {
 
 // ─── Country phone codes ──────────────────────────────────────────────────────
 const PHONE_CODES = [
-  { code: "+62", country: "Indonesia" },
-  { code: "+60", country: "Malaysia" },
-  { code: "+65", country: "Singapore" },
-  { code: "+63", country: "Philippines" },
-  { code: "+66", country: "Thailand" },
-  { code: "+84", country: "Vietnam" },
-  { code: "+855", country: "Cambodia" },
-  { code: "+856", country: "Laos" },
-  { code: "+95", country: "Myanmar" },
+  { code: "+61", country: "Australia" },
   { code: "+673", country: "Brunei" },
-  { code: "+81", country: "Japan" },
-  { code: "+82", country: "South Korea" },
+  { code: "+855", country: "Cambodia" },
   { code: "+86", country: "China" },
   { code: "+852", country: "Hong Kong" },
-  { code: "+886", country: "Taiwan" },
   { code: "+91", country: "India" },
-  { code: "+61", country: "Australia" },
-  { code: "+1", country: "United States" },
-  { code: "+44", country: "United Kingdom" },
-  { code: "+971", country: "UAE" },
+  { code: "+62", country: "Indonesia" },
+  { code: "+81", country: "Japan" },
+  { code: "+82", country: "South Korea" },
+  { code: "+856", country: "Laos" },
+  { code: "+60", country: "Malaysia" },
+  { code: "+95", country: "Myanmar" },
+  { code: "+63", country: "Philippines" },
   { code: "+966", country: "Saudi Arabia" },
+  { code: "+65", country: "Singapore" },
+  { code: "+886", country: "Taiwan" },
+  { code: "+66", country: "Thailand" },
+  { code: "+971", country: "UAE" },
+  { code: "+44", country: "United Kingdom" },
+  { code: "+1", country: "United States" },
+  { code: "+84", country: "Vietnam" },
 ];
 
 // ─── Static product catalog (replace with Payload CMS fetch later) ────────────
@@ -50,17 +51,19 @@ const PRODUCTS = [
   { id: 7, name: "House Brown Roux 1kg",               pricePerCarton: 250000, unitsPerCarton: 20, shelfLifeMonths: 18 },
 ];
 
-const RETAIL_THRESHOLD = 3;  // ≤ 3 cartons per item → show price; > 3 → quote
-const MIN_ORDER_CARTONS = 3; // total cart must reach this to proceed
+const RETAIL_THRESHOLD = 5;  // ≤ 5 cartons per item → show price; > 5 → quote
+const MIN_ORDER_CARTONS = 5; // total cart must reach this to proceed
 
 // ─── Shipment options ─────────────────────────────────────────────────────────
 const SHIPMENT_OPTIONS = [
   {
     group: "International",
+    labelKey: "rfq.step2.international",
     options: ["Ray Speed", "DHL", "General Cargo - AIR", "General Cargo - Ocean"],
   },
   {
     group: "Domestic",
+    labelKey: "rfq.step2.domestic",
     options: ["Mas Cargo - LAND", "Mas Cargo - AIR", "Deliveree", "Trucking Delivery"],
   },
 ];
@@ -89,13 +92,14 @@ const getValidityDate = () => {
 };
 
 const STEPS = [
-  { n: 1, label: "Contact Info" },
-  { n: 2, label: "Products" },
-  { n: 3, label: "Preview" },
+  { n: 1, labelKey: "rfq.steps.contactInfo" },
+  { n: 2, labelKey: "rfq.steps.products" },
+  { n: 3, labelKey: "rfq.steps.preview" },
 ];
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export default function RFQPage() {
+  const { t } = useTranslation("common");
   const [step, setStep] = useState(1);
   const [quoteNumber, setQuoteNumber] = useState("");
 
@@ -123,12 +127,12 @@ export default function RFQPage() {
 
   const getPriceInfo = (product, qty) => {
     if (qty <= RETAIL_THRESHOLD)
-      return { type: "retail", label: `${formatIDR(product.pricePerCarton)} / carton` };
-    return { type: "quote", label: "Sales rep will contact you" };
+      return { type: "retail", label: `${formatIDR(product.pricePerCarton)} ${t("rfq.step2.pricePerCarton")}` };
+    return { type: "quote", label: t("rfq.step2.salesRepContact") };
   };
 
   const getQuantityError = (qty) => {
-    if (qty < 1) return "Minimum 1 carton";
+    if (qty < 1) return t("rfq.step2.minQtyError");
     return null;
   };
 
@@ -147,12 +151,12 @@ export default function RFQPage() {
 
   const validateContact = () => {
     const errs = {};
-    if (!contact.company.trim()) errs.company = "Required";
-    if (!contact.name.trim()) errs.name = "Required";
-    if (!contact.email.trim()) errs.email = "Required";
-    else if (!/^\S+@\S+\.\S+$/.test(contact.email)) errs.email = "Invalid email";
-    if (!contact.phone.trim()) errs.phone = "Phone number is required";
-    if (!contact.agree) errs.agree = "You must agree to the privacy policy";
+    if (!contact.company.trim()) errs.company = t("rfq.step1.errorRequired");
+    if (!contact.name.trim()) errs.name = t("rfq.step1.errorRequired");
+    if (!contact.email.trim()) errs.email = t("rfq.step1.errorRequired");
+    else if (!/^\S+@\S+\.\S+$/.test(contact.email)) errs.email = t("rfq.step1.errorInvalidEmail");
+    if (!contact.phone.trim()) errs.phone = t("rfq.step1.errorPhoneRequired");
+    if (!contact.agree) errs.agree = t("rfq.step1.errorAgree");
     setContactErrors(errs);
     return Object.keys(errs).length === 0;
   };
@@ -207,23 +211,20 @@ export default function RFQPage() {
 
   const handleProceedToPreview = () => {
     if (totalCartQty < MIN_ORDER_CARTONS) return;
-    if (!selectedShipment) { setShipmentError("Please select a shipment method"); return; }
+    if (!selectedShipment) { setShipmentError(t("rfq.step2.shipmentError")); return; }
     setShipmentError("");
     setStep(3);
   };
 
   // ── WhatsApp deep link ────────────────────────────────────────────────
-  const waText = `Hello, I have submitted an RFQ on your website. My Quotation Number is *${quoteNumber}*. Please assist me further.`;
+  const waText = t("rfq.whatsapp.message", { quoteNumber });
   const waUrl = `https://wa.me/6281234567890?text=${encodeURIComponent(waText)}`;
 
   return (
     <>
       <Head>
-        <title>Request for Quotation — House of Japanese Curry</title>
-        <meta
-          name="description"
-          content="Submit a bulk purchase request and receive a formal quotation from our sales team."
-        />
+        <title>{t("rfq.meta.title")}</title>
+        <meta name="description" content={t("rfq.meta.description")} />
       </Head>
 
       {/* ─── HERO ─────────────────────────────────────────────────────────── */}
@@ -235,11 +236,9 @@ export default function RFQPage() {
         />
         <div className={styles.heroOverlay} />
         <div className={styles.heroText}>
-          <p className={styles.heroEyebrow}>B2B Wholesale</p>
-          <h1>Request for Quotation</h1>
-          <p className={styles.heroSub}>
-            Let us know what you need and we'll contact you shortly.
-          </p>
+          <p className={styles.heroEyebrow}>{t("rfq.hero.eyebrow")}</p>
+          <h1>{t("rfq.hero.title")}</h1>
+          <p className={styles.heroSub}>{t("rfq.hero.subtitle")}</p>
         </div>
       </div>
 
@@ -261,7 +260,7 @@ export default function RFQPage() {
                     step >= s.n ? styles.stepLabelActive : ""
                   }`}
                 >
-                  {s.label}
+                  {t(s.labelKey)}
                 </span>
                 {i < STEPS.length - 1 && (
                   <div
@@ -284,42 +283,42 @@ export default function RFQPage() {
           {step === 1 && (
             <>
               <div className={styles.sectionHeader}>
-                <h2>Let's get started.</h2>
-                <p>Please share your details and we will prepare your personalized quotation.</p>
+                <h2>{t("rfq.step1.heading")}</h2>
+                <p>{t("rfq.step1.subheading")}</p>
               </div>
 
               <div className={styles.formCard}>
                 <div className={styles.formGrid}>
 
-                  <Field label="Full Name *" error={contactErrors.name}>
+                  <Field label={t("rfq.step1.fullName")} error={contactErrors.name}>
                     <input
                       name="name"
                       value={contact.name}
                       onChange={handleContactChange}
-                      placeholder="Full name"
+                      placeholder={t("rfq.step1.fullNamePlaceholder")}
                     />
                   </Field>
 
-                  <Field label="Email Address *" error={contactErrors.email}>
+                  <Field label={t("rfq.step1.email")} error={contactErrors.email}>
                     <input
                       name="email"
                       type="email"
                       value={contact.email}
                       onChange={handleContactChange}
-                      placeholder="email@company.com"
+                      placeholder={t("rfq.step1.emailPlaceholder")}
                     />
                   </Field>
 
-                  <Field label="Company Name *" error={contactErrors.company}>
+                  <Field label={t("rfq.step1.company")} error={contactErrors.company}>
                     <input
                       name="company"
                       value={contact.company}
                       onChange={handleContactChange}
-                      placeholder="PT. Your Company Name"
+                      placeholder={t("rfq.step1.companyPlaceholder")}
                     />
                   </Field>
 
-                  <Field label="Phone Number *" error={contactErrors.phone}>
+                  <Field label={t("rfq.step1.phone")} error={contactErrors.phone}>
                     <div className={styles.phoneRow}>
                       <select
                         name="phoneCode"
@@ -337,12 +336,11 @@ export default function RFQPage() {
                         name="phone"
                         value={contact.phone}
                         onChange={handleContactChange}
-                        placeholder="81x xxxx xxxx"
+                        placeholder={t("rfq.step1.phonePlaceholder")}
                         className={styles.phoneInput}
                       />
                     </div>
                   </Field>
-
 
                 </div>
 
@@ -354,11 +352,12 @@ export default function RFQPage() {
                     onChange={handleContactChange}
                   />
                   <span>
-                    I agree to the{" "}
-                    <Link href="/privacy-policy" className={styles.checkLink}>
-                      Privacy Policy
-                    </Link>{" "}
-                    and consent to being contacted regarding this quotation.
+                    <Trans
+                      i18nKey="rfq.step1.agree"
+                      components={{
+                        link: <Link href="/privacy-policy" className={styles.checkLink} />,
+                      }}
+                    />
                   </span>
                 </label>
                 {contactErrors.agree && (
@@ -370,7 +369,7 @@ export default function RFQPage() {
                     className={styles.btnPrimary}
                     onClick={() => { if (validateContact()) setStep(2); }}
                   >
-                    Create Account &amp; Continue →
+                    {t("rfq.step1.continueBtn")}
                   </button>
                 </div>
               </div>
@@ -381,10 +380,13 @@ export default function RFQPage() {
           {step === 2 && (
             <>
               <div className={styles.sectionHeader}>
-                <h2>Product Selection</h2>
+                <h2>{t("rfq.step2.heading")}</h2>
                 <p>
-                  Minimum order is <strong>{MIN_ORDER_CARTONS} cartons</strong> in total.
-                  Prices shown for ≤ {RETAIL_THRESHOLD} cartons per item — bulk orders will be quoted by our sales team.
+                  <Trans
+                    i18nKey="rfq.step2.subheading"
+                    values={{ count: MIN_ORDER_CARTONS, threshold: RETAIL_THRESHOLD }}
+                    components={{ strong: <strong /> }}
+                  />
                 </p>
               </div>
 
@@ -392,7 +394,7 @@ export default function RFQPage() {
                 {/* ── Selector ── */}
                 <div className={styles.selectorGrid}>
                   <div>
-                    <Field label="Products">
+                    <Field label={t("rfq.step2.productLabel")}>
                       <select
                         value={selectedProductId}
                         onChange={(e) => {
@@ -410,12 +412,15 @@ export default function RFQPage() {
                     </Field>
                     {currentProduct && (
                       <p className={styles.productMeta}>
-                        {currentProduct.unitsPerCarton} pcs in 1 carton &nbsp;|&nbsp; Shelf Life: {currentProduct.shelfLifeMonths} months
+                        {t("rfq.step2.productMeta", {
+                          units: currentProduct.unitsPerCarton,
+                          months: currentProduct.shelfLifeMonths,
+                        })}
                       </p>
                     )}
                   </div>
 
-                  <Field label="Quantity (cartons)">
+                  <Field label={t("rfq.step2.quantityLabel")}>
                     <div className={styles.stepper}>
                       <button
                         className={styles.stepperBtn}
@@ -473,7 +478,7 @@ export default function RFQPage() {
                   onClick={handleAddProduct}
                   disabled={!!qtyError}
                 >
-                  <FaPlus size={12} /> Add to Quotation
+                  <FaPlus size={12} /> {t("rfq.step2.addToQuote")}
                 </button>
 
                 <div className={styles.divider} />
@@ -481,17 +486,17 @@ export default function RFQPage() {
                 {/* ── Cart list ── */}
                 {cartItems.length === 0 ? (
                   <p className={styles.emptyMsg}>
-                    No products added yet. Select a product above and click &quot;Add to Quotation&quot;.
+                    {t("rfq.step2.emptyCart")}
                   </p>
                 ) : (
                   <div className={styles.tableWrap}>
                     <table className={styles.productTable}>
                       <thead>
                         <tr>
-                          <th>Product</th>
-                          <th className={styles.tdCenter}>Qty (cartons)</th>
-                          <th className={styles.tdRight}>Unit Price</th>
-                          <th className={styles.tdRight}>Subtotal</th>
+                          <th>{t("rfq.step2.tableProduct")}</th>
+                          <th className={styles.tdCenter}>{t("rfq.step2.tableQty")}</th>
+                          <th className={styles.tdRight}>{t("rfq.step2.tableUnitPrice")}</th>
+                          <th className={styles.tdRight}>{t("rfq.step2.tableSubtotal")}</th>
                           <th></th>
                         </tr>
                       </thead>
@@ -508,7 +513,7 @@ export default function RFQPage() {
                                     {formatIDR(item.pricePerCarton)}
                                   </span>
                                 ) : (
-                                  <em className={styles.tbqCell}>To be quoted</em>
+                                  <em className={styles.tbqCell}>{t("rfq.step2.toBeQuoted")}</em>
                                 )}
                               </td>
                               <td className={styles.tdRight}>
@@ -517,7 +522,7 @@ export default function RFQPage() {
                                     {formatIDR(item.pricePerCarton * item.quantity)}
                                   </span>
                                 ) : (
-                                  <em className={styles.tbqCell}>TBQ</em>
+                                  <em className={styles.tbqCell}>{t("rfq.step2.tbq")}</em>
                                 )}
                               </td>
                               <td>
@@ -540,11 +545,11 @@ export default function RFQPage() {
                 {/* ── Minimum order indicator ── */}
                 <div className={styles.minOrderBar}>
                   <span>
-                    Total: <strong>{totalCartQty} carton{totalCartQty !== 1 ? "s" : ""}</strong>
+                    {t("rfq.step2.totalLabel")} <strong>{totalCartQty} {totalCartQty !== 1 ? t("rfq.step2.cartons") : t("rfq.step2.carton")}</strong>
                   </span>
                   {totalCartQty < MIN_ORDER_CARTONS && (
                     <span className={styles.minOrderWarning}>
-                      Minimum {MIN_ORDER_CARTONS} cartons required ({MIN_ORDER_CARTONS - totalCartQty} more needed)
+                      {t("rfq.step2.minOrderWarning", { min: MIN_ORDER_CARTONS, remaining: MIN_ORDER_CARTONS - totalCartQty })}
                     </span>
                   )}
                 </div>
@@ -553,7 +558,7 @@ export default function RFQPage() {
 
                 {/* ── Shipment options ── */}
                 <div className={styles.shipmentSection}>
-                  <p className={styles.shipmentTitle}>Shipment Method *</p>
+                  <p className={styles.shipmentTitle}>{t("rfq.step2.shipmentTitle")}</p>
                   {shipmentError && (
                     <p className={styles.fieldError} style={{ marginBottom: "10px" }}>
                       {shipmentError}
@@ -562,7 +567,7 @@ export default function RFQPage() {
                   <div className={styles.shipmentGroups}>
                     {SHIPMENT_OPTIONS.map((group) => (
                       <div key={group.group} className={styles.shipmentGroup}>
-                        <p className={styles.shipmentGroupLabel}>{group.group}</p>
+                        <p className={styles.shipmentGroupLabel}>{t(group.labelKey)}</p>
                         <div className={styles.shipmentOptions}>
                           {group.options.map((opt) => (
                             <label
@@ -591,7 +596,7 @@ export default function RFQPage() {
                     onClick={handleProceedToPreview}
                     disabled={totalCartQty < MIN_ORDER_CARTONS}
                   >
-                    Preview Quotation and Submit →
+                    {t("rfq.step2.previewBtn")}
                   </button>
                 </div>
               </div>
@@ -602,19 +607,19 @@ export default function RFQPage() {
           {step === 3 && (
             <>
               <div className={styles.sectionHeader}>
-                <h2>Quotation Preview</h2>
-                <p>Review your request before we generate the formal document.</p>
+                <h2>{t("rfq.step3.heading")}</h2>
+                <p>{t("rfq.step3.subheading")}</p>
               </div>
 
               <div className={styles.previewDoc}>
                 {/* Doc header */}
                 <div className={styles.previewDocHeader}>
                   <div>
-                    <p className={styles.previewEyebrow}>House of Japanese Curry — B2B</p>
-                    <h3 className={styles.previewTitle}>Request for Quotation</h3>
+                    <p className={styles.previewEyebrow}>{t("rfq.step3.docEyebrow")}</p>
+                    <h3 className={styles.previewTitle}>{t("rfq.step3.docTitle")}</h3>
                   </div>
                   <div className={styles.dateBadge}>
-                    <span>Submission Date</span>
+                    <span>{t("rfq.step3.submissionDate")}</span>
                     <strong>
                       {new Date().toLocaleDateString("en-GB", {
                         day: "numeric",
@@ -630,32 +635,35 @@ export default function RFQPage() {
                   {/* Info grid */}
                   <div className={styles.previewInfoGrid}>
                     <div className={styles.previewSection}>
-                      <h4 className={styles.previewSectionTitle}>Company Details</h4>
-                      <InfoRow label="Company" value={contact.company} />
-                      <InfoRow label="Contact" value={contact.name} />
+                      <h4 className={styles.previewSectionTitle}>{t("rfq.step3.companyDetails")}</h4>
+                      <InfoRow label={t("rfq.step3.companyLabel")} value={contact.company} />
+                      <InfoRow label={t("rfq.step3.contactLabel")} value={contact.name} />
                     </div>
                     <div className={styles.previewSection}>
-                      <h4 className={styles.previewSectionTitle}>Contact Information</h4>
-                      <InfoRow label="Email" value={contact.email} />
-                      <InfoRow label="Phone" value={`${contact.phoneCode} ${contact.phone}`} />
+                      <h4 className={styles.previewSectionTitle}>{t("rfq.step3.contactInfo")}</h4>
+                      <InfoRow label={t("rfq.step3.emailLabel")} value={contact.email} />
+                      <InfoRow label={t("rfq.step3.phoneLabel")} value={`${contact.phoneCode} ${contact.phone}`} />
                       <InfoRow
-                        label="Shipment"
-                        value={`${selectedShipment} — ${SHIPMENT_OPTIONS.find((g) => g.options.includes(selectedShipment))?.group}`}
+                        label={t("rfq.step3.shipmentLabel")}
+                        value={(() => {
+                          const group = SHIPMENT_OPTIONS.find((g) => g.options.includes(selectedShipment));
+                          return group ? `${selectedShipment} — ${t(group.labelKey)}` : selectedShipment;
+                        })()}
                       />
                     </div>
                   </div>
 
                   {/* Products table */}
                   <div className={styles.previewSection}>
-                    <h4 className={styles.previewSectionTitle}>Requested Products</h4>
+                    <h4 className={styles.previewSectionTitle}>{t("rfq.step3.requestedProducts")}</h4>
                     <table className={styles.previewTable}>
                       <thead>
                         <tr>
-                          <th>#</th>
-                          <th>Product</th>
-                          <th className={styles.tdCenter}>Qty (cartons)</th>
-                          <th className={styles.tdRight}>Unit Price</th>
-                          <th className={styles.tdRight}>Subtotal</th>
+                          <th>{t("rfq.step3.tableNum")}</th>
+                          <th>{t("rfq.step3.tableProduct")}</th>
+                          <th className={styles.tdCenter}>{t("rfq.step3.tableQty")}</th>
+                          <th className={styles.tdRight}>{t("rfq.step3.tableUnitPrice")}</th>
+                          <th className={styles.tdRight}>{t("rfq.step3.tableSubtotal")}</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -667,12 +675,12 @@ export default function RFQPage() {
                               <td>{item.name}</td>
                               <td className={styles.tdCenter}>{item.quantity}</td>
                               <td className={`${styles.tdRight} ${isRetail ? styles.priceCell : styles.tbqCell}`}>
-                                {isRetail ? formatIDR(item.pricePerCarton) : "Will be quoted"}
+                                {isRetail ? formatIDR(item.pricePerCarton) : t("rfq.step3.willBeQuoted")}
                               </td>
                               <td className={`${styles.tdRight} ${isRetail ? styles.priceCell : styles.tbqCell}`}>
                                 {isRetail
                                   ? formatIDR(item.pricePerCarton * item.quantity)
-                                  : "TBQ"}
+                                  : t("rfq.step3.tbq")}
                               </td>
                             </tr>
                           );
@@ -685,19 +693,21 @@ export default function RFQPage() {
                   <div className={styles.validityNote}>
                     <span className={styles.validityIcon}>ℹ️</span>
                     <p>
-                      Upon confirmation, a formal quotation valid until{" "}
-                      <strong>{getValidityDate()}</strong> will be sent to{" "}
-                      <strong>{contact.email}</strong>.
+                      <Trans
+                        i18nKey="rfq.step3.validityNote"
+                        values={{ date: getValidityDate(), email: contact.email }}
+                        components={{ strong: <strong /> }}
+                      />
                     </p>
                   </div>
                 </div>
 
                 <div className={styles.previewActions}>
                   <button className={styles.btnOutlineDark} onClick={() => setStep(2)}>
-                    ← Edit
+                    {t("rfq.step3.editBtn")}
                   </button>
                   <button className={styles.btnConfirm} onClick={handleConfirm}>
-                    ✓ Confirm &amp; Generate Quotation
+                    {t("rfq.step3.confirmBtn")}
                   </button>
                 </div>
               </div>
@@ -711,18 +721,21 @@ export default function RFQPage() {
                 <div className={styles.checkCircle}>
                   <IoCheckmark size={32} />
                 </div>
-                <h3>Thank you for submitted!</h3>
-                <p>We will get back to you soon.</p>
+                <h3>{t("rfq.step4.heading")}</h3>
+                <p>{t("rfq.step4.subheading")}</p>
               </div>
               <div className={styles.goldStripe} />
               <div className={styles.successBody}>
                 <div className={styles.quoteNumberBox}>
-                  <span>Your Quotation Number</span>
+                  <span>{t("rfq.step4.quoteNumberLabel")}</span>
                   <strong>{quoteNumber}</strong>
                 </div>
                 <p className={styles.successMsg}>
-                  A copy of your quotation has been sent to <strong>{contact.email}</strong>.<br />
-                  For immediate assistance, kindly reach out to us via WhatsApp.
+                  <Trans
+                    i18nKey="rfq.step4.successMsg"
+                    values={{ email: contact.email }}
+                    components={{ strong: <strong />, br: <br /> }}
+                  />
                 </p>
                 <div className={styles.successActions}>
                   <a
@@ -732,10 +745,10 @@ export default function RFQPage() {
                     className={styles.btnWhatsApp}
                   >
                     <FaWhatsapp size={18} />
-                    Continue via WhatsApp
+                    {t("rfq.step4.whatsappBtn")}
                   </a>
                   <button className={styles.btnOutlineDark} onClick={handleReset}>
-                    Submit Another RFQ
+                    {t("rfq.step4.anotherRfqBtn")}
                   </button>
                 </div>
               </div>

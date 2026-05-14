@@ -304,6 +304,103 @@
     "teksPrivacy89": "Use a firewall on your computer's operating system or install a personal firewall and ensure that the installed firewall settings can secure your PC.",
     "teksPrivacy90": "It is advisable not to access or even download files/programs from unknown or untrusted websites on the internet.",
     "teksPrivacy91": "Scan files received from diskettes, CDs, and USB drives.",
-    "teksPrivacy92": "Ensure that your computer's operating system and applications are protected with the latest protection systems."
+    "teksPrivacy92": "Ensure that your computer's operating system and applications are protected with the latest protection systems.",
+    "rfq": {
+        "meta": {
+            "title": "Request for Quotation — House of Japanese Curry",
+            "description": "Submit a bulk purchase request and receive a formal quotation from our sales team."
+        },
+        "hero": {
+            "eyebrow": "B2B Wholesale",
+            "title": "Request for Quotation",
+            "subtitle": "Let us know what you need and we'll contact you shortly."
+        },
+        "steps": {
+            "contactInfo": "Contact Info",
+            "products": "Products",
+            "preview": "Preview"
+        },
+        "step1": {
+            "heading": "Let's get started.",
+            "subheading": "Please share your details and we will prepare your personalized quotation.",
+            "fullName": "Full Name *",
+            "fullNamePlaceholder": "Full name",
+            "email": "Email Address *",
+            "emailPlaceholder": "email@company.com",
+            "company": "Company Name *",
+            "companyPlaceholder": "PT. Your Company Name",
+            "phone": "Phone Number *",
+            "phonePlaceholder": "81x xxxx xxxx",
+            "agree": "I agree to the <link>Privacy Policy</link> and consent to being contacted regarding this quotation.",
+            "continueBtn": "Create Account & Continue →",
+            "errorRequired": "Required",
+            "errorInvalidEmail": "Invalid email",
+            "errorPhoneRequired": "Phone number is required",
+            "errorAgree": "You must agree to the privacy policy"
+        },
+        "step2": {
+            "heading": "Product Selection",
+            "subheading": "Minimum order is <strong>{{count}} cartons</strong> in total. Prices shown for ≤ {{threshold}} cartons per item — bulk orders will be quoted by our sales team.",
+            "productLabel": "Products",
+            "quantityLabel": "Quantity (cartons)",
+            "productMeta": "{{units}} pcs in 1 carton | Shelf Life: {{months}} months",
+            "pricePerCarton": "/ carton",
+            "salesRepContact": "Sales rep will contact you",
+            "minQtyError": "Minimum 1 carton",
+            "addToQuote": "Add to Quotation",
+            "emptyCart": "No products added yet. Select a product above and click \"Add to Quotation\".",
+            "tableProduct": "Product",
+            "tableQty": "Qty (cartons)",
+            "tableUnitPrice": "Unit Price",
+            "tableSubtotal": "Subtotal",
+            "toBeQuoted": "To be quoted",
+            "tbq": "TBQ",
+            "totalLabel": "Total:",
+            "carton": "carton",
+            "cartons": "cartons",
+            "minOrderWarning": "Minimum {{min}} cartons required ({{remaining}} more needed)",
+            "shipmentTitle": "Shipment Method *",
+            "shipmentError": "Please select a shipment method",
+            "international": "International",
+            "domestic": "Domestic",
+            "previewBtn": "Preview Quotation and Submit →"
+        },
+        "step3": {
+            "heading": "Quotation Preview",
+            "subheading": "Review your request before we generate the formal document.",
+            "docEyebrow": "House of Japanese Curry — B2B",
+            "docTitle": "Request for Quotation",
+            "submissionDate": "Submission Date",
+            "companyDetails": "Company Details",
+            "contactInfo": "Contact Information",
+            "companyLabel": "Company",
+            "contactLabel": "Contact",
+            "emailLabel": "Email",
+            "phoneLabel": "Phone",
+            "shipmentLabel": "Shipment",
+            "requestedProducts": "Requested Products",
+            "tableNum": "#",
+            "tableProduct": "Product",
+            "tableQty": "Qty (cartons)",
+            "tableUnitPrice": "Unit Price",
+            "tableSubtotal": "Subtotal",
+            "willBeQuoted": "Will be quoted",
+            "tbq": "TBQ",
+            "validityNote": "Upon confirmation, a formal quotation valid until <strong>{{date}}</strong> will be sent to <strong>{{email}}</strong>.",
+            "editBtn": "← Edit",
+            "confirmBtn": "✓ Confirm & Generate Quotation"
+        },
+        "step4": {
+            "heading": "Thank you for submitted!",
+            "subheading": "We will get back to you soon.",
+            "quoteNumberLabel": "Your Quotation Number",
+            "successMsg": "A copy of your quotation has been sent to <strong>{{email}}</strong>.<br/>For immediate assistance, kindly reach out to us via WhatsApp.",
+            "whatsappBtn": "Continue via WhatsApp",
+            "anotherRfqBtn": "Submit Another RFQ"
+        },
+        "whatsapp": {
+            "message": "Hello, I have submitted an RFQ on your website. My Quotation Number is *{{quoteNumber}}*. Please assist me further."
+        }
+    }
 }
   
