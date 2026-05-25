@@ -256,7 +256,7 @@ export default function RFQPage() {
 
   // ── WhatsApp deep link ────────────────────────────────────────────────
   const waText = t("rfq.whatsapp.message", { quoteNumber });
-  const waUrl = `https://wa.me/6281234567890?text=${encodeURIComponent(waText)}`;
+  const waUrl = `https://wa.me/628119069464?text=${encodeURIComponent(waText)}`;
 
   return (
     <>
