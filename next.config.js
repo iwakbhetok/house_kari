@@ -18,6 +18,20 @@ module.exports = {
         port: '',
         pathname: '/storage/**',
       },
+      // Payload CMS media — dev
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '3001',
+        pathname: '/api/media/file/**',
+      },
+      // Payload CMS media — production (update hostname when deploying)
+      {
+        protocol: 'https',
+        hostname: 'cms.housejapanesecurry.co.id',
+        port: '',
+        pathname: '/api/media/file/**',
+      },
     ],
   },
 };

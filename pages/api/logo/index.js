@@ -1,18 +1,20 @@
-// File: pages/api/banner.js
-
 import axios from 'axios';
+
+const CMS_URL = process.env.NEXT_PUBLIC_CMS_URL || 'http://localhost:3001';
 
 export default async function handler(req, res) {
   try {
-    const response = await axios.get(process.env.API_URL + '/apiv2/logo', {
-      headers: {
-        'api_key': process.env.API_KEY // Ganti dengan API key Anda
-      }
+    const response = await axios.get(`${CMS_URL}/api/globals/logo`, {
+      params: { depth: 1 },
     });
-    const logo = response.data;
-    res.status(200).json(logo);
+    const data = response.data;
+    res.status(200).json({
+      data: {
+        image: data.primary?.url || null,
+      },
+    });
   } catch (error) {
-    console.error('Error fetching logo:', error);
+    console.error('Error fetching logo:', error.message);
     res.status(500).json({ error: 'Internal server error' });
   }
 }

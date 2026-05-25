@@ -18,6 +18,12 @@ export async function getStaticProps({ locale }) {
   };
 }
 
+const resolveImageSrc = (image) => {
+  if (!image) return '/images/article_banner.png';
+  if (image.startsWith('http')) return image;
+  return `https://ops.housejapanesecurry.com/storage/${image}`;
+};
+
 export default function SlideArticles({ items = [], classNames, paginationClass }) {
   const { t, i18n } = useTranslation('common');
 
@@ -110,15 +116,19 @@ export default function SlideArticles({ items = [], classNames, paginationClass 
             <SwiperSlide key={index}>
               <div className='box_articles_slide'>
                 <div className='box_articles_images'>
-                  <Link href={`/recipe/[id]`} as={`/recipe/${blog.id}`}>
-                    <img src={`https://ops.housejapanesecurry.com/storage/${blog.image}`} alt={blog.title} />
+                  <Link href={`/recipe/[slug]`} as={`/recipe/${blog.slug || blog.id}`}>
+                    <img
+                      src={resolveImageSrc(blog.image)}
+                      alt={blog.title}
+                      onError={(e) => { e.target.onerror = null; e.target.src = '/images/article_banner.png'; }}
+                    />
                   </Link>
                 </div>
                 <div className='box_articles_content'>
                   {blog.date && <span>{blog.date}</span>}
                   <h1 dangerouslySetInnerHTML={{ __html: stripPTags(getRecipeTitle(blog)) }}></h1>
                   <p dangerouslySetInnerHTML={{ __html: stripPTags(getDescriptionName(blog)) }}></p>
-                  <Link href={`/recipe/[id]`} as={`/recipe/${blog.id}`}>
+                  <Link href={`/recipe/[slug]`} as={`/recipe/${blog.slug || blog.id}`}>
                     <button>{t('section1Home.learnMore')}</button>
                   </Link>
                 </div>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import axios from "axios";
 import styles from "@/styles/Rfq.module.css";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation, Trans } from "next-i18next";
@@ -102,6 +103,8 @@ export default function RFQPage() {
   const { t } = useTranslation("common");
   const [step, setStep] = useState(1);
   const [quoteNumber, setQuoteNumber] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   // Step 1
   const [contact, setContact] = useState({
@@ -191,9 +194,44 @@ export default function RFQPage() {
     setCartItems((prev) => prev.filter((item) => item.productId !== productId));
 
   // ── Step 3 → 4 ──────────────────────────────────────────────────────────
-  const handleConfirm = () => {
-    setQuoteNumber(generateQuoteNumber());
-    setStep(4);
+  const handleConfirm = async () => {
+    const qn = generateQuoteNumber();
+    setIsSubmitting(true);
+    setSubmitError("");
+    try {
+      await axios.post(
+        `/api/rfq-submissions`,
+        {
+          quoteNumber: qn,
+          contactInfo: {
+            company: contact.company,
+            contactName: contact.name,
+            email: contact.email,
+            phone: `${contact.phoneCode} ${contact.phone}`,
+          },
+          products: cartItems.map((item) => {
+            const isBulk = item.quantity > RETAIL_THRESHOLD;
+            return {
+              productName: item.name,
+              quantity: item.quantity,
+              ...(isBulk ? {} : {
+                unitPrice: item.pricePerCarton,
+                subtotal: item.pricePerCarton * item.quantity,
+              }),
+              isBulkPriced: isBulk,
+            };
+          }),
+          shipmentMethod: selectedShipment,
+          salesTracking: { status: "pending" },
+        }
+      );
+      setQuoteNumber(qn);
+      setStep(4);
+    } catch {
+      setSubmitError(t("rfq.step3.submitError"));
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleReset = () => {
@@ -702,12 +740,17 @@ export default function RFQPage() {
                   </div>
                 </div>
 
+                {submitError && (
+                  <p className={styles.fieldError} style={{ marginBottom: "12px", textAlign: "center" }}>
+                    {submitError}
+                  </p>
+                )}
                 <div className={styles.previewActions}>
-                  <button className={styles.btnOutlineDark} onClick={() => setStep(2)}>
+                  <button className={styles.btnOutlineDark} onClick={() => setStep(2)} disabled={isSubmitting}>
                     {t("rfq.step3.editBtn")}
                   </button>
-                  <button className={styles.btnConfirm} onClick={handleConfirm}>
-                    {t("rfq.step3.confirmBtn")}
+                  <button className={styles.btnConfirm} onClick={handleConfirm} disabled={isSubmitting}>
+                    {isSubmitting ? t("rfq.step3.submittingBtn") : t("rfq.step3.confirmBtn")}
                   </button>
                 </div>
               </div>

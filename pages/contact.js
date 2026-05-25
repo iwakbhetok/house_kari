@@ -46,7 +46,6 @@ export default function Contact() {
     try {
       const response = await axios.post('/api/postForm', formData);
       setMessage('Form submitted successfully!');
-      console.log(response.data)
     } catch (error) {
       console.error('Error submitting form:', error);
       setMessage('Failed to submit form');

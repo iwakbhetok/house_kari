@@ -29,7 +29,6 @@ const Footer = () => {
         const data = await response.json();
         if (data && data.data && data.data.footer) {
           setThemeHeader(data.data.footer);
-          console.log('Header image:', data.data.footer);
         } else {
           setThemeHeader(null); // Ensure themeHeader is null if no valid data
         }
@@ -110,10 +109,10 @@ const Footer = () => {
             target='_blank' // Menggunakan '_blank' untuk membuka link di tab baru
             rel='noopener noreferrer' // Menambahkan rel untuk keamanan
           >
-            <img 
-              src={`https://ops.housejapanesecurry.com/storage/${socialmedia.image}`} 
-              alt={`Social media icon for ${socialmedia.name}`} // Menambahkan alt text
-              className={styles.socialMediaIcon} // Menambahkan kelas jika diperlukan
+            <img
+              src={socialmedia.image || ''}
+              alt={`Social media icon for ${socialmedia.name}`}
+              className={styles.socialMediaIcon}
             />
           </Link>
         ))
@@ -124,7 +123,7 @@ const Footer = () => {
       <div className={styles.img_footer}>
       {themeHeader ? (
         <img
-          src={`https://ops.housejapanesecurry.com/storage/${themeHeader}`}
+          src={themeHeader}
           className="img_footer"
           alt="Theme Header"
         />

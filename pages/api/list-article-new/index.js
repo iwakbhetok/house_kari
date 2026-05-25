@@ -1,13 +1,20 @@
 import axios from 'axios';
+import { CMS_URL, normalizeArticle } from '@/lib/cmsArticle';
 
 export default async function handler(req, res) {
-
   try {
-    const response = await axios.get(process.env.API_URL + `/apiv2/articles?take=10`, {
-      headers: { 'api-key': process.env.API_KEY }
+    const response = await axios.get(`${CMS_URL}/api/articles`, {
+      params: {
+        'where[status][equals]': 'published',
+        locale: 'all',
+        depth: 2,
+        limit: 10,
+        sort: '-publishedAt',
+      },
     });
-    res.status(200).json(response.data);
+    const docs = response.data?.docs || [];
+    res.status(200).json({ data: docs.map((doc) => normalizeArticle(doc)) });
   } catch (error) {
-    res.status(500).json({ message: 'Failed to fetch data', error: error.message });
+    res.status(500).json({ message: 'Failed to fetch articles', error: error.message });
   }
 }

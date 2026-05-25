@@ -22,6 +22,11 @@ export async function getStaticProps({ locale }) {
   };
 }
 
+const formatDate = (dateString) => {
+  if (!dateString) return '';
+  return new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).format(new Date(dateString));
+};
+
 export default function SlideTestimonials({items = []}) {
   const { t } = useTranslation('common');
 
@@ -88,7 +93,7 @@ export default function SlideTestimonials({items = []}) {
             {item.images ? (
               <div className="imageTestimonials">
                 <img
-                  src={`https://ops.housejapanesecurry.com/storage/${item.images}`}
+                  src={item.images}
                   alt={item.title}
                 />
               </div>
@@ -105,7 +110,7 @@ export default function SlideTestimonials({items = []}) {
                 <p>{item.description}</p>
                 <div className='dateTestimonials'>
                     {/* <h5>Variation: {item.variation}</h5> */}
-                    <span>{item.date} - {t('by')} {item.name}</span>
+                    <span>{formatDate(item.date)} - {t('by')} {item.name}</span>
                 </div>
               </div>
             </div>

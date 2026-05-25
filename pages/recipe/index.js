@@ -87,7 +87,6 @@ export default function Recipe() {
   
         const shuffledArticles = shuffleArray(articles);
         setArticlesSlide(shuffledArticles);
-        console.log('Fetched and shuffled product:', shuffledArticles);
       } catch (error) {
         console.error('Error fetching product:', error);
       }
@@ -330,7 +329,7 @@ useEffect(() => {
                       <div className='contentRecipe'>
                         <h1 dangerouslySetInnerHTML={{ __html: stripH1Tags(getProductName(recipe)) }}></h1>
                         <p dangerouslySetInnerHTML={{ __html: getDescriptionName(recipe) }}></p>
-                        <Link href={`/recipe/[id]`} as={`/recipe/${recipe.id}`}><button>{t('section1Home.learnMore')}</button></Link>
+                        <Link href={`/recipe/[slug]`} as={`/recipe/${recipe.slug || recipe.id}`}><button>{t('section1Home.learnMore')}</button></Link>
                       </div>
                     </div>
                   </SwiperSlide>
@@ -362,7 +361,7 @@ useEffect(() => {
                           <div className="contentRecipe">
                             <h1 dangerouslySetInnerHTML={{ __html: stripH1Tags(getProductName(recipe)) }}></h1>
                             <p dangerouslySetInnerHTML={{ __html: getDescriptionName(recipe) }}></p>
-                            <Link href={`/recipe/[id]`} as={`/recipe/${recipe.id}`}><button>{t('section1Home.learnMore')}</button></Link>
+                            <Link href={`/recipe/[slug]`} as={`/recipe/${recipe.slug || recipe.id}`}><button>{t('section1Home.learnMore')}</button></Link>
                           </div>
                         </div>
                     </div>

@@ -68,6 +68,7 @@ export default function Home({ banners }) {
   const [isVisible, setIsVisible] = useState(false);
   const [fileCount, setFileCount] = useState(0);
   const [loading, setLoading] = useState(false);
+  const fileInputRef = useRef(null);
   const [testimonials, setTestimonials] = useState([]);
 
   useEffect(() => {
@@ -76,7 +77,6 @@ export default function Home({ banners }) {
         const response = await axios.get('/api/all-testimonials');
         setTestimonials(response.data.data); // Access the data array from the response
         setLoading(false);
-        console.log(response.data)
       } catch (err) {
         console.error('Error fetching testimonials:', err);
         setLoading(false);
@@ -142,8 +142,10 @@ export default function Home({ banners }) {
           'Content-Type': 'multipart/form-data', // Important for file uploads
         },
       });
-      console.log('Form submitted successfully:', response.data);
       setMessage('Form submitted successfully!');
+      setFormData({ name: '', phone_number: '', title: '', description: '', image: null });
+      setFileCount(0);
+      if (fileInputRef.current) fileInputRef.current.value = '';
     } catch (error) {
       console.error('Error submitting form:', error);
       setMessage('Failed to submit form');
@@ -163,7 +165,6 @@ export default function Home({ banners }) {
         .slice(0, 2); // Select the top 2 most recent articles
 
       setArticles(sortedArticles);
-      console.log('Fetched and filtered articles:', sortedArticles);
     } catch (error) {
       console.error('Error fetching articles:', error);
     }
@@ -213,9 +214,8 @@ export default function Home({ banners }) {
         try {
           const response = await axios.get(`/api/recipeByCategories/${selectedCategoryId}`);
           // Filter out items with image_png equal to '0'
-          const filteredItems = response.data.data.filter(item => item.image_png !== '0');
+          const filteredItems = response.data.data.filter(item => item.image_png);
           setItems(filteredItems);
-          console.log('response Resep Slide', response);
         } catch (error) {
           console.error('Error fetching recipes:', error);
         } finally {
@@ -245,7 +245,6 @@ export default function Home({ banners }) {
   
         const shuffledArticles = shuffleArray(articles);
         setArticlesSlide(shuffledArticles);
-        console.log(shuffledArticles)
       } catch (error) {
         console.error('Error fetching product:', error);
       }
@@ -540,12 +539,12 @@ const getProductDesc = (item) => {
               <SwiperSlide key={item.id}>
                 <div className='slideItemProduct'>
                   <div className='imageContainer'>
-                    <img src={`${process.env.NEXT_PUBLIC_API_URL}/storage/${item.image_png}`} alt={item.title} loading="lazy" />
+                    <img src={item.image_png} alt={item.title} />
                   </div>
                   <h1>{stripH1Tags(getRecipeName(item))}</h1>
                   <div className='contectProductContainer'>
                     <p>{stripH1Tags(getProductDesc(item))}</p>
-                    <Link href={`/recipe/${item.id}`}>
+                    <Link href={`/recipe/${item.slug || item.id}`}>
                       <button>{t('lihatResep')}</button>
                     </Link>
                   </div>
@@ -564,12 +563,12 @@ const getProductDesc = (item) => {
               <SwiperSlide key={item.id}>
                   <div className='slideItemProduct'>
                     <div className='imageContainer'>
-                      <img src={`https://ops.housejapanesecurry.com/storage/${item.image_png}`} alt={item.title} loading="lazy" />
+                      <img src={item.image_png} alt={item.title} />
                     </div>
                       <h1>{stripH1Tags(getProductName(item))}</h1>
                       <div className='contectProductContainer'>
                         <p>{stripH1Tags(getProductDesc(item))}</p>
-                          <Link href={`/recipe/${item.id}`}><button>{t('lihatResep')}</button></Link>
+                          <Link href={`/recipe/${item.slug || item.id}`}><button>{t('lihatResep')}</button></Link>
                       </div>
                   </div>
               </SwiperSlide>
@@ -611,21 +610,18 @@ const getProductDesc = (item) => {
             articles.map((article) => (
               <div key={article.id} className={styles.blog_recent_box}>
                 <div className={styles.blog_recent_image}>
-                  {/* <img src={`https://ops.housejapanesecurry.com/storage/${article.image}`} alt={article.title} /> */}
-                  <Image
-                      src={`https://ops.housejapanesecurry.com/storage/${article.image}`}
-                      alt={article.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      quality={75}
-                      className="object-cover"
-                    />
+                  <img
+                    src={article.image || '/images/article_banner.png'}
+                    alt={article.title}
+                    onError={(e) => { e.target.onerror = null; e.target.src = '/images/article_banner.png'; }}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
                 </div>
                 <div className={styles.blog_recent_content}>
                   <span>{t('posted')} {formatDate(article.date)}</span>
                   <h1>{stripH1Tags(getProductName(article))}</h1>
                   <p>{stripH1Tags(getProductText(article))}</p>
-                  <Link href={`/article-detail/${article.id}`}><button>{t('section1Home.learnMore')}</button></Link>
+                  <Link href={`/article-detail/${article.slug || article.id}`}><button>{t('section1Home.learnMore')}</button></Link>
                 </div>
               </div>
             ))
@@ -698,6 +694,7 @@ const getProductDesc = (item) => {
                   id="file-input"
                   className={styles.fileInput}
                   onChange={handleFileChange}
+                  ref={fileInputRef}
                 />
                 <label htmlFor="file-input" className={styles.customFileLabel}>
                   + {fileCount > 0 ? `${fileCount} ${t('unggahFile')}` : t('unggahFile')}

@@ -10,21 +10,13 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-// const API_PRODUCT_DETAIL_URL = process.env.NEXT_PUBLIC_API_PRODUCT_DETAIL_URL || '/api/product-detail';
-/* ---------- FIX: Safe API base resolver ---------- */
 const getApiBaseUrl = (context) => {
-  if (process.env.NEXT_PUBLIC_API_PRODUCT_DETAIL_URL) {
-    return process.env.NEXT_PUBLIC_API_PRODUCT_DETAIL_URL;
-  }
-
   if (context?.req) {
-    const protocol =
-      context.req.headers["x-forwarded-proto"] || "http";
+    const protocol = context.req.headers['x-forwarded-proto'] || 'http';
     const host = context.req.headers.host;
     return `${protocol}://${host}/api/product-detail`;
   }
-
-  return "/api/product-detail"; // client fallback
+  return '/api/product-detail';
 };
 
 export async function getServerSideProps(context) {
@@ -39,7 +31,6 @@ export async function getServerSideProps(context) {
       }
       const product = await response.json();
   
-      console.log('Product Detail API Response:', product); // Log the API response
   
       return {
         props: {
@@ -95,16 +86,10 @@ const ProductDetails = () => {
     const fetchProduct = async () => {
       if (id) {
         try {
-          // const response = await axios.get(`${API_PRODUCT_DETAIL_URL}/${id}`);
-          const baseUrl = process.env.NEXT_PUBLIC_API_PRODUCT_DETAIL_URL
-                            ? process.env.NEXT_PUBLIC_API_PRODUCT_DETAIL_URL
-                            : `/api/product-detail`;
-
-          const response = await axios.get(`${baseUrl}/${id}`);
+          const response = await axios.get(`/api/product-detail/${id}`);
 
           setDetail(response.data.data); // Perhatikan pengaturan data detail di sini
           setLoading(false);
-          console.log('Fetched product:', response.data.data);
         } catch (error) {
           console.error('Error fetching product:', error);
           setLoading(false);
@@ -211,6 +196,7 @@ const ProductDetails = () => {
   };
 
   const formatWeight = (weight) => {
+    if (!weight) return '';
     const weightStr = weight.toString();
   
     // Replace '99' with a comma
@@ -247,26 +233,16 @@ const ProductDetails = () => {
   }
 
   const pageTitle = detail ? `House Kari | ${getProductName(detail)}` : 'House Kari';
-  const ecommerceLinks = JSON.parse(detail.ecommerce_links);
 
-  let parsedLinks = {};
+  const PLATFORM_META = {
+    shopee:    { color: '#F05D40', logo: '/images/shopee_logo.png' },
+    tokopedia: { color: '#42B549', logo: '/images/tokopedia_logo.png' },
+    blibli:    { color: '#0095DA', logo: '/images/blibli_logo.png' },
+    lazada:    { color: '#F57122', logo: null },
+  };
 
-  try {
-    // Check if ecommerceLinks is a string that needs parsing
-    if (typeof ecommerceLinks === 'string') {
-      parsedLinks = JSON.parse(ecommerceLinks);
-    } else {
-      parsedLinks = ecommerceLinks; // Assume it's already an object
-    }
-  } catch (error) {
-    console.error('Error parsing ecommerce_links:', error);
-    return <p>Belum ada ecommerce</p>; // Display fallback message on error
-  }
-
-  // Check if any link is valid
-  const hasValidLinks = Object.values(parsedLinks).some(
-    (item) => item.link && typeof item.link === 'string'
-  );
+  const ecommerceLinks = Array.isArray(detail.ecommerce_links) ? detail.ecommerce_links : [];
+  const hasValidLinks = ecommerceLinks.some((item) => item.url);
 
   return (
     <>
@@ -285,7 +261,11 @@ const ProductDetails = () => {
           <div className={styles.section3_box}>
             <img src="/images/btn_hover.png" alt="House Kari" className={styles.btn_hover} />
             <div className={styles.section3_image}>
-              <img src={`https://ops.housejapanesecurry.com/storage/${detail.image}`} alt={detail.name} />
+              <img
+                src={detail.image || '/images/placeholder.png'}
+                alt={detail.name}
+                onError={(e) => { e.target.onerror = null; e.target.src = '/images/placeholder.png'; }}
+              />
             </div>
             <div className={styles.section3_content}>
               <h1>{stripH1Tags(getProductName(detail))} {formatWeight(detail.weight)}</h1>
@@ -296,29 +276,15 @@ const ProductDetails = () => {
                 <h2>{t('beliSekarang')}</h2>
                 <div className={styles.section3_ecommerce_layout}>
                 {hasValidLinks ? (
-                  Object.keys(parsedLinks).map((key) => {
-                    const { link, color_code, logo } = parsedLinks[key];
-
-                    // Skip rendering if link is not a valid string
-                    if (!link || typeof link !== 'string') {
-                      return null;
-                    }
-
+                  ecommerceLinks.filter((item) => item.url).map((item, idx) => {
+                    const meta = PLATFORM_META[item.platform] || { color: '#333', logo: null };
                     return (
-                      <Link href={link} key={key} passHref legacyBehavior>
-                        <a
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <button
-                            style={{
-                              backgroundColor: color_code
-                            }}
-                          >
-                            <img
-                              src={`https://ops.housejapanesecurry.com/storage/${logo}`}
-                              alt={key}
-                            />
+                      <Link href={item.url} key={idx} passHref legacyBehavior>
+                        <a target="_blank" rel="noopener noreferrer">
+                          <button style={{ backgroundColor: meta.color }}>
+                            {meta.logo
+                              ? <img src={meta.logo} alt={item.platform} />
+                              : <span>{item.platform}</span>}
                           </button>
                         </a>
                       </Link>
@@ -338,7 +304,11 @@ const ProductDetails = () => {
           <div className={styles.section3_box}>
             <div className={styles.section3_box_mobile}>
                 <div className={styles.section3_image}>
-                    <img src={`https://ops.housejapanesecurry.com/storage/${detail.image}`} alt={detail.name} />
+                    <img
+                      src={detail.image || '/images/placeholder.png'}
+                      alt={detail.name}
+                      onError={(e) => { e.target.onerror = null; e.target.src = '/images/placeholder.png'; }}
+                    />
                 </div>
             </div>
             <div className={styles.section3_box_mobile_content}>
@@ -351,29 +321,15 @@ const ProductDetails = () => {
                     <h2>{t('beliSekarang')}</h2>
                     <div className={styles.section3_ecommerce_layout}>
                     {hasValidLinks ? (
-                      Object.keys(parsedLinks).map((key) => {
-                        const { link, color_code, logo } = parsedLinks[key];
-
-                        // Skip rendering if link is not a valid string
-                        if (!link || typeof link !== 'string') {
-                          return null;
-                        }
-
+                      ecommerceLinks.filter((item) => item.url).map((item, idx) => {
+                        const meta = PLATFORM_META[item.platform] || { color: '#333', logo: null };
                         return (
-                          <Link href={link} key={key} passHref legacyBehavior>
-                            <a
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <button
-                                style={{
-                                  backgroundColor: color_code
-                                }}
-                              >
-                                <img
-                                  src={`https://ops.housejapanesecurry.com/storage/${logo}`}
-                                  alt={key}
-                                />
+                          <Link href={item.url} key={idx} passHref legacyBehavior>
+                            <a target="_blank" rel="noopener noreferrer">
+                              <button style={{ backgroundColor: meta.color }}>
+                                {meta.logo
+                                  ? <img src={meta.logo} alt={item.platform} />
+                                  : <span>{item.platform}</span>}
                               </button>
                             </a>
                           </Link>
@@ -398,7 +354,11 @@ const ProductDetails = () => {
               {recommend && recommend.length > 0 && recommend.filter(product => product.id !== Number(id)).map((product, index) => (
                 <div className={`${styles.boxProduct} ${styles.boxProductWhite}`} key={index}>
                   <div className={styles.imageProduct}>
-                    <img src={`https://ops.housejapanesecurry.com/storage/${product.image}`} alt={product.name} />
+                    <img
+                      src={product.image || '/images/placeholder.png'}
+                      alt={product.name}
+                      onError={(e) => { e.target.onerror = null; e.target.src = '/images/placeholder.png'; }}
+                    />
                   </div>
                   <div className={styles.contentProduct}>
                     <h1>{getProductRecommend(product)}</h1>

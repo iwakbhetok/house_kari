@@ -30,7 +30,7 @@ export default function Event() {
   const [recentArticles, setRecentArticles] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const articleId = 9;
+  const articleId = 'event';
 
   useEffect(() => {
     const fetchArticlesSlide = async () => {
@@ -389,15 +389,15 @@ const stripPTags = (html) => {
                 recentArticles.map((blog, index) => (
                   <div key={index} className={styles.blog_recent_box}>
                     <div className={styles.blog_recent_image}>
-                      <Link href={`/article-detail/[id]`} as={`/article-detail/${blog.id}`}>
-                        <img src={`https://ops.housejapanesecurry.com/storage/${blog.image}`} alt={blog.title} />
+                      <Link href={`/article-detail/${blog.slug || blog.id}`}>
+                        <img src={blog.image || '/images/article_banner.png'} alt={blog.title} />
                       </Link>
                     </div>
                     <div className={styles.blog_recent_content}>
                       {blog.date && <span>{t('posted')} {formatDate(blog.date)}</span>}
                       <h1 dangerouslySetInnerHTML={{ __html: stripH1Tags(getRecipeTitleHeading(blog)) }}></h1>
                       <p dangerouslySetInnerHTML={{ __html: stripH1Tags(getDescriptionName(blog)) }}></p>
-                      <Link href={`/article-detail/${blog.id}`}><button>{t('section1Home.learnMore')}</button></Link>
+                      <Link href={`/article-detail/${blog.slug || blog.id}`}><button>{t('section1Home.learnMore')}</button></Link>
                     </div>
                   </div>
                 ))
