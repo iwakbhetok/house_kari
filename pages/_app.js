@@ -6,6 +6,13 @@ import Script from "next/script";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import posthog from "posthog-js";
+import { Montserrat } from "next/font/google";
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["300", "400", "600", "700", "800"],
+});
 
 function App({ Component, pageProps }) {
   const router = useRouter();
@@ -53,11 +60,13 @@ function App({ Component, pageProps }) {
         </>
       )}
 
-      <Header />
-      <main>
-        <Component {...pageProps} />
-      </main>
-      <Footer />
+      <div className={montserrat.className}>
+        <Header />
+        <main>
+          <Component {...pageProps} />
+        </main>
+        <Footer />
+      </div>
     </>
   );
 }

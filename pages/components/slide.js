@@ -109,9 +109,12 @@ const Slide = ({
       >
         <div className={styles.product_banner}>
           <div className={styles.product_banner_image}>
-            <img
+            <Image
               src='/images/product_banner.png'
               alt='House Kari Product'
+              fill
+              sizes="(max-width: 768px) 22vw, 13vw"
+              style={{ objectFit: 'cover' }}
             />
             <div className={styles.product_banner_image_overlay}></div>
           </div>

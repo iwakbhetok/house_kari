@@ -3,6 +3,8 @@ const { i18n } = require('./next-i18next.config');
 /** @type {import('next').NextConfig} */
 module.exports = {
   i18n,
+  compress: true,
+  poweredByHeader: false,
 
   env: {
     BASE_URL: process.env.BASE_URL || 'http://localhost:3000',

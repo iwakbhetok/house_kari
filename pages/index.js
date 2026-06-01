@@ -2,25 +2,24 @@ import styles from '@/styles/Home.module.css'
 import Slide from './components/slide';
 import Link from 'next/link';
 import { IoChevronDown } from "react-icons/io5";
-import { useState } from 'react';
-import SlideArticles from './components/slide_articles';
-import SlideTestimonials from './components/slide_testimonials';
-import { useEffect, useRef } from 'react';
-import SlideTestimonialsMobile from './components/slide_testimonials_mobile';
+import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import axios from 'axios';
-import SlideArticlesSecond from './components/slide_articles_second';
-import SlideArticlesSecondMobile from './components/slide_articles_second_mobile';
 import Skeleton from 'react-loading-skeleton';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import 'react-loading-skeleton/dist/skeleton.css';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import Image from 'next/image';
+import { Navigation } from 'swiper/modules';
+import dynamic from 'next/dynamic';
 
-// import required modules
-import { Navigation ,Pagination } from 'swiper/modules';
+const Swiper = dynamic(() => import('swiper/react').then((m) => ({ default: m.Swiper })), { ssr: false });
+const SwiperSlide = dynamic(() => import('swiper/react').then((m) => ({ default: m.SwiperSlide })), { ssr: false });
+const SlideArticlesSecond = dynamic(() => import('./components/slide_articles_second'), { ssr: false });
+const SlideArticlesSecondMobile = dynamic(() => import('./components/slide_articles_second_mobile'), { ssr: false });
+const SlideTestimonials = dynamic(() => import('./components/slide_testimonials'), { ssr: false });
+const SlideTestimonialsMobile = dynamic(() => import('./components/slide_testimonials_mobile'), { ssr: false });
 
 const items = [
   <Image key={1} src='/images/banner-1.png' alt='banner' width={500} height={500}/>,
@@ -490,8 +489,8 @@ const getProductDesc = (item) => {
           <h1 className={styles.heading_main}>{t('section1Home.profilPerusahaan')}</h1>
           <p className={`${styles.desc_main}`}>{t('section1Home.profilPerusahaanDesc')}</p>
           <Link href='/company-profile'><button>{t('section1Home.learnMore')}</button></Link>
-          <img src='/images/icon_section_2.png' alt='House Kari Website' className={styles.icon_section_2} />
-          <img src='/images/pattern_section_2.png' alt='House Kari Website' className={styles.pattern_section_2} />
+          <img src='/images/icon_section_2.png' alt='House Kari Website' className={styles.icon_section_2} loading="lazy" />
+          <img src='/images/pattern_section_2.png' alt='House Kari Website' className={styles.pattern_section_2} loading="lazy" />
         </div>
       </div> 
       <div className={styles.section_3}>
@@ -542,7 +541,7 @@ const getProductDesc = (item) => {
               <SwiperSlide key={item.id}>
                 <div className='slideItemProduct'>
                   <div className='imageContainer'>
-                    <img src={`${process.env.NEXT_PUBLIC_API_URL}/storage/${item.image_png}`} alt={item.title} />
+                    <img src={`${process.env.NEXT_PUBLIC_API_URL}/storage/${item.image_png}`} alt={item.title} loading="lazy" />
                   </div>
                   <h1>{stripH1Tags(getRecipeName(item))}</h1>
                   <div className='contectProductContainer'>
@@ -566,7 +565,7 @@ const getProductDesc = (item) => {
               <SwiperSlide key={item.id}>
                   <div className='slideItemProduct'>
                     <div className='imageContainer'>
-                      <img src={`https://ops.housejapanesecurry.com/storage/${item.image_png}`} alt={item.title} />
+                      <img src={`https://ops.housejapanesecurry.com/storage/${item.image_png}`} alt={item.title} loading="lazy" />
                     </div>
                       <h1>{stripH1Tags(getProductName(item))}</h1>
                       <div className='contectProductContainer'>
@@ -581,7 +580,7 @@ const getProductDesc = (item) => {
         <div className={styles.divider}></div>
       </div>
       <div className={styles.section_4}>
-        <img src='/images/section_4_icon_1.webp' alt='House Kari' className={styles.section_4_icon_1} />
+        <img src='/images/section_4_icon_1.webp' alt='House Kari' className={styles.section_4_icon_1} loading="lazy" />
         {/* <Image
           src={`/images/section_4_icon_1.png`}
           alt='House Kari'
@@ -589,7 +588,7 @@ const getProductDesc = (item) => {
           quality={85}
           className={styles.section_4_icon_1} 
         /> */}
-        <img src='/images/section_4_icon_2.webp' alt='House Kari' className={styles.section_4_icon_2} />
+        <img src='/images/section_4_icon_2.webp' alt='House Kari' className={styles.section_4_icon_2} loading="lazy" />
         <div className={styles.space_between_heading}>
           <h1 className={styles.heading_main}>{t('newestArticle')}</h1>
           <Link href='/article/9'><p className={styles.desc_main_margin}>{t('readMoreArticle')}...</p></Link>
@@ -653,7 +652,7 @@ const getProductDesc = (item) => {
       </div>
       <div className={styles.section_6}>
           <div className={styles.section_6_image}>
-            <img src='/images/form_image.webp' alt='House Kari'/>
+            <img src='/images/form_image.webp' alt='House Kari' loading="lazy" />
           </div>
           <div className={styles.section_6_form}>
             <div className={styles.section_6_heading}>
