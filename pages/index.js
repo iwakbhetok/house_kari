@@ -11,10 +11,11 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import Image from 'next/image';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import dynamic from 'next/dynamic';
 
+const Swiper = dynamic(() => import('swiper/react').then((m) => ({ default: m.Swiper })), { ssr: false });
+const SwiperSlide = dynamic(() => import('swiper/react').then((m) => ({ default: m.SwiperSlide })), { ssr: false });
 const SlideArticlesSecond = dynamic(() => import('./components/slide_articles_second'), { ssr: false });
 const SlideArticlesSecondMobile = dynamic(() => import('./components/slide_articles_second_mobile'), { ssr: false });
 const SlideTestimonials = dynamic(() => import('./components/slide_testimonials'), { ssr: false });
