@@ -38,7 +38,7 @@
   color: white;
 }
 .heroEyebrow {
-  font-size: 0.72vw;
+  font-size: 0.90vw;
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -46,13 +46,13 @@
   margin-bottom: 8px;
 }
 .heroText h1 {
-  font-size: 2.8vw;
+  font-size: 3.2vw;
   font-weight: 800;
   line-height: 1.1;
   margin-bottom: 10px;
 }
 .heroSub {
-  font-size: 0.9vw;
+  font-size: 1.08vw;
   font-weight: 300;
   opacity: 0.85;
   max-width: 420px;
@@ -86,7 +86,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   transition: background 0.3s, color 0.3s;
   z-index: 1;
@@ -101,7 +101,7 @@
   color: white;
 }
 .stepLabel {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 500;
   color: #bbb;
   margin-top: 7px;
@@ -141,12 +141,12 @@
   margin-bottom: 24px;
 }
 .sectionHeader h2 {
-  font-size: 1.55vw;
+  font-size: 1.85vw;
   font-weight: 800;
   color: #2D1F03;
 }
 .sectionHeader p {
-  font-size: 0.85vw;
+  font-size: 1.05vw;
   color: #888;
   margin-top: 5px;
 }
@@ -173,7 +173,7 @@
   gap: 5px;
 }
 .fieldLabel {
-  font-size: 0.78vw;
+  font-size: 0.95vw;
   color: rgba(255, 255, 255, 0.8);
   font-style: italic;
   font-weight: 400;
@@ -182,7 +182,7 @@
 .field select,
 .field textarea {
   width: 100%;
-  font-size: 0.85vw;
+  font-size: 1.05vw;
   font-style: italic;
   font-family: "Montserrat", sans-serif;
   padding: 0.68vw 0.9vw;
@@ -203,7 +203,7 @@
   resize: none;
 }
 .fieldError {
-  font-size: 11px;
+  font-size: 13px;
   color: #ffc8c8;
   font-style: italic;
 }
@@ -214,10 +214,11 @@
   gap: 8px;
 }
 .phoneCodeSelect {
+  position: relative;
   flex: 0 0 38%;
   max-width: 38%;
   min-width: 0;
-  font-size: 0.85vw;
+  font-size: 1.05vw;
   font-style: italic;
   font-family: "Montserrat", sans-serif;
   padding: 0.68vw 0.9vw;
@@ -228,12 +229,45 @@
   color: #2D1F03;
   transition: border-color 0.2s;
   cursor: pointer;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  overflow: visible;
+  user-select: none;
+  display: flex;
+  align-items: center;
 }
 .phoneCodeSelect:focus {
   border-color: #651318;
   box-shadow: 0 0 0 3px rgba(101, 19, 24, 0.12);
+}
+.phoneCodeDropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 100;
+  background: #FFFCF4;
+  border: 1px solid rgba(94, 94, 94, 0.5);
+  border-radius: 6px;
+  max-height: 220px;
+  overflow-y: auto;
+  list-style: none;
+  margin: 0;
+  padding: 4px 0;
+  min-width: 180px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.phoneCodeOption {
+  padding: 8px 12px;
+  font-size: 1.05vw;
+  font-family: "Montserrat", sans-serif;
+  color: #2D1F03;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.phoneCodeOption:hover {
+  background: rgba(101, 19, 24, 0.08);
+}
+.phoneCodeOptionActive {
+  color: #651318;
+  font-weight: 600;
 }
 .phoneInput {
   flex: 1 1 0;
@@ -256,7 +290,7 @@
   flex-shrink: 0;
 }
 .checkboxRow span {
-  font-size: 0.8vw;
+  font-size: 1.00vw;
   color: rgba(255, 255, 255, 0.8);
   font-weight: 300;
   line-height: 1.5;
@@ -281,7 +315,7 @@
   padding: 12px 28px;
   border-radius: 100px;
   cursor: pointer;
-  font-size: 0.88vw;
+  font-size: 1.08vw;
   font-family: "Montserrat", sans-serif;
   transition: all 0.2s;
 }
@@ -301,7 +335,7 @@
   padding: 12px 24px;
   border-radius: 100px;
   cursor: pointer;
-  font-size: 0.88vw;
+  font-size: 1.08vw;
   font-family: "Montserrat", sans-serif;
   transition: all 0.2s;
 }
@@ -350,7 +384,7 @@
   border: none !important;
   outline: none;
   text-align: center;
-  font-size: 0.88vw !important;
+  font-size: 1.08vw !important;
   font-style: normal !important;
   padding: 0 !important;
   background: transparent !important;
@@ -377,7 +411,7 @@
   gap: 6px;
   padding: 5px 14px;
   border-radius: 100px;
-  font-size: 0.76vw;
+  font-size: 0.95vw;
   font-weight: 600;
   white-space: nowrap;
 }
@@ -396,14 +430,14 @@
   border: 1px solid rgba(255, 80, 80, 0.3);
 }
 .noteText {
-  font-size: 0.72vw;
+  font-size: 0.90vw;
   color: rgba(255, 255, 255, 0.5);
   font-style: italic;
 }
 
 /* Product meta info (units/carton, shelf life) */
 .productMeta {
-  font-size: 0.72vw;
+  font-size: 0.90vw;
   color: rgba(255, 255, 255, 0.55);
   font-style: italic;
   margin-top: 6px;
@@ -420,13 +454,22 @@
   padding: 10px 14px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 8px;
-  font-size: 0.8vw;
+  font-size: 1.00vw;
   color: rgba(255, 255, 255, 0.75);
 }
 .minOrderWarning {
   color: #ffc8c8;
   font-style: italic;
-  font-size: 0.76vw;
+  font-size: 0.95vw;
+}
+.productNoteLabel {
+  font-size: 0.88vw;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: capitalize;
+  color: #FCF1D2;
+  margin-bottom: 2px;
+  margin-top: 10px;
 }
 
 /* ── Shipment Section ────────────────────────────── */
@@ -434,7 +477,7 @@
   margin-top: 4px;
 }
 .shipmentTitle {
-  font-size: 0.78vw;
+  font-size: 0.98vw;
   color: rgba(255, 255, 255, 0.8);
   font-style: italic;
   font-weight: 400;
@@ -451,7 +494,7 @@
   gap: 8px;
 }
 .shipmentGroupLabel {
-  font-size: 0.7vw;
+  font-size: 0.88vw;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -473,7 +516,7 @@
   border: 1.5px solid rgba(255, 255, 255, 0.18);
   cursor: pointer;
   transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
-  font-size: 0.8vw;
+  font-size: 1.00vw;
   color: rgba(255, 255, 255, 0.7);
 }
 .shipmentCard:hover {
@@ -493,6 +536,15 @@
   height: 16px;
   flex-shrink: 0;
 }
+.shipmentNoteLabel {
+  font-size: 0.88vw;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: capitalize;
+  color: #FCF1D2;
+  margin-bottom: 2px;
+  margin-top: 10px;
+}
 
 /* Add button */
 .addBtn {
@@ -502,7 +554,7 @@
   background: white;
   color: #651318;
   font-weight: 700;
-  font-size: 0.84vw;
+  font-size: 1.05vw;
   font-family: "Montserrat", sans-serif;
   border: none;
   padding: 10px 22px;
@@ -532,7 +584,7 @@
   text-align: center;
   padding: 32px 16px;
   color: rgba(255, 255, 255, 0.35);
-  font-size: 0.82vw;
+  font-size: 1.02vw;
   font-style: italic;
 }
 
@@ -548,7 +600,7 @@
 }
 .productTable th {
   text-align: left;
-  font-size: 0.7vw;
+  font-size: 0.88vw;
   font-weight: 700;
   color: rgba(255, 255, 255, 0.5);
   text-transform: uppercase;
@@ -559,7 +611,7 @@
 }
 .productTable td {
   padding: 13px 12px;
-  font-size: 0.82vw;
+  font-size: 1.02vw;
   color: rgba(255, 255, 255, 0.9);
   border-bottom: 1px solid rgba(255, 255, 255, 0.07);
   vertical-align: middle;
@@ -575,7 +627,7 @@
 }
 .tbqCell {
   color: rgba(255, 255, 255, 0.45);
-  font-size: 0.76vw;
+  font-size: 0.95vw;
 }
 .removeBtn {
   display: flex;
@@ -616,7 +668,7 @@
   gap: 20px;
 }
 .previewEyebrow {
-  font-size: 0.68vw;
+  font-size: 0.85vw;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -624,7 +676,7 @@
   margin-bottom: 6px;
 }
 .previewTitle {
-  font-size: 1.4vw;
+  font-size: 1.75vw;
   font-weight: 800;
   color: white;
 }
@@ -638,14 +690,14 @@
 }
 .dateBadge span {
   display: block;
-  font-size: 0.65vw;
+  font-size: 0.82vw;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: rgba(255, 255, 255, 0.6);
   margin-bottom: 4px;
 }
 .dateBadge strong {
-  font-size: 0.9vw;
+  font-size: 1.12vw;
   color: white;
 }
 
@@ -673,7 +725,7 @@
   margin-bottom: 1.6vw;
 }
 .previewSectionTitle {
-  font-size: 0.72vw;
+  font-size: 0.90vw;
   font-weight: 800;
   color: #651318;
   text-transform: uppercase;
@@ -688,13 +740,13 @@
   margin-bottom: 7px;
 }
 .infoLabel {
-  font-size: 0.76vw;
+  font-size: 0.95vw;
   color: #aaa;
   width: 80px;
   flex-shrink: 0;
 }
 .infoValue {
-  font-size: 0.76vw;
+  font-size: 0.95vw;
   color: #2D1F03;
   font-weight: 500;
 }
@@ -707,7 +759,7 @@
 .previewTable th {
   background: #f8f5ef;
   text-align: left;
-  font-size: 0.7vw;
+  font-size: 0.88vw;
   font-weight: 800;
   color: #651318;
   text-transform: uppercase;
@@ -716,7 +768,7 @@
 }
 .previewTable td {
   padding: 12px 14px;
-  font-size: 0.82vw;
+  font-size: 1.02vw;
   color: #2D1F03;
   border-bottom: 1px solid #f0ebe0;
   vertical-align: middle;
@@ -741,7 +793,7 @@
   flex-shrink: 0;
 }
 .validityNote p {
-  font-size: 0.78vw;
+  font-size: 0.98vw;
   color: #666;
   line-height: 1.55;
 }
@@ -765,7 +817,7 @@
   padding: 13px 24px;
   border-radius: 100px;
   cursor: pointer;
-  font-size: 0.88vw;
+  font-size: 1.08vw;
   font-family: "Montserrat", sans-serif;
   transition: all 0.2s;
 }
@@ -781,7 +833,7 @@
   padding: 14px 32px;
   border-radius: 100px;
   cursor: pointer;
-  font-size: 0.9vw;
+  font-size: 1.12vw;
   font-family: "Montserrat", sans-serif;
   transition: all 0.2s;
 }
@@ -818,13 +870,13 @@
   margin: 0 auto 18px;
 }
 .successHeader h3 {
-  font-size: 1.6vw;
+  font-size: 2.00vw;
   font-weight: 800;
   color: white;
   margin-bottom: 8px;
 }
 .successHeader p {
-  font-size: 0.88vw;
+  font-size: 1.10vw;
   color: rgba(255, 255, 255, 0.7);
 }
 .successBody {
@@ -840,7 +892,7 @@
 }
 .quoteNumberBox span {
   display: block;
-  font-size: 0.7vw;
+  font-size: 0.88vw;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: #aaa;
@@ -848,13 +900,13 @@
 }
 .quoteNumberBox strong {
   display: block;
-  font-size: 1.8vw;
+  font-size: 2.25vw;
   font-weight: 800;
   color: #651318;
   letter-spacing: 0.06em;
 }
 .successMsg {
-  font-size: 0.86vw;
+  font-size: 1.08vw;
   color: #666;
   line-height: 1.7;
   margin-bottom: 28px;
@@ -875,7 +927,7 @@
   background: #25D366;
   color: white;
   font-weight: 700;
-  font-size: 0.9vw;
+  font-size: 1.12vw;
   font-family: "Montserrat", sans-serif;
   border: none;
   padding: 14px 30px;
@@ -923,6 +975,10 @@
     flex: 0 0 55%;
     max-width: 55%;
     font-size: 3.5vw;
+    padding: 2.5vw 3.5vw;
+  }
+  .phoneCodeOption {
+    font-size: 3vw;
     padding: 2.5vw 3.5vw;
   }
   .checkboxRow span { font-size: 2.8vw; }

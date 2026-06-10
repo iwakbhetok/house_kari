@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import axios from "axios";
@@ -116,6 +116,19 @@ export default function RFQPage() {
     agree: false,
   });
   const [contactErrors, setContactErrors] = useState({});
+  const [phoneCodeOpen, setPhoneCodeOpen] = useState(false);
+  const phoneCodeRef = useRef(null);
+
+  useEffect(() => {
+    if (!phoneCodeOpen) return;
+    const handleClickOutside = (e) => {
+      if (phoneCodeRef.current && !phoneCodeRef.current.contains(e.target)) {
+        setPhoneCodeOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [phoneCodeOpen]);
 
   // Step 2
   const [selectedProductId, setSelectedProductId] = useState(PRODUCTS[0].id);
@@ -358,18 +371,30 @@ export default function RFQPage() {
 
                   <Field label={t("rfq.step1.phone")} error={contactErrors.phone}>
                     <div className={styles.phoneRow}>
-                      <select
-                        name="phoneCode"
-                        value={contact.phoneCode}
-                        onChange={handleContactChange}
+                      <div
+                        ref={phoneCodeRef}
                         className={styles.phoneCodeSelect}
+                        onClick={() => setPhoneCodeOpen((o) => !o)}
                       >
-                        {PHONE_CODES.map((pc) => (
-                          <option key={pc.code} value={pc.code}>
-                            {pc.code} - {pc.country}
-                          </option>
-                        ))}
-                      </select>
+                        <span>{contact.phoneCode}</span>
+                        {phoneCodeOpen && (
+                          <ul className={styles.phoneCodeDropdown}>
+                            {PHONE_CODES.map((pc) => (
+                              <li
+                                key={pc.code}
+                                className={`${styles.phoneCodeOption} ${contact.phoneCode === pc.code ? styles.phoneCodeOptionActive : ""}`}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setContact((prev) => ({ ...prev, phoneCode: pc.code }));
+                                  setPhoneCodeOpen(false);
+                                }}
+                              >
+                                {pc.code} - {pc.country}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
                       <input
                         name="phone"
                         value={contact.phone}
@@ -591,6 +616,9 @@ export default function RFQPage() {
                     </span>
                   )}
                 </div>
+                <div>
+                  <p className={styles.productNoteLabel}>*The above prices are quoted Franco Jakarta, Indonesia. </p>
+                </div>
 
                 <div className={styles.divider} style={{ marginTop: "20px" }} />
 
@@ -625,6 +653,9 @@ export default function RFQPage() {
                         </div>
                       </div>
                     ))}
+                  </div>
+                  <div>
+                    <p className={styles.productNoteLabel}>* Import Regulation are Buyer Responsibility.</p>
                   </div>
                 </div>
 
