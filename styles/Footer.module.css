@@ -14,7 +14,7 @@
 }
 .identity img{
     filter: brightness(0) invert(1);
-    width: 10vw;
+    width: auto;
     margin-bottom: 1.65vw;
 }
 .identity_layout h1{
@@ -85,7 +85,7 @@
         position: relative;
     }
     .identity img{
-        width: 30vw;
+        width: auto;
         margin-bottom: 3.4vw;
     }
     .identity_layout h1{
