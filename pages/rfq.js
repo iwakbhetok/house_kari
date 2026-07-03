@@ -655,7 +655,7 @@ export default function RFQPage() {
                     ))}
                   </div>
                   <div>
-                    <p className={styles.productNoteLabel}>* Import Regulation are Buyer Responsibility.</p>
+                    <p className={styles.productNoteLabel}>* Import Regulation are Buyers Responsibility.</p>
                   </div>
                 </div>
 
