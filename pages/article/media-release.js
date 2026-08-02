@@ -30,7 +30,7 @@ export default function MediaRelease() {
   const [recentArticles, setRecentArticles] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const articleId = 'media-release';
+  const articleId = 'rilis-media';
 
   useEffect(() => {
     const fetchArticlesSlide = async () => {
@@ -350,7 +350,7 @@ export default function MediaRelease() {
               className={`${styles.dropdownMenuItem} ${selectedMenu === menu.categoryId ? styles.active : ''}`}
               onClick={() => handleSelectMenu(menu)}
             >
-              <Link href={`/article/${menu.categoryLink}`} legacyBehavior><a>{menu.categoryName}</a></Link>
+              <Link href={menu.categoryLink === '/' ? '/article' : `/article/${menu.categoryLink}`} legacyBehavior><a>{menu.categoryName}</a></Link>
             </div>
           ))}
       </div>

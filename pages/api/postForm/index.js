@@ -1,41 +1,26 @@
-// pages/api/postForm.js
 import axios from 'axios';
-import querystring from 'querystring';
+
+const CMS_URL = process.env.NEXT_PUBLIC_CMS_URL || 'http://localhost:3001';
 
 export default async function handler(req, res) {
-  if (req.method === 'POST') {
-    try {
-      const { name, phone_number, email, inquiries } = req.body;
-
-      // Prepare the form-data body
-      const formData = querystring.stringify({
-        name,
-        phone_number,
-        email,
-        inquiries
-      });
-
-      // Make a request to the external API
-      const response = await axios.post(
-        process.env.API_URL + '/apiv2/contacts',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'api-key': process.env.API_KEY
-          }
-        }
-      );
-
-      // Send the response back to the client
-      res.status(200).json(response.data);
-    } catch (error) {
-      console.error('Error posting form data:', error);
-      res.status(500).json({ message: 'Failed to submit form' });
-    }
-  } else {
-    // Method Not Allowed
+  if (req.method !== 'POST') {
     res.setHeader('Allow', ['POST']);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+    return res.status(405).end(`Method ${req.method} Not Allowed`);
+  }
+
+  try {
+    const { name, phone_number, email, inquiries } = req.body;
+
+    const response = await axios.post(`${CMS_URL}/api/contacts`, {
+      name,
+      email,
+      phoneNumber: phone_number,
+      inquiries,
+    });
+
+    res.status(200).json(response.data);
+  } catch (error) {
+    console.error('Error posting form data:', error.response?.data || error.message);
+    res.status(500).json({ message: 'Failed to submit form' });
   }
 }

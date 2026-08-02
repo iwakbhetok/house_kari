@@ -27,17 +27,31 @@ const items = [
   <Image key={3} src='/images/banner-1.png' alt='banner' width={500} height={500}/>,
 ];
 
+const CMS_URL = process.env.NEXT_PUBLIC_CMS_URL || 'http://localhost:3001';
+
 export async function getStaticProps({ locale }) {
   try {
-    const bannerRes = await fetch(
-      'https://housejapanesecurry.com/api/banner'
-    );
+    const bannerRes = await axios.get(`${CMS_URL}/api/banners`, {
+      params: {
+        'where[isActive][equals]': true,
+        'where[position][equals]': 'default',
+        depth: 1,
+        sort: 'sortOrder',
+        limit: 100,
+      },
+    });
 
-    const bannerData = await bannerRes.json();
+    const docs = bannerRes.data?.docs || [];
+    const banners = docs.map((doc) => ({
+      id: doc.id,
+      image: doc.image?.url || null,
+      link: doc.link || null,
+      type: doc.title || null,
+    }));
 
     return {
       props: {
-        banners: bannerData.data || [],
+        banners,
         ...(await serverSideTranslations(locale, ['common'])),
       },
       revalidate: 60,
@@ -234,18 +248,9 @@ export default function Home({ banners }) {
       try {
         const response = await axios.get(`/api/list-article-new/`);
         const articles = response.data.data;
-        
-        // Fungsi untuk mengacak urutan array
-        const shuffleArray = (array) => {
-          for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-          }
-          return array;
-        };
-  
-        const shuffledArticles = shuffleArray(articles);
-        setArticlesSlide(shuffledArticles);
+
+        // Already sorted newest-first by the API; skip the top 2 shown in "Newest Articles"
+        setArticlesSlide(articles.slice(2));
       } catch (error) {
         console.error('Error fetching product:', error);
       }

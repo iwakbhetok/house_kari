@@ -12,6 +12,10 @@
   --old_red: #651318;
   --cream: #FCF1D2;
 }
+.swiper-button-prev .swiper-navigation-icon,
+.swiper-button-next .swiper-navigation-icon{
+  display: none !important;
+}
 
 .slideItemProduct{
   position: relative;

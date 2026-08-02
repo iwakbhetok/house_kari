@@ -8,9 +8,27 @@ import axios from 'axios';
 import styles from '@/styles/Article.module.css';
 import SlideArticlesSecond from "../components/slide_articles_second";
 import SlideArticlesSecondMobile from "../components/slide_articles_second_mobile";
+import legacyArticleMap from '@/lib/legacyArticleMap.json';
 
 export async function getServerSideProps(context) {
     const { id } = context.params;
+
+    // Legacy URLs used the old site's numeric article id (e.g. /article-detail/180).
+    // Those are still indexed by Google, so 301 them to the canonical slug URL.
+    // The old numeric ids don't correspond to anything in the new CMS (which has
+    // its own unrelated sequential ids), so this has to go through a static
+    // id->slug table built from the legacy database export rather than a live
+    // lookup by id.
+    if (/^\d+$/.test(id)) {
+      const localePrefix = context.locale && context.locale !== 'en' ? `/${context.locale}` : '';
+      const slug = legacyArticleMap[id];
+      return {
+        redirect: {
+          destination: slug ? `${localePrefix}/article-detail/${slug}` : `${localePrefix}/`,
+          permanent: slug ? true : false,
+        },
+      };
+    }
 
     try {
     const protocol = context.req.headers["x-forwarded-proto"] || "http";
@@ -21,8 +39,7 @@ export async function getServerSideProps(context) {
         throw new Error('Failed to fetch product detail');
       }
       const recipe = await response.json();
-  
-  
+
       return {
         props: {
           ...(await serverSideTranslations(context.locale, ['common'])),
@@ -53,18 +70,11 @@ export default function ArticleDetail({ recipe }) {
           try {
             const response = await axios.get(`/api/list-article-new/`);
             const articles = response.data.data;
-            
-            // Fungsi untuk mengacak urutan array
-            const shuffleArray = (array) => {
-              for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-              }
-              return array;
-            };
-      
-            const shuffledArticles = shuffleArray(articles);
-            const limitedArticles = shuffledArticles.slice(0, 7); // Membatasi hingga 7 artikel
+
+            const sortedArticles = [...articles].sort(
+              (a, b) => new Date(b.date) - new Date(a.date)
+            );
+            const limitedArticles = sortedArticles.slice(0, 7); // Membatasi hingga 7 artikel
             setArticlesSlide(limitedArticles);
           } catch (error) {
             console.error('Error fetching product:', error);

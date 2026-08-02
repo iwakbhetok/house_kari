@@ -28,11 +28,7 @@ const formatDate = (dateString) => {
     return new Intl.DateTimeFormat('en-GB', options).format(new Date(dateString));
   };
 
-const resolveImageSrc = (image) => {
-  if (!image) return null;
-  if (image.startsWith('http')) return image;
-  return `https://ops.housejapanesecurry.com/storage/${image}`;
-};
+const resolveImageSrc = (image) => image || null;
 
 export default function SlideArticlesSecond({ items = [], classNames, paginationClass }) {
   const { t, i18n } = useTranslation('common');

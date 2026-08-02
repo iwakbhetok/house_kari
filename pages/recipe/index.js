@@ -324,7 +324,7 @@ useEffect(() => {
                   <SwiperSlide key={recipe.id}>
                     <div className='slideItemRecipe'>
                       <div className='imageRecipe'>
-                        <img src={`https://ops.housejapanesecurry.com/storage/${recipe.image}`} alt={recipe.title} />
+                        <img src={recipe.image_png} alt={recipe.title} />
                       </div>
                       <div className='contentRecipe'>
                         <h1 dangerouslySetInnerHTML={{ __html: stripH1Tags(getProductName(recipe)) }}></h1>
@@ -356,7 +356,7 @@ useEffect(() => {
                     <div className="slideItemRecipe" key={index}>
                         <div className="recipeItem">
                           <div className="imageRecipe">
-                            <img src={`https://ops.housejapanesecurry.com/storage/${recipe.image}`} alt={recipe.name} />
+                            <img src={recipe.image_png} alt={recipe.name} />
                           </div>
                           <div className="contentRecipe">
                             <h1 dangerouslySetInnerHTML={{ __html: stripH1Tags(getProductName(recipe)) }}></h1>

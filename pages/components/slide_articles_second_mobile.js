@@ -29,11 +29,7 @@ const formatDate = (dateString) => {
   };
 
 // Handles both CMS full URLs and legacy storage paths from the old API.
-const resolveImageSrc = (image) => {
-  if (!image) return '/images/article_banner.png';
-  if (image.startsWith('http')) return image;
-  return `https://ops.housejapanesecurry.com/storage/${image}`;
-};
+const resolveImageSrc = (image) => image || '/images/article_banner.png';
 
 export default function SlideArticlesSecondMobile({ items = [], classNames, paginationClass }) {
   const { t, i18n } = useTranslation('common');

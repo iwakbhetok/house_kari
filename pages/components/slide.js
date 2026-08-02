@@ -62,15 +62,12 @@ const Slide = ({
         {banners.map((banner, index) => (
           <div key={index} className={styles.slideItem}>
             <div className={styles.bannerWrapper}>
-              <Image
-                src={`https://ops.housejapanesecurry.com/storage/${banner.image}`}
+              <img
+                src={banner.image}
                 alt={banner.type || "Homepage Banner"}
-                fill
-                priority={index === 0}
-                fetchPriority={index === 0 ? "high" : "auto"}
-                sizes="100vw"
-                quality={75}
-                style={{ objectFit: "cover" }}
+                fetchpriority={index === 0 ? "high" : "auto"}
+                loading={index === 0 ? "eager" : "lazy"}
+                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
               />
             </div>
           </div>

@@ -30,7 +30,7 @@ export default function Event() {
   const [recentArticles, setRecentArticles] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const articleId = 'event';
+  const articleId = 'acara';
 
   useEffect(() => {
     const fetchArticlesSlide = async () => {
@@ -349,7 +349,7 @@ const stripPTags = (html) => {
               className={`${styles.dropdownMenuItem} ${selectedMenu === menu.categoryId ? styles.active : ''}`}
               onClick={() => handleSelectMenu(menu)}
             >
-              <Link href={`/article/${menu.categoryLink}`} legacyBehavior><a>{menu.categoryName}</a></Link>
+              <Link href={menu.categoryLink === '/' ? '/article' : `/article/${menu.categoryLink}`} legacyBehavior><a>{menu.categoryName}</a></Link>
             </div>
           ))}
       </div>

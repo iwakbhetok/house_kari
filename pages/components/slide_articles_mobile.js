@@ -22,11 +22,7 @@ export async function getStaticProps({ locale }) {
   };
 }
 
-const resolveImageSrc = (image) => {
-  if (!image) return '/images/article_banner.png';
-  if (image.startsWith('http')) return image;
-  return `https://ops.housejapanesecurry.com/storage/${image}`;
-};
+const resolveImageSrc = (image) => image || '/images/article_banner.png';
 
 export default function SlideArticlesMobile({ items = [], classNames, paginationClass }) {
   const { t, i18n } = useTranslation('common');

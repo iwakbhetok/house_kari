@@ -30,7 +30,7 @@ export default function TipsTricks() {
   const [recentArticles, setRecentArticles] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const articleId = 'tips-trick';
+  const articleId = 'tips-trik';
 
   useEffect(() => {
     const fetchArticlesSlide = async () => {
@@ -363,7 +363,7 @@ export default function TipsTricks() {
               className={`${styles.dropdownMenuItem} ${selectedMenu === menu.categoryId ? styles.active : ''}`}
               onClick={() => handleSelectMenu(menu)}
             >
-              <Link href={`/article/${menu.categoryLink}`} legacyBehavior><a>{menu.categoryName}</a></Link>
+              <Link href={menu.categoryLink === '/' ? '/article' : `/article/${menu.categoryLink}`} legacyBehavior><a>{menu.categoryName}</a></Link>
             </div>
           ))}
       </div>

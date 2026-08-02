@@ -11,6 +11,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import SlideArticlesSecond from '../components/slide_articles_second';
 import SlideArticlesSecondMobile from '../components/slide_articles_second_mobile';
+import legacyRecipeMap from '@/lib/legacyRecipeMap.json';
 
 const getApiBaseUrl = (context) => {
   if (context?.req) {
@@ -23,6 +24,23 @@ const getApiBaseUrl = (context) => {
 
 export async function getServerSideProps(context) {
   const { slug } = context.params;
+
+  // Legacy URLs used the old site's numeric recipe id (e.g. /recipe/25).
+  // Those are still indexed by Google, so 301 them to the canonical slug URL.
+  // The old numeric ids don't correspond to anything in the new CMS (which has
+  // its own unrelated sequential ids), so this has to go through a static
+  // id->slug table built from the legacy database export rather than a live
+  // lookup by id.
+  if (/^\d+$/.test(slug)) {
+    const localePrefix = context.locale && context.locale !== 'en' ? `/${context.locale}` : '';
+    const mappedSlug = legacyRecipeMap[slug];
+    return {
+      redirect: {
+        destination: mappedSlug ? `${localePrefix}/recipe/${mappedSlug}` : `${localePrefix}/`,
+        permanent: mappedSlug ? true : false,
+      },
+    };
+  }
 
   try {
     const apiBase = getApiBaseUrl(context);

@@ -1,18 +1,15 @@
-// File: pages/api/career-categories.js
-
 import axios from 'axios';
+import { CMS_URL, normalizeCareerCategory } from '@/lib/cmsCareer';
 
 export default async function handler(req, res) {
   try {
-    const response = await axios.get(process.env.API_URL + '/apiv2/career-categories', {
-      headers: {
-        'api_key': process.env.API_KEY // Ganti dengan API key Anda
-      }
+    const response = await axios.get(`${CMS_URL}/api/career-categories`, {
+      params: { locale: 'all', depth: 0, limit: 100 },
     });
-    const careersCategories = response.data;
-    res.status(200).json(careersCategories);
+    const docs = response.data?.docs || [];
+    res.status(200).json({ data: docs.map((doc) => normalizeCareerCategory(doc)) });
   } catch (error) {
-    console.error('Error fetching careersCategories:', error);
+    console.error('Error fetching career categories:', error.message);
     res.status(500).json({ error: 'Internal server error' });
   }
 }

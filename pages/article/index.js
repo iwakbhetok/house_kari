@@ -38,7 +38,7 @@ export default function Article() {
   useEffect(() => {
     const fetchArticlesSlide = async () => {
       try {
-        const response = await axios.get(`/api/list-article-category/${articleId}`);
+        const response = await axios.get(`/api/list-article`);
         const articles = response.data.data;
   
         // Mengurutkan artikel berdasarkan tanggal terbaru
@@ -349,7 +349,7 @@ const formatDate = (dateString) => {
               className={`${styles.dropdownMenuItem} ${selectedMenu === menu.categoryId ? styles.active : ''}`}
               onClick={() => handleSelectMenu(menu)}
             >
-              <Link href={`/article/${menu.categoryLink}`} legacyBehavior><a>{menu.categoryName}</a></Link>
+              <Link href={menu.categoryLink === '/' ? '/article' : `/article/${menu.categoryLink}`} legacyBehavior><a>{menu.categoryName}</a></Link>
             </div>
           ))}
       </div>
