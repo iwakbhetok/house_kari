@@ -41,7 +41,6 @@ export async function getServerSideProps(context) {
       }
       const product = await response.json();
   
-      console.log('Product Detail API Response:', product); // Log the API response
   
       return {
         props: {
@@ -94,7 +93,6 @@ useEffect(() => {
       const shuffledArticles = shuffleArray(articles);
       const limitedArticles = shuffledArticles.slice(0, 7); // Membatasi hingga 7 artikel
       setRecipeList(limitedArticles);
-      console.log('Fetched and shuffled product:', limitedArticles);
     } catch (error) {
       console.error('Error fetching product:', error);
     }
@@ -108,7 +106,6 @@ useEffect(() => {
       try {
         const response = await axios.get('/api/article-categories/');
         setDetail(response.data.data);
-        console.log('Fetched categories:', response.data.data);
       } catch (error) {
         console.error('Error fetching categories:', error);
         setError(error.message);
@@ -137,7 +134,6 @@ useEffect(() => {
   
           setArticles(sortedArticles);
           setLoading(false);
-          console.log('Fetched and filtered articles:', sortedArticles);
         } catch (error) {
           console.error('Error fetching articles:', error);
           setLoading(false);
@@ -160,7 +156,6 @@ useEffect(() => {
           const response = await axios.get(`${baseUrl}/${id}`);
           setArticlesSlide(response.data.data); // Perhatikan pengaturan data detail di sini
           setLoading(false);
-          console.log('Fetched product:', response.data.data);
         } catch (error) {
           console.error('Error fetching product:', error);
           setLoading(false);
@@ -261,13 +256,13 @@ useEffect(() => {
               {articles.map((article) => (
                 <div key={article.id} className={styles.blog_recent_box}>
                   <div className={styles.blog_recent_image}>
-                    <img src={`https://ops.housejapanesecurry.com/storage/${article.image}`} alt={article.title} />
+                    <img src={article.image || '/images/article_banner.png'} alt={article.title} />
                   </div>
                   <div className={styles.blog_recent_content}>
                     <span>{t('posted')} {formatDate(article.date)}</span>
                     <h1>{stripPTags(getProductName(article))}</h1>
                     <p>{stripPTags(getProductText(article))}</p>
-                    <Link href={`/article-detail/${article.id}`}><button>{t('section1Home.learnMore')}</button></Link>
+                    <Link href={`/article-detail/${article.slug || article.id}`}><button>{t('section1Home.learnMore')}</button></Link>
                   </div>
                 </div>
               ))}

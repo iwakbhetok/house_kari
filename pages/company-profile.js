@@ -51,7 +51,6 @@ export default function CompanyProfile() {
         const categories = response.data.data;
         const categoryNames = ['All', ...categories.map(category => category.name_en)];
         setMenuItems(categoryNames);
-        console.log(response);
       } catch (error) {
         console.error('Error fetching categories:', error);
       }

@@ -11,38 +11,49 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import SlideArticlesSecond from '../components/slide_articles_second';
 import SlideArticlesSecondMobile from '../components/slide_articles_second_mobile';
+import legacyRecipeMap from '@/lib/legacyRecipeMap.json';
 
-// const API_RECIPE_DETAIL_URL = process.env.NEXT_PUBLIC_API_RECIPE_DETAIL_URL || '/api/recipe-detail';
-/* ---------- FIX: Safe API base resolver ---------- */
 const getApiBaseUrl = (context) => {
-  if (process.env.NEXT_PUBLIC_API_RECIPE_DETAIL_URL) {
-    return process.env.NEXT_PUBLIC_API_RECIPE_DETAIL_URL;
-  }
-
   if (context?.req) {
-    const protocol =
-      context.req.headers["x-forwarded-proto"] || "http";
+    const protocol = context.req.headers['x-forwarded-proto'] || 'http';
     const host = context.req.headers.host;
     return `${protocol}://${host}/api/recipe-detail`;
   }
-
-  return "/api/recipe-detail"; // client fallback
+  return '/api/recipe-detail';
 };
 
 export async function getServerSideProps(context) {
-  const { id } = context.params;
+  const { slug } = context.params;
+
+  // Legacy URLs used the old site's numeric recipe id (e.g. /recipe/25).
+  // Those are still indexed by Google, so 301 them to the canonical slug URL.
+  // The old numeric ids don't correspond to anything in the new CMS (which has
+  // its own unrelated sequential ids), so this has to go through a static
+  // id->slug table built from the legacy database export rather than a live
+  // lookup by id.
+  if (/^\d+$/.test(slug)) {
+    const localePrefix = context.locale && context.locale !== 'en' ? `/${context.locale}` : '';
+    const mappedSlug = legacyRecipeMap[slug];
+    return {
+      redirect: {
+        destination: mappedSlug ? `${localePrefix}/recipe/${mappedSlug}` : `${localePrefix}/`,
+        permanent: mappedSlug ? true : false,
+      },
+    };
+  }
 
   try {
-    // const response = await fetch(`${API_RECIPE_DETAIL_URL}/${id}`); 
     const apiBase = getApiBaseUrl(context);
-    const response = await fetch(`${apiBase}/${id}`);
+    const response = await fetch(`${apiBase}/${slug}`);
+
+    if (response.status === 404) {
+      return { notFound: true };
+    }
 
     if (!response.ok) {
-      throw new Error('Failed to fetch product detail');
+      throw new Error('Failed to fetch recipe detail');
     }
     const recipe = await response.json();
-
-    console.log('Product Detail API Response:', recipe); // Log the API response
 
     return {
       props: {
@@ -51,20 +62,15 @@ export async function getServerSideProps(context) {
       },
     };
   } catch (error) {
-    console.error('Fetch product error:', error);
-    return {
-      props: {
-        ...(await serverSideTranslations(context.locale, ['common'])),
-        recipe: null,
-      },
-    };
+    console.error('Fetch recipe error:', error);
+    return { notFound: true };
   }
 }
 
 const RecipeDetail = () => {
     const { t, i18n } = useTranslation('common');
     const router = useRouter();
-    const { id } = router.query;
+    const { slug } = router.query;
     const [loading, setLoading] = useState(true);
     const [isActive, setIsActive] = useState(false);
     const [detail, setDetail] = useState(null);
@@ -90,7 +96,6 @@ const RecipeDetail = () => {
           const shuffledArticles = shuffleArray(articles);
           const limitedArticles = shuffledArticles.slice(0, 7); // Membatasi hingga 7 artikel
           setArticlesSlide(limitedArticles);
-          console.log('Fetched and shuffled product:', limitedArticles);
         } catch (error) {
           console.error('Error fetching product:', error);
         }
@@ -125,27 +130,25 @@ const RecipeDetail = () => {
 
     useEffect(() => {
       const fetchProduct = async () => {
-        if (id) {
+        if (slug) {
           try {
-            // const response = await axios.get(`${API_RECIPE_DETAIL_URL}/${id}`);
-            const baseUrl = process.env.NEXT_PUBLIC_API_RECIPE_DETAIL_URL
-                            ? process.env.NEXT_PUBLIC_API_RECIPE_DETAIL_URL
-                            : `/api/recipe-detail`;
-
-            const response = await axios.get(`${baseUrl}/${id}`);
+            const response = await axios.get(`/api/recipe-detail/${slug}`);
 
             setDetail(response.data.data); // Perhatikan pengaturan data detail di sini
             setLoading(false);
-            console.log('Fetched product:', response.data.data);
           } catch (error) {
-            console.error('Error fetching product:', error);
-            setLoading(false);
+            if (error.response?.status === 404) {
+              router.replace('/404');
+            } else {
+              console.error('Error fetching recipe:', error);
+              setLoading(false);
+            }
           }
         }
       };
     
       fetchProduct();
-    }, [id]);
+    }, [slug]);
 
     const togglePopup = () => {
         setIsActive(!isActive); 
@@ -263,7 +266,6 @@ const RecipeDetail = () => {
       const videoId = detail.link_youtube ? getYouTubeVideoId(detail.link_youtube) : null;
 
       const embedUrl = videoId ? `https://www.youtube.com/embed/${videoId}` : '';
-      console.log('link yt',videoId)
 
       const imageClass = detail.link_youtube ? styles.hidden_image : styles.section4_image;
 
@@ -290,7 +292,11 @@ const RecipeDetail = () => {
             <div className={styles.section4_layout}>
                   <div className={styles.section4_image_layout}>
                     <div className={imageClass}>
-                        <img src={`https://ops.housejapanesecurry.com/storage/${detail.image}`} alt={detail.name} />
+                        <img
+                          src={detail.image || '/images/recipe_banner.png'}
+                          alt={detail.title}
+                          onError={(e) => { e.target.onerror = null; e.target.src = '/images/recipe_banner.png'; }}
+                        />
                         <div className={styles.section4_overlay}></div>
                     </div>
                     <div className={section4VideoClass}>
@@ -359,20 +365,15 @@ const RecipeDetail = () => {
         </div>
         <div className={`${styles.popup} ${isActive ? styles.active : ''}`}>
             <div className={styles.popupContent}>
-                {detail.coockbook_en || detail.coockbook_chi || detail.coockbook ? (
+                {detail.coockbook_en || detail.coockbook ? (
                     <>
                         {detail.coockbook_en && (
-                            <Link href={`https://ops.housejapanesecurry.com/storage/${detail.coockbook_en}`} target='_blank'>
+                            <Link href={detail.coockbook_en} target='_blank'>
                                 <button>Western Cookbook</button>
                             </Link>
                         )}
-                        {/* {detail.coockbook_chi && (
-                            <Link href={`https://ops.housejapanesecurry.com/storage/${detail.coockbook_chi}`} target='_blank'>
-                                <button>Chinese Cookbook</button>
-                            </Link>
-                        )} */}
                         {detail.coockbook && (
-                            <Link href={`https://ops.housejapanesecurry.com/storage/${detail.coockbook}`} target='_blank'>
+                            <Link href={detail.coockbook} target='_blank'>
                                 <button>Indonesian Cookbook</button>
                             </Link>
                         )}

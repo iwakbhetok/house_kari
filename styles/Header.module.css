@@ -175,6 +175,11 @@
 
 }
 
+.nav ul li:last-child ul {
+    left: auto;
+    right: 0;
+}
+
 .nav ul li ul li {
     width: max-content;
     font-size: 1.1vw;

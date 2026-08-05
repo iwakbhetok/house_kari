@@ -12,11 +12,19 @@ module.exports = {
 
   images: {
     remotePatterns: [
+      // Payload CMS media — dev
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '3000',
+        pathname: '/api/media/file/**',
+      },
+      // Payload CMS media — production (update hostname when deploying)
       {
         protocol: 'https',
-        hostname: 'ops.housejapanesecurry.com',
+        hostname: 'cms.housejapanesecurry.co.id',
         port: '',
-        pathname: '/storage/**',
+        pathname: '/api/media/file/**',
       },
     ],
   },

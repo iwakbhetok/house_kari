@@ -53,7 +53,7 @@ export async function getServerSideProps({ res }) {
   ])
 
   const articlePaths = articles.map(i => `/article/${i.id}`)
-  const articleDetailPaths = articles.map(i => `/article-detail/${i.id}`)
+  const articleDetailPaths = articles.map(i => `/article-detail/${i.slug || i.id}`)
   const productPaths = products.map(i => `/product/${i.id}`)
   const recipePaths = recipes.map(i => `/recipe/${i.id}`)
 

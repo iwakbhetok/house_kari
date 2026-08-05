@@ -87,7 +87,6 @@ export default function Recipe() {
   
         const shuffledArticles = shuffleArray(articles);
         setArticlesSlide(shuffledArticles);
-        console.log('Fetched and shuffled product:', shuffledArticles);
       } catch (error) {
         console.error('Error fetching product:', error);
       }
@@ -325,12 +324,12 @@ useEffect(() => {
                   <SwiperSlide key={recipe.id}>
                     <div className='slideItemRecipe'>
                       <div className='imageRecipe'>
-                        <img src={`https://ops.housejapanesecurry.com/storage/${recipe.image}`} alt={recipe.title} />
+                        <img src={recipe.image_png} alt={recipe.title} />
                       </div>
                       <div className='contentRecipe'>
                         <h1 dangerouslySetInnerHTML={{ __html: stripH1Tags(getProductName(recipe)) }}></h1>
                         <p dangerouslySetInnerHTML={{ __html: getDescriptionName(recipe) }}></p>
-                        <Link href={`/recipe/[id]`} as={`/recipe/${recipe.id}`}><button>{t('section1Home.learnMore')}</button></Link>
+                        <Link href={`/recipe/[slug]`} as={`/recipe/${recipe.slug || recipe.id}`}><button>{t('section1Home.learnMore')}</button></Link>
                       </div>
                     </div>
                   </SwiperSlide>
@@ -357,12 +356,12 @@ useEffect(() => {
                     <div className="slideItemRecipe" key={index}>
                         <div className="recipeItem">
                           <div className="imageRecipe">
-                            <img src={`https://ops.housejapanesecurry.com/storage/${recipe.image}`} alt={recipe.name} />
+                            <img src={recipe.image_png} alt={recipe.name} />
                           </div>
                           <div className="contentRecipe">
                             <h1 dangerouslySetInnerHTML={{ __html: stripH1Tags(getProductName(recipe)) }}></h1>
                             <p dangerouslySetInnerHTML={{ __html: getDescriptionName(recipe) }}></p>
-                            <Link href={`/recipe/[id]`} as={`/recipe/${recipe.id}`}><button>{t('section1Home.learnMore')}</button></Link>
+                            <Link href={`/recipe/[slug]`} as={`/recipe/${recipe.slug || recipe.id}`}><button>{t('section1Home.learnMore')}</button></Link>
                           </div>
                         </div>
                     </div>

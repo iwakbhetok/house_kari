@@ -8,39 +8,38 @@ import axios from 'axios';
 import styles from '@/styles/Article.module.css';
 import SlideArticlesSecond from "../components/slide_articles_second";
 import SlideArticlesSecondMobile from "../components/slide_articles_second_mobile";
-
-// const API_RECIPE_DETAIL_URL = process.env.NEXT_PUBLIC_API_ARTICLE_DETAIL_PAGE_URL || '/api/article-detail';
-/* ---------- FIX: Safe API base resolver ---------- */
-const getApiBaseUrl = (context) => {
-  if (process.env.NEXT_PUBLIC_API_ARTICLE_DETAIL_PAGE_URL) {
-    return process.env.NEXT_PUBLIC_API_ARTICLE_DETAIL_PAGE_URL;
-  }
-
-  if (context?.req) {
-    const protocol =
-      context.req.headers["x-forwarded-proto"] || "http";
-    const host = context.req.headers.host;
-    return `${protocol}://${host}/api/article-detail`;
-  }
-
-  return "/api/article-detail"; // client fallback
-};
+import legacyArticleMap from '@/lib/legacyArticleMap.json';
 
 export async function getServerSideProps(context) {
     const { id } = context.params;
-  
+
+    // Legacy URLs used the old site's numeric article id (e.g. /article-detail/180).
+    // Those are still indexed by Google, so 301 them to the canonical slug URL.
+    // The old numeric ids don't correspond to anything in the new CMS (which has
+    // its own unrelated sequential ids), so this has to go through a static
+    // id->slug table built from the legacy database export rather than a live
+    // lookup by id.
+    if (/^\d+$/.test(id)) {
+      const localePrefix = context.locale && context.locale !== 'en' ? `/${context.locale}` : '';
+      const slug = legacyArticleMap[id];
+      return {
+        redirect: {
+          destination: slug ? `${localePrefix}/article-detail/${slug}` : `${localePrefix}/`,
+          permanent: slug ? true : false,
+        },
+      };
+    }
+
     try {
-    //   const response = await fetch(`${API_RECIPE_DETAIL_URL}/${id}`);
-    const apiBase = getApiBaseUrl(context);
-    const response = await fetch(`${apiBase}/${id}`);
+    const protocol = context.req.headers["x-forwarded-proto"] || "http";
+    const host = context.req.headers.host;
+    const response = await fetch(`${protocol}://${host}/api/article-detail/${id}`);
 
       if (!response.ok) {
         throw new Error('Failed to fetch product detail');
       }
       const recipe = await response.json();
-  
-      console.log('Product Detail API Response:', recipe); // Log the API response
-  
+
       return {
         props: {
           ...(await serverSideTranslations(context.locale, ['common'])),
@@ -71,20 +70,12 @@ export default function ArticleDetail({ recipe }) {
           try {
             const response = await axios.get(`/api/list-article-new/`);
             const articles = response.data.data;
-            
-            // Fungsi untuk mengacak urutan array
-            const shuffleArray = (array) => {
-              for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-              }
-              return array;
-            };
-      
-            const shuffledArticles = shuffleArray(articles);
-            const limitedArticles = shuffledArticles.slice(0, 7); // Membatasi hingga 7 artikel
+
+            const sortedArticles = [...articles].sort(
+              (a, b) => new Date(b.date) - new Date(a.date)
+            );
+            const limitedArticles = sortedArticles.slice(0, 7); // Membatasi hingga 7 artikel
             setArticlesSlide(limitedArticles);
-            console.log('Fetched and shuffled product:', limitedArticles);
           } catch (error) {
             console.error('Error fetching product:', error);
           }
@@ -97,15 +88,9 @@ export default function ArticleDetail({ recipe }) {
         const fetchArticle = async () => {
             if (!recipe && id) {
                 try {
-                    // const response = await axios.get(`${API_RECIPE_DETAIL_URL}/${id}`);
-                    const baseUrl = process.env.NEXT_PUBLIC_API_ARTICLE_DETAIL_PAGE_URL
-                            ? process.env.NEXT_PUBLIC_API_ARTICLE_DETAIL_PAGE_URL
-                            : `/api/article-detail`;
-
-                    const response = await axios.get(`${baseUrl}/${id}`);
+                    const response = await axios.get(`/api/article-detail/${id}`);
                     setDetail(response.data.data);
                     setLoading(false);
-                    console.log('Fetched product:', response.data.data);
                 } catch (error) {
                     console.error('Error fetching product:', error);
                     setLoading(false);
@@ -180,14 +165,6 @@ export default function ArticleDetail({ recipe }) {
         return formattedDate.replace(/\b(\w)/g, char => char.toUpperCase());
     };
 
-    const modifyImageURLs = (html) => {
-        const imgRegex = /<img\s+([^>]*src=['"]([^'"]+)['"][^>]*)>/gi;
-        return html.replace(imgRegex, (match, p1, p2) => {
-            const newSrc = `https://ops.housejapanesecurry.com/storage/${p2}`;
-            return match.replace(p2, newSrc);
-        });
-    };
-
     const pageTitle = detail ? `House Kari | ${stripH1Tags(getProductName(detail), 'h1')}` : 'House Kari';
 
     const formattedMeta = `POSTED BY : ${detail.penulis} / ON : ${formatDate(detail.date)} / IN : ${getProductCategory(detail)}`;
@@ -202,7 +179,7 @@ export default function ArticleDetail({ recipe }) {
         }
       };
 
-    const modifiedContent = modifyImageURLs(getProductDesc(detail));
+    const modifiedContent = getProductDesc(detail);
 
     return (
         <>
@@ -219,7 +196,7 @@ export default function ArticleDetail({ recipe }) {
             <div className={styles.sectionDetail}>
                 <img src="/images/article_detail_icon_2.png" alt="House Kari" className={styles.article_detail_icon_2} />
                 <div className={styles.sectionDetail_image}>
-                    <img src={`https://ops.housejapanesecurry.com/storage/${detail.image}`} alt={detail.name} />
+                    <img src={detail.image || '/images/article_banner.png'} alt={detail.title} />
                 </div>
                 <h1>{stripH1Tags(getProductName(detail), 'h1')}</h1>
                 <h5 className={styles.articleDate}>{t('postedBy')} {detail.penulis} / {t('on')} {formatDate(detail.date)} / {t('in')} {(getProductCategory(detail))}</h5>

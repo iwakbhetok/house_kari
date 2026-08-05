@@ -1,18 +1,20 @@
-// File: pages/api/banner.js
-
 import axios from 'axios';
+
+const CMS_URL = process.env.NEXT_PUBLIC_CMS_URL || 'http://localhost:3001';
 
 export default async function handler(req, res) {
   try {
-    const response = await axios.get(process.env.API_URL + '/apiv2/address', {
-      headers: {
-        'api_key': process.env.API_KEY // Ganti dengan API key Anda
-      }
+    const response = await axios.get(`${CMS_URL}/api/globals/site-settings`, {
+      params: { depth: 0, locale: 'id' },
     });
-    const address = response.data;
-    res.status(200).json(address);
+    const data = response.data;
+    res.status(200).json({
+      data: {
+        address: data.address || null,
+      },
+    });
   } catch (error) {
-    console.error('Error fetching address:', error);
+    console.error('Error fetching address:', error.message);
     res.status(500).json({ error: 'Internal server error' });
   }
 }

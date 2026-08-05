@@ -1,0 +1,1039 @@
+/* ═══════════════════════════════════════════════════
+   RFQ PAGE — House of Japanese Curry
+   Design: Montserrat · #651318→#B4000B gradient · Cream inputs
+   ═══════════════════════════════════════════════════ */
+
+/* ── Wrapper ─────────────────────────────────────── */
+.wrapper {
+  background: #f8f5ef;
+  min-height: 100vh;
+}
+
+/* ── Hero ────────────────────────────────────────── */
+.hero {
+  position: relative;
+  height: 340px;
+  overflow: hidden;
+}
+.hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    rgba(101, 19, 24, 0.88) 0%,
+    rgba(180, 0, 11, 0.5) 60%,
+    transparent 100%
+  );
+}
+.heroText {
+  position: absolute;
+  bottom: 44px;
+  left: 8vw;
+  color: white;
+}
+.heroEyebrow {
+  font-size: 0.90vw;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #FCF1D2;
+  margin-bottom: 8px;
+}
+.heroText h1 {
+  font-size: 3.2vw;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 10px;
+}
+.heroSub {
+  font-size: 1.08vw;
+  font-weight: 300;
+  opacity: 0.85;
+  max-width: 420px;
+}
+
+/* ── Steps Bar ───────────────────────────────────── */
+.stepsBar {
+  background: white;
+  border-bottom: 1px solid #ede8de;
+  padding: 20px 8vw;
+}
+.stepsInner {
+  display: flex;
+  align-items: flex-start;
+  max-width: 540px;
+  margin: 0 auto;
+}
+.stepItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  position: relative;
+}
+.stepCircle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #e0d8cc;
+  color: #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 700;
+  transition: background 0.3s, color 0.3s;
+  z-index: 1;
+}
+.stepActive {
+  background: linear-gradient(135deg, #651318, #B4000B);
+  color: white;
+  box-shadow: 0 4px 12px rgba(101, 19, 24, 0.35);
+}
+.stepDone {
+  background: linear-gradient(135deg, #651318, #B4000B);
+  color: white;
+}
+.stepLabel {
+  font-size: 13px;
+  font-weight: 500;
+  color: #bbb;
+  margin-top: 7px;
+  white-space: nowrap;
+  text-align: center;
+}
+.stepLabelActive {
+  color: #651318;
+  font-weight: 700;
+}
+/* Connector line between steps */
+.stepConnector {
+  position: absolute;
+  top: 18px;
+  left: calc(50% + 18px);
+  right: calc(-50% + 18px);
+  height: 2px;
+  background: #e0d8cc;
+  transition: background 0.3s;
+}
+.stepConnectorDone {
+  background: linear-gradient(90deg, #651318, #B4000B);
+}
+
+/* ── Content Area ────────────────────────────────── */
+.content {
+  padding: 44px 8vw 80px;
+  background: #f8f5ef;
+}
+.contentInner {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+/* ── Section Header ──────────────────────────────── */
+.sectionHeader {
+  margin-bottom: 24px;
+}
+.sectionHeader h2 {
+  font-size: 1.85vw;
+  font-weight: 800;
+  color: #2D1F03;
+}
+.sectionHeader p {
+  font-size: 1.05vw;
+  color: #888;
+  margin-top: 5px;
+}
+
+/* ── Form Card (red gradient panel) ─────────────── */
+.formCard {
+  background: linear-gradient(135deg, #651318 0%, #B4000B 100%);
+  border-radius: 16px;
+  padding: 2.8vw 3.2vw;
+  box-shadow: 0 16px 48px rgba(101, 19, 24, 0.22);
+}
+
+/* ── Form Grid ───────────────────────────────────── */
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.2vw;
+}
+
+/* ── Field ───────────────────────────────────────── */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.fieldLabel {
+  font-size: 0.95vw;
+  color: rgba(255, 255, 255, 0.8);
+  font-style: italic;
+  font-weight: 400;
+}
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  font-size: 1.05vw;
+  font-style: italic;
+  font-family: "Montserrat", sans-serif;
+  padding: 0.68vw 0.9vw;
+  border-radius: 6px;
+  outline: none;
+  background-color: #FFFCF4;
+  border: 1px solid rgba(94, 94, 94, 0.5);
+  color: #2D1F03;
+  transition: border-color 0.2s;
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: #651318;
+  box-shadow: 0 0 0 3px rgba(101, 19, 24, 0.12);
+}
+.field textarea {
+  resize: none;
+}
+.fieldError {
+  font-size: 13px;
+  color: #ffc8c8;
+  font-style: italic;
+}
+
+/* ── Phone Row ───────────────────────────────────── */
+.phoneRow {
+  display: flex;
+  gap: 8px;
+}
+.phoneCodeSelect {
+  position: relative;
+  flex: 0 0 38%;
+  max-width: 38%;
+  min-width: 0;
+  font-size: 1.05vw;
+  font-style: italic;
+  font-family: "Montserrat", sans-serif;
+  padding: 0.68vw 0.9vw;
+  border-radius: 6px;
+  outline: none;
+  background-color: #FFFCF4;
+  border: 1px solid rgba(94, 94, 94, 0.5);
+  color: #2D1F03;
+  transition: border-color 0.2s;
+  cursor: pointer;
+  overflow: visible;
+  user-select: none;
+  display: flex;
+  align-items: center;
+}
+.phoneCodeSelect:focus {
+  border-color: #651318;
+  box-shadow: 0 0 0 3px rgba(101, 19, 24, 0.12);
+}
+.phoneCodeDropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 100;
+  background: #FFFCF4;
+  border: 1px solid rgba(94, 94, 94, 0.5);
+  border-radius: 6px;
+  max-height: 220px;
+  overflow-y: auto;
+  list-style: none;
+  margin: 0;
+  padding: 4px 0;
+  min-width: 180px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.phoneCodeOption {
+  padding: 8px 12px;
+  font-size: 1.05vw;
+  font-family: "Montserrat", sans-serif;
+  color: #2D1F03;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.phoneCodeOption:hover {
+  background: rgba(101, 19, 24, 0.08);
+}
+.phoneCodeOptionActive {
+  color: #651318;
+  font-weight: 600;
+}
+.phoneInput {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+/* ── Checkbox Row ────────────────────────────────── */
+.checkboxRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 18px;
+  cursor: pointer;
+}
+.checkboxRow input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  accent-color: #FCF1D2;
+  flex-shrink: 0;
+}
+.checkboxRow span {
+  font-size: 1.00vw;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 300;
+  line-height: 1.5;
+}
+.checkLink {
+  color: #FCF1D2;
+  text-decoration: underline;
+}
+
+/* ── Buttons ─────────────────────────────────────── */
+.btnRow {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 2vw;
+}
+.btnPrimary {
+  background: white;
+  color: #651318;
+  font-weight: 700;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 100px;
+  cursor: pointer;
+  font-size: 1.08vw;
+  font-family: "Montserrat", sans-serif;
+  transition: all 0.2s;
+}
+.btnPrimary:hover {
+  background: #FCF1D2;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+.btnPrimary:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+.btnSecondary {
+  background: transparent;
+  color: white;
+  font-weight: 600;
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
+  padding: 12px 24px;
+  border-radius: 100px;
+  cursor: pointer;
+  font-size: 1.08vw;
+  font-family: "Montserrat", sans-serif;
+  transition: all 0.2s;
+}
+.btnSecondary:hover {
+  border-color: white;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ══════════════════════════════════════════════════
+   STEP 2 — PRODUCTS
+   ══════════════════════════════════════════════════ */
+
+.selectorGrid {
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  gap: 1.2vw;
+  margin-bottom: 14px;
+}
+
+/* Stepper */
+.stepper {
+  display: flex;
+  align-items: center;
+  background: #FFFCF4;
+  border: 1px solid rgba(94, 94, 94, 0.5);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.stepperBtn {
+  background: none;
+  border: none;
+  width: 38px;
+  flex-shrink: 0;
+  font-size: 1.1em;
+  font-weight: 700;
+  color: #651318;
+  cursor: pointer;
+  padding: 0.6vw 0;
+  transition: background 0.15s;
+}
+.stepperBtn:hover {
+  background: #f0ebe0;
+}
+.stepperInput {
+  flex: 1;
+  border: none !important;
+  outline: none;
+  text-align: center;
+  font-size: 1.08vw !important;
+  font-style: normal !important;
+  padding: 0 !important;
+  background: transparent !important;
+  color: #2D1F03;
+  font-family: "Montserrat", sans-serif;
+}
+/* hide number arrows */
+.stepperInput::-webkit-inner-spin-button,
+.stepperInput::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+/* Price pill row */
+.priceRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+.pricePill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 100px;
+  font-size: 0.95vw;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.pillRetail {
+  background: rgba(255, 255, 255, 0.18);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.pillQuote {
+  background: #FCF1D2;
+  color: #651318;
+}
+.pillError {
+  background: rgba(255, 80, 80, 0.2);
+  color: #ffc8c8;
+  border: 1px solid rgba(255, 80, 80, 0.3);
+}
+.noteText {
+  font-size: 0.90vw;
+  color: rgba(255, 255, 255, 0.5);
+  font-style: italic;
+}
+
+/* Product meta info (units/carton, shelf life) */
+.productMeta {
+  font-size: 0.90vw;
+  color: rgba(255, 255, 255, 0.55);
+  font-style: italic;
+  margin-top: 6px;
+}
+
+/* Minimum order bar */
+.minOrderBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  font-size: 1.00vw;
+  color: rgba(255, 255, 255, 0.75);
+}
+.minOrderWarning {
+  color: #ffc8c8;
+  font-style: italic;
+  font-size: 0.95vw;
+}
+.productNoteLabel {
+  font-size: 0.6vw;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #FCF1D2;
+  margin-bottom: 2px;
+  margin-top: 10px;
+}
+
+/* ── Shipment Section ────────────────────────────── */
+.shipmentSection {
+  margin-top: 4px;
+}
+.shipmentTitle {
+  font-size: 0.98vw;
+  color: rgba(255, 255, 255, 0.8);
+  font-style: italic;
+  font-weight: 400;
+  margin-bottom: 12px;
+}
+.shipmentGroups {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.shipmentGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.shipmentGroupLabel {
+  font-size: 0.88vw;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #FCF1D2;
+  margin-bottom: 2px;
+}
+.shipmentOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.shipmentCard {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 14px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+  font-size: 1.00vw;
+  color: rgba(255, 255, 255, 0.7);
+}
+.shipmentCard:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+.shipmentCardActive {
+  background: #FCF1D2;
+  border: 2px solid #FCF1D2;
+  color: #651318;
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(252, 241, 210, 0.25);
+}
+.shipmentCard input[type="radio"] {
+  accent-color: #651318;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+.shipmentNoteLabel {
+  font-size: 0.88vw;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: capitalize;
+  color: #FCF1D2;
+  margin-bottom: 2px;
+  margin-top: 10px;
+}
+
+/* Add button */
+.addBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  color: #651318;
+  font-weight: 700;
+  font-size: 1.05vw;
+  font-family: "Montserrat", sans-serif;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 20px;
+}
+.addBtn:hover {
+  background: #FCF1D2;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+.addBtn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* Divider */
+.divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.15);
+  margin-bottom: 20px;
+}
+
+/* Empty message */
+.emptyMsg {
+  text-align: center;
+  padding: 32px 16px;
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 1.02vw;
+  font-style: italic;
+}
+
+/* Product table */
+.tableWrap {
+  overflow-x: auto;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+.productTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+.productTable th {
+  text-align: left;
+  font-size: 0.88vw;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  padding: 0 12px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  white-space: nowrap;
+}
+.productTable td {
+  padding: 13px 12px;
+  font-size: 1.02vw;
+  color: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  vertical-align: middle;
+}
+.productTable tr:last-child td {
+  border-bottom: none;
+}
+.tdCenter { text-align: center; }
+.tdRight  { text-align: right; }
+.priceCell {
+  color: #FCF1D2;
+  font-weight: 600;
+}
+.tbqCell {
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 0.95vw;
+}
+.removeBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: white;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  margin-left: auto;
+  transition: background 0.2s;
+}
+.removeBtn:hover {
+  background: rgba(255, 60, 60, 0.4);
+}
+
+/* ══════════════════════════════════════════════════
+   STEP 3 — PREVIEW (document style)
+   ══════════════════════════════════════════════════ */
+
+.previewDoc {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 16px 48px rgba(101, 19, 24, 0.14);
+}
+.previewDocHeader {
+  background: linear-gradient(135deg, #651318 0%, #B4000B 100%);
+  padding: 2.4vw 3vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+.previewEyebrow {
+  font-size: 0.85vw;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 6px;
+}
+.previewTitle {
+  font-size: 1.75vw;
+  font-weight: 800;
+  color: white;
+}
+.dateBadge {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 10px;
+  padding: 12px 18px;
+  text-align: right;
+  flex-shrink: 0;
+}
+.dateBadge span {
+  display: block;
+  font-size: 0.82vw;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 4px;
+}
+.dateBadge strong {
+  font-size: 1.12vw;
+  color: white;
+}
+
+/* Gold stripe accent */
+.goldStripe {
+  height: 6px;
+  background: linear-gradient(
+    90deg,
+    #CB811A -7.51%,
+    #FFE620 48.54%,
+    #CB811A 106.88%
+  );
+}
+
+.previewBody {
+  padding: 2.4vw 3vw;
+}
+.previewInfoGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2vw;
+  margin-bottom: 2vw;
+}
+.previewSection {
+  margin-bottom: 1.6vw;
+}
+.previewSectionTitle {
+  font-size: 0.90vw;
+  font-weight: 800;
+  color: #651318;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #f0ebe0;
+}
+.infoRow {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 7px;
+}
+.infoLabel {
+  font-size: 0.95vw;
+  color: #aaa;
+  width: 80px;
+  flex-shrink: 0;
+}
+.infoValue {
+  font-size: 0.95vw;
+  color: #2D1F03;
+  font-weight: 500;
+}
+
+/* Preview table */
+.previewTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+.previewTable th {
+  background: #f8f5ef;
+  text-align: left;
+  font-size: 0.88vw;
+  font-weight: 800;
+  color: #651318;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  padding: 10px 14px;
+}
+.previewTable td {
+  padding: 12px 14px;
+  font-size: 1.02vw;
+  color: #2D1F03;
+  border-bottom: 1px solid #f0ebe0;
+  vertical-align: middle;
+}
+.previewTable tr:last-child td {
+  border-bottom: none;
+}
+
+/* Validity note */
+.validityNote {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: #f8f5ef;
+  border-left: 3px solid #651318;
+  border-radius: 0 8px 8px 0;
+  padding: 14px 18px;
+  margin-top: 1.6vw;
+}
+.validityIcon {
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.validityNote p {
+  font-size: 0.98vw;
+  color: #666;
+  line-height: 1.55;
+}
+.validityNote strong {
+  color: #651318;
+}
+
+/* Preview actions */
+.previewActions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 1.4vw 3vw 2vw;
+  border-top: 1px solid #f0ebe0;
+}
+.btnOutlineDark {
+  background: transparent;
+  color: #651318;
+  font-weight: 600;
+  border: 1.5px solid #651318;
+  padding: 13px 24px;
+  border-radius: 100px;
+  cursor: pointer;
+  font-size: 1.08vw;
+  font-family: "Montserrat", sans-serif;
+  transition: all 0.2s;
+}
+.btnOutlineDark:hover {
+  background: #f8f5ef;
+}
+.btnConfirm {
+  flex: 1;
+  background: linear-gradient(135deg, #651318, #B4000B);
+  color: white;
+  font-weight: 700;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 100px;
+  cursor: pointer;
+  font-size: 1.12vw;
+  font-family: "Montserrat", sans-serif;
+  transition: all 0.2s;
+}
+.btnConfirm:hover {
+  opacity: 0.9;
+  box-shadow: 0 6px 20px rgba(101, 19, 24, 0.3);
+}
+
+/* ══════════════════════════════════════════════════
+   STEP 4 — SUCCESS
+   ══════════════════════════════════════════════════ */
+
+.successCard {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 16px 48px rgba(101, 19, 24, 0.14);
+  text-align: center;
+}
+.successHeader {
+  background: linear-gradient(135deg, #651318 0%, #B4000B 100%);
+  padding: 3vw;
+}
+.checkCircle {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin: 0 auto 18px;
+}
+.successHeader h3 {
+  font-size: 2.00vw;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 8px;
+}
+.successHeader p {
+  font-size: 1.10vw;
+  color: rgba(255, 255, 255, 0.7);
+}
+.successBody {
+  padding: 3vw;
+}
+.quoteNumberBox {
+  display: inline-block;
+  background: #f8f5ef;
+  border: 2px dashed #651318;
+  border-radius: 12px;
+  padding: 18px 36px;
+  margin-bottom: 24px;
+}
+.quoteNumberBox span {
+  display: block;
+  font-size: 0.88vw;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #aaa;
+  margin-bottom: 6px;
+}
+.quoteNumberBox strong {
+  display: block;
+  font-size: 2.25vw;
+  font-weight: 800;
+  color: #651318;
+  letter-spacing: 0.06em;
+}
+.successMsg {
+  font-size: 1.08vw;
+  color: #666;
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+.successMsg strong {
+  color: #2D1F03;
+}
+.successActions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.btnWhatsApp {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #25D366;
+  color: white;
+  font-weight: 700;
+  font-size: 1.12vw;
+  font-family: "Montserrat", sans-serif;
+  border: none;
+  padding: 14px 30px;
+  border-radius: 100px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.btnWhatsApp:hover {
+  background: #1ebe59;
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
+}
+
+/* ══════════════════════════════════════════════════
+   RESPONSIVE — Mobile
+   ══════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* Hero */
+  .hero { height: 220px; }
+  .heroEyebrow { font-size: 2.4vw; }
+  .heroText { left: 5vw; bottom: 28px; }
+  .heroText h1 { font-size: 6.5vw; }
+  .heroSub { font-size: 3.2vw; max-width: 80vw; }
+
+  /* Steps */
+  .stepsBar { padding: 14px 5vw; }
+  .stepCircle { width: 28px; height: 28px; font-size: 11px; }
+  .stepLabel { font-size: 9px; }
+  .stepConnector { top: 14px; }
+
+  /* Content */
+  .content { padding: 28px 4vw 60px; }
+  .sectionHeader h2 { font-size: 5.2vw; }
+  .sectionHeader p { font-size: 3.2vw; }
+
+  /* Form card */
+  .formCard { padding: 6vw 5vw; border-radius: 12px; }
+  .formGrid { grid-template-columns: 1fr; gap: 4vw; }
+  .fieldLabel { font-size: 2.9vw; }
+  .field input, .field select, .field textarea {
+    font-size: 3.5vw;
+    padding: 2.5vw 3.5vw;
+  }
+  .phoneCodeSelect {
+    flex: 0 0 55%;
+    max-width: 55%;
+    font-size: 3.5vw;
+    padding: 2.5vw 3.5vw;
+  }
+  .phoneCodeOption {
+    font-size: 3vw;
+    padding: 2.5vw 3.5vw;
+  }
+  .checkboxRow span { font-size: 2.8vw; }
+  .btnRow { margin-top: 5vw; }
+  .btnPrimary, .btnSecondary { font-size: 3.5vw; padding: 3vw 6vw; }
+
+  /* Step 2 */
+  .selectorGrid { grid-template-columns: 1fr; gap: 4vw; }
+  .stepperBtn { font-size: 1.2em; width: 42px; }
+  .stepperInput { font-size: 4vw !important; }
+  .pricePill { font-size: 2.8vw; }
+  .noteText { font-size: 2.5vw; }
+  .productMeta { font-size: 2.5vw; }
+  .minOrderBar { font-size: 2.8vw; }
+  .minOrderWarning { font-size: 2.6vw; }
+  .shipmentGroups { grid-template-columns: 1fr; gap: 12px; }
+  .shipmentTitle { font-size: 2.9vw; }
+  .shipmentGroupLabel { font-size: 2.4vw; }
+  .shipmentCard { font-size: 3.2vw; padding: 2.5vw 3.5vw; }
+  .addBtn { font-size: 3.5vw; padding: 2.8vw 5vw; }
+  .emptyMsg { font-size: 3.2vw; }
+  .productTable th { font-size: 2.5vw; padding: 0 8px 8px; }
+  .productTable td { font-size: 3vw; padding: 10px 8px; }
+
+  /* Step 3 preview */
+  .previewDocHeader { flex-direction: column; padding: 5vw; gap: 12px; }
+  .previewEyebrow { font-size: 2.4vw; }
+  .previewTitle { font-size: 5vw; }
+  .dateBadge { text-align: left; }
+  .dateBadge span { font-size: 2.2vw; }
+  .dateBadge strong { font-size: 3.5vw; }
+  .previewBody { padding: 5vw; }
+  .previewInfoGrid { grid-template-columns: 1fr; gap: 5vw; }
+  .previewSectionTitle { font-size: 2.6vw; }
+  .infoLabel, .infoValue { font-size: 3vw; }
+  .previewTable th { font-size: 2.4vw; padding: 8px; }
+  .previewTable td { font-size: 3vw; padding: 10px 8px; }
+  .validityNote p { font-size: 2.9vw; }
+  .previewActions {
+    flex-direction: column-reverse;
+    padding: 4vw 5vw 5vw;
+  }
+  .btnOutlineDark, .btnConfirm { font-size: 3.5vw; padding: 3.5vw 6vw; width: 100%; }
+
+  /* Step 4 success */
+  .successHeader { padding: 7vw 5vw; }
+  .checkCircle { width: 56px; height: 56px; }
+  .successHeader h3 { font-size: 5.5vw; }
+  .successHeader p { font-size: 3.2vw; }
+  .successBody { padding: 6vw 5vw; }
+  .quoteNumberBox { padding: 4vw 6vw; }
+  .quoteNumberBox span { font-size: 2.4vw; }
+  .quoteNumberBox strong { font-size: 6vw; }
+  .successMsg { font-size: 3.2vw; }
+  .btnWhatsApp { font-size: 3.5vw; padding: 3.5vw 6vw; }
+  .btnOutlineDark { font-size: 3.5vw; }
+  .successActions { flex-direction: column; align-items: stretch; }
+}

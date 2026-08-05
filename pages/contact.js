@@ -46,7 +46,6 @@ export default function Contact() {
     try {
       const response = await axios.post('/api/postForm', formData);
       setMessage('Form submitted successfully!');
-      console.log(response.data)
     } catch (error) {
       console.error('Error submitting form:', error);
       setMessage('Failed to submit form');
@@ -138,7 +137,7 @@ export default function Contact() {
       <div className={styles.section1}>
         <div className={styles.divider}></div>
         <div className={styles.maps}>
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.378564532631!2d106.814869375868!3d-6.213702560864358!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f40184a6f121%3A0x46d7568ff13f0ab9!2sPT%20HOUSE%20AND%20VOX%20INDONESIA!5e0!3m2!1sen!2sid!4v1719396203076!5m2!1sen!2sid" allowfullscreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.378564532631!2d106.814869375868!3d-6.213702560864358!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f40184a6f121%3A0x46d7568ff13f0ab9!2sPT%20HOUSE%20AND%20VOX%20INDONESIA!5e0!3m2!1sen!2sid!4v1719396203076!5m2!1sen!2sid" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
         </div>
         <div className={styles.section1_layout}>
           <img src="/images/contact_icon.png" alt="House Kari" className={styles.contact_icon}/>

@@ -49,7 +49,6 @@ const Header = () => {
       try {
         const response = await axios.get('/api/music');
         setMusic(response.data.data);
-        console.log('music',response.data)
       } catch (err) {
         console.error('Error fetching music:', err);
       }
@@ -65,7 +64,6 @@ const Header = () => {
         const data = await response.json();
         if (data && data.data && data.data.header) {
           setThemeHeader(data.data.header);
-          console.log('Header image:', data.data.header);
         } else {
           setThemeHeader(null)
           console.error('Invalid response data format:', data);
@@ -396,7 +394,7 @@ const Header = () => {
 
   const backgroundStyle = {
     backgroundImage: themeHeader
-      ? `url(https://ops.housejapanesecurry.com/storage/${themeHeader})`
+      ? `url(${themeHeader})`
       : 'url(/images/nav_bg.png)'
   };
 
@@ -444,7 +442,7 @@ const Header = () => {
         <header className={styles.header}>
           <div className={styles.logo}>
             <Link href='/'>
-              <img src={`https://ops.housejapanesecurry.com/storage/${logo.image}`}  alt="House Kari Logo" />
+              <img src={logo.image || '/images/logo.png'} alt="House Kari Logo" />
             </Link>
           </div>
           <div className={styles.btnMobile}>
@@ -520,10 +518,30 @@ const Header = () => {
                   </ul>
                 </li>
                 <li>
+                  <span
+                    className={`${openDropdown === 'contact' || isActiveMenu(['/contact']) ? styles.activeSpan : ''}`}
+                    onClick={() => toggleDropdown('contact')}
+                  >
+                    {t('menu.contact')} <IoChevronDown />
+                  </span>
+                  <ul className={openDropdown === 'contact' ? styles.show : ''}>
+                    <li>
+                      <Link href="/rfq" className={getLinkClass('/rfq')} onClick={clickMenu}>
+                        Request for Quotation
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/contact" className={getLinkClass('/contact')} onClick={clickMenu}>
+                        {t('menu.contact')}
+                      </Link>
+                    </li>
+                  </ul>
+                </li>
+                {/* <li>
                   <Link href="/contact" className={getLinkClass('/contact')} onClick={clickMenu}>
                     {t('menu.contact')}
                   </Link>
-                </li>
+                </li> */}
               </ul>
               <button className={styles.closeMenu} onClick={handleHamburger}><IoCloseOutline/></button>
               <div className={styles.divider_right}></div>

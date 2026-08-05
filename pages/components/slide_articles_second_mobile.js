@@ -13,7 +13,6 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { useEffect } from 'react';
-import Image from 'next/image';
 
 
 export async function getStaticProps({ locale }) {
@@ -28,6 +27,9 @@ const formatDate = (dateString) => {
     const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
     return new Intl.DateTimeFormat('en-GB', options).format(new Date(dateString));
   };
+
+// Handles both CMS full URLs and legacy storage paths from the old API.
+const resolveImageSrc = (image) => image || '/images/article_banner.png';
 
 export default function SlideArticlesSecondMobile({ items = [], classNames, paginationClass }) {
   const { t, i18n } = useTranslation('common');
@@ -126,14 +128,12 @@ export default function SlideArticlesSecondMobile({ items = [], classNames, pagi
           <SwiperSlide key={index}>
             <div className='box_articles_slide'>
               <div className='box_articles_images'>
-                <Link href={`/recipe/[id]`} as={`/recipe/${blog.id}`}>
-                <Image
-                    src={`https://ops.housejapanesecurry.com/storage/${blog.image}`}
+                <Link href={`/article-detail/${blog.slug || blog.id}`}>
+                  <img
+                    src={resolveImageSrc(blog.image)}
                     alt={blog.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    quality={75}
-                    className="object-cover"
+                    onError={(e) => { e.target.onerror = null; e.target.src = '/images/article_banner.png'; }}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   />
                 </Link>
               </div>
@@ -141,7 +141,7 @@ export default function SlideArticlesSecondMobile({ items = [], classNames, pagi
                 {blog.date && <span>{t('posted')} {formatDate(blog.date)}</span>}
                 <h1 dangerouslySetInnerHTML={{ __html: stripPTags(getRecipeTitle(blog))  }}></h1>
                 <p dangerouslySetInnerHTML={{ __html: stripPTags(getDescriptionName(blog)) }}></p>
-                <Link href={`/recipe/[id]`} as={`/recipe/${blog.id}`}><button>{t('section1Home.learnMore')}</button></Link>
+                <Link href={`/article-detail/${blog.slug || blog.id}`}><button>{t('section1Home.learnMore')}</button></Link>
               </div>
             </div>
           </SwiperSlide>
