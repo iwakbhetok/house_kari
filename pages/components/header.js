@@ -527,7 +527,7 @@ const Header = () => {
                   <ul className={openDropdown === 'contact' ? styles.show : ''}>
                     <li>
                       <Link href="/rfq" className={getLinkClass('/rfq')} onClick={clickMenu}>
-                        Request for Quote
+                        Request for Quotation
                       </Link>
                     </li>
                     <li>
