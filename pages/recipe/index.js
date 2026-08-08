@@ -276,7 +276,7 @@ useEffect(() => {
                 slidesPerView={3}
                 spaceBetween={0}
                 centeredSlides={true}
-                loop={true}
+                loop={false}
                 autoplay={{
                   delay: 2500,
                   disableOnInteraction: false,
@@ -308,7 +308,7 @@ useEffect(() => {
                 slidesPerView={3}
                 spaceBetween={0}
                 centeredSlides={true}
-                loop={true}
+                loop={recipes.length > 3}
                 autoplay={{
                   delay: 2500,
                   disableOnInteraction: false,
@@ -341,7 +341,7 @@ useEffect(() => {
                 autoHeight={true}
                 slidesPerView={1}
                 spaceBetween={30}
-                loop={true}
+                loop={chunkedRecipes.length > 1}
                 centeredSlides={true}
                 pagination={{
                   clickable:true

@@ -12,10 +12,9 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import Image from 'next/image';
 import { Navigation } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import dynamic from 'next/dynamic';
 
-const Swiper = dynamic(() => import('swiper/react').then((m) => ({ default: m.Swiper })), { ssr: false });
-const SwiperSlide = dynamic(() => import('swiper/react').then((m) => ({ default: m.SwiperSlide })), { ssr: false });
 const SlideArticlesSecond = dynamic(() => import('./components/slide_articles_second'), { ssr: false });
 const SlideArticlesSecondMobile = dynamic(() => import('./components/slide_articles_second_mobile'), { ssr: false });
 const SlideTestimonials = dynamic(() => import('./components/slide_testimonials'), { ssr: false });
@@ -539,7 +538,7 @@ const getProductDesc = (item) => {
             initialSlide={1}
             modules={[Navigation]}
             className="mySwiperProduct"
-            loop={true}
+            loop={items.length > 3}
           >
             {items.map((item) => (
               <SwiperSlide key={item.id}>
@@ -560,10 +559,10 @@ const getProductDesc = (item) => {
           </Swiper>
         )}
         {items.length > 0 && (
-        <Swiper 
-          navigation={true} 
-          loop={true}
-          modules={[Navigation]} 
+        <Swiper
+          navigation={true}
+          loop={items.length > 1}
+          modules={[Navigation]}
           className="slideProductMobile">
               {items.map((item) => (
               <SwiperSlide key={item.id}>

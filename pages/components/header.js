@@ -62,8 +62,8 @@ const Header = () => {
       try {
         const response = await fetch(`/api/theme-image`);
         const data = await response.json();
-        if (data && data.data && data.data.header) {
-          setThemeHeader(data.data.header);
+        if (data && data.data) {
+          setThemeHeader(data.data.header || null);
         } else {
           setThemeHeader(null)
           console.error('Invalid response data format:', data);

@@ -27,5 +27,6 @@ module.exports = {
         pathname: '/api/media/file/**',
       },
     ],
+    qualities: [25, 50, 75, 85, 100],
   },
 };
