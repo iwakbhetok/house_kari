@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import posthog from "posthog-js";
 import { Montserrat } from "next/font/google";
+import { createTrafficTracker } from "@/lib/webTraffic";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -36,6 +37,22 @@ function App({ Component, pageProps }) {
 
     return () => {
       router.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, [router.events]);
+
+  useEffect(() => {
+    const tracker = createTrafficTracker();
+
+    const handleRouteChange = (url) => {
+      tracker.start(window.location.origin + url);
+    };
+
+    tracker.start(window.location.href);
+    router.events.on("routeChangeComplete", handleRouteChange);
+
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+      tracker.stop();
     };
   }, [router.events]);
 
