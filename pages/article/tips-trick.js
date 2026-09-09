@@ -44,20 +44,10 @@ export default function TipsTricks() {
         // Mengambil 2 artikel terbaru
         const recent = sortedArticles.slice(0, 2);
   
-        // Menghapus artikel terbaru dari daftar artikel yang akan diacak
+        // Sisa artikel, tetap diurutkan dari yang terbaru
         const remainingArticles = sortedArticles.slice(2);
-  
-        // Fungsi untuk mengacak urutan array
-        const shuffleArray = (array) => {
-          for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-          }
-          return array;
-        };
-  
-        const shuffledArticles = shuffleArray(remainingArticles);
-        const limitedArticles = shuffledArticles.slice(0, 10); // Membatasi hingga 10 artikel
+
+        const limitedArticles = remainingArticles.slice(0, 10); // Membatasi hingga 10 artikel
   
         setArticlesSlide(limitedArticles);
         setRecentArticles(recent);
