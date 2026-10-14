@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { buildTitle, metaDescription, trackOutbound } from '@/lib/seo';
 import styles from '@/styles/Product.module.css';
 import banner from '@/styles/Banner.module.css';
 import Link from "next/link";
@@ -49,13 +50,13 @@ export async function getServerSideProps(context) {
     }
   }
 
-const ProductDetails = () => {
+const ProductDetails = ({ product }) => {
   const { t, i18n } = useTranslation('common');
   const router = useRouter();
   const { id } = router.query;
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!product?.data);
   const [recipeList, setRecipeList] = useState([]);
-  const [detail, setDetail] = useState(null);
+  const [detail, setDetail] = useState(product?.data || null);
   const [recommend, setRecommend] = useState(null);
 
   useEffect(() => {
@@ -232,7 +233,7 @@ const ProductDetails = () => {
       .trim(); // Remove leading/trailing whitespace
   }
 
-  const pageTitle = detail ? `House Kari | ${getProductName(detail)}` : 'House Kari';
+  const pageTitle = buildTitle(getProductName(detail));
 
   const PLATFORM_META = {
     shopee:    { color: '#F05D40', logo: '/images/shopee_logo.png' },
@@ -248,7 +249,7 @@ const ProductDetails = () => {
     <>
       <Head>
         <title>{pageTitle}</title> 
-        <meta name="description" content="Learn more about us" />
+        <meta name="description" content={metaDescription(getProductDesc(detail), t('seo.product_detail'))} />
       </Head>
       <div className={banner.bannerStyle}>
         <img src="/images/product_page_banner.png" alt="House Kari Website" />
@@ -280,7 +281,7 @@ const ProductDetails = () => {
                     const meta = PLATFORM_META[item.platform] || { color: '#333', logo: null };
                     return (
                       <Link href={item.url} key={idx} passHref legacyBehavior>
-                        <a target="_blank" rel="noopener noreferrer">
+                        <a target="_blank" rel="noopener noreferrer" onClick={() => trackOutbound(item.platform, item.url, 'product_detail')}>
                           <button style={{ backgroundColor: meta.color }}>
                             {meta.logo
                               ? <img src={meta.logo} alt={item.platform} />
@@ -325,7 +326,7 @@ const ProductDetails = () => {
                         const meta = PLATFORM_META[item.platform] || { color: '#333', logo: null };
                         return (
                           <Link href={item.url} key={idx} passHref legacyBehavior>
-                            <a target="_blank" rel="noopener noreferrer">
+                            <a target="_blank" rel="noopener noreferrer" onClick={() => trackOutbound(item.platform, item.url, 'product_detail')}>
                               <button style={{ backgroundColor: meta.color }}>
                                 {meta.logo
                                   ? <img src={meta.logo} alt={item.platform} />

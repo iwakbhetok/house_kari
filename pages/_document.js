@@ -7,12 +7,7 @@ class MyDocument extends Document {
     return (
       <Html lang={locale}>
         <Head>
-          {/* SEO alternate links */}
-          <link rel="alternate" hrefLang="en" href="/en" />
-          <link rel="alternate" hrefLang="id" href="/id" />
-          <link rel="alternate" hrefLang="zh" href="/zh" />
-          <link rel="alternate" hrefLang="x-default" href="/" />
-
+          {/* hreflang alternates are rendered per page in components/header.js */}
           <link rel="icon" href="/favicon.png" />
         </Head>
         <body>

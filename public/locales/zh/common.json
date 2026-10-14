@@ -60,7 +60,7 @@
     "by": "由",
     "address": "Atria @ Sudirman 17楼. Jendral Sudirman, Kav. 33A, Karet Tengsin, Tanah Abang, 雅加达市中心 10220",
     "privacyPolicy": "隐私政策",
-    "copyright": "版权 © 2024 House 日本咖喱 | 保留所有权利",
+    "copyright": "版权 © {{year}} House Japanese Curry | 保留所有权利",
     "profileSubHeading": "House Foods Group INC 的子公司",
     "profiledesc1": "House Foods 是一家知名食品制造商，在日本主导着日式咖喱销售市场。House Foods 于2016年进入印度尼西亚市场，推出了其旗舰产品House日本咖喱，该产品获得了LPPOM MUI 的清真认证。这种清真日本咖喱不仅在印度尼西亚销售，还扩展到了新加坡和马来西亚等邻国。",
     "profiledesc2": "日本咖喱的独特之处在于不含椰奶，其温和的味道可以被所有家庭成员享用。935克的清真日本咖喱可以提供50份，主要目标市场是horeca。除了通过主要分销商获得外，该产品现在也可以在雅加达的几家超市（如Grand Lucky）以及印尼的各个在线购物网站上找到。",
@@ -293,6 +293,22 @@
     "teksPrivacy89": "在您的计算机操作系统上使用防火墙或安装个人防火墙，并确保已安装的防火墙设置可以保护您的PC。",
     "teksPrivacy90": "建议不要访问或下载来自未知或不可信网站的文件/程序。",
     "teksPrivacy91": "扫描来自软盘、CD和USB驱动器的文件。",
-    "teksPrivacy92": "确保您的计算机操作系统和应用程序受最新保护系统的保护。"
+    "teksPrivacy92": "确保您的计算机操作系统和应用程序受最新保护系统的保护。",
+    "seo": {
+        "homeTitle": "日式咖喱块、食谱及批量订购",
+        "home": "来自 House Foods 印度尼西亚的日式咖喱块、食谱及批量订购。了解 House 日式咖喱产品并申请 B2B 报价。",
+        "companyProfile": "关于 House Foods 印度尼西亚：我们的公司、理念以及将正宗日式咖喱带入印尼家庭的承诺。",
+        "companyHistory": "House Foods 的历史：从日本第一块咖喱块到印度尼西亚的 House 日式咖喱。",
+        "contact": "联系 House Japanese Curry，咨询产品、合作及印度尼西亚分销事宜。",
+        "privacyPolicy": "House Japanese Curry 如何在本网站收集、使用和保护您的个人数据。",
+        "product": "浏览 House 日式咖喱产品：零售及餐饮规格的日式咖喱块，并提供在线购买链接。",
+        "recipe": "使用 House 咖喱的简单日式咖喱食谱：适合日常餐食和家庭最爱的分步指南。",
+        "article": "House Japanese Curry 印度尼西亚的新闻、活动、技巧和媒体发布。",
+        "event": "House Japanese Curry 印度尼西亚的烹饪课程、展览和社区活动。",
+        "mediaRelease": "House Japanese Curry 印度尼西亚的官方新闻稿和媒体发布。",
+        "tipsTricks": "在家烹饪 House 日式咖喱的技巧与窍门。",
+        "product_detail": "House 日式咖喱产品详情、规格及购买渠道。",
+        "recipe_detail": "使用 House 咖喱制作的日式咖喱食谱。",
+        "article_detail": "来自 House Japanese Curry 印度尼西亚的文章。"
+    }
 }
-  

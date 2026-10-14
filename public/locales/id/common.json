@@ -60,7 +60,7 @@
   "by": "Oleh",
   "address": "Atria @ Sudirman Lantai 17. Jendral Sudirman, Kav. 33A, Karet Tengsin, Tanah Abang, Jakarta Pusat 10220",
   "privacyPolicy": "Kebijakan Privasi",
-  "copyright": "Hak Cipta © 2024 Rumah Kari Jepang | Seluruh hak cipta",
+  "copyright": "Hak Cipta © {{year}} House Japanese Curry | Seluruh hak cipta dilindungi",
   "profileSubHeading": "Sebuah Group Perusahaan dari House Foods Group INC",
   "profiledesc1": "House Foods merupakan sebuah perusahaan produsen makanan ternama yang menguasai pangsa pasar penjualan kari ala Jepang di Jepang. House Foods mulai memasuki pasar Indonesia sejak tahun 2016 dengan memperkenalkan produk unggulan mereka yaitu House Kari ala Jepang yang telah memiliki sertifikasi halal dari LPPOM MUI. Kari ala Jepang halal ini tidak hanya dipasarkan di Indonesia saja namun juga sudah merambah ke beberapa negara tetangga seperti Singapura dan Malaysia.",
   "profiledesc2": "Keistimewaan Kari Jepang yaitu tidak mengandung santan dan dengan rasa yang mild bisa dinikmati seluruh anggota keluarga. Kari ala Jepang halal berukuran 935 gr dapat disajikan untuk 50 porsi dan memang target pemasarannya adalah horeca. Selain melalui distributor utama, produk ini sudah bisa didapatkan di beberapa supermarket di Jakarta seperti Grand Lucky dan juga di beberapa situs belanja online di Indonesia.",
@@ -303,7 +303,7 @@
   "teksPrivacy92": "Pastikan bahwa sistem operasi maupun aplikasi di komputer Anda sudah dilindungi dengan sistem proteksi terkini.",
   "rfq": {
     "meta": {
-      "title": "Permintaan Penawaran Harga — House of Japanese Curry",
+      "title": "Permintaan Penawaran Harga | House Japanese Curry",
       "description": "Ajukan permintaan pembelian dalam jumlah besar dan terima penawaran resmi dari tim penjualan kami."
     },
     "hero": {
@@ -399,5 +399,22 @@
     "whatsapp": {
       "message": "Halo, saya telah mengajukan RFQ di website Anda. Nomor Penawaran saya adalah *{{quoteNumber}}*. Mohon bantuan lebih lanjut."
     }
+  },
+  "seo": {
+    "homeTitle": "Bumbu Kari Jepang, Resep & Pemesanan Grosir",
+    "home": "Bumbu kari Jepang, resep, dan pemesanan dalam jumlah besar dari House Foods Indonesia. Temukan produk House Kari ala Jepang dan ajukan penawaran B2B.",
+    "companyProfile": "Tentang House Foods Indonesia: perusahaan, filosofi, dan komitmen kami menghadirkan kari Jepang autentik ke rumah Indonesia.",
+    "companyHistory": "Sejarah House Foods, dari bumbu kari pertama di Jepang hingga House Kari ala Jepang di Indonesia.",
+    "contact": "Hubungi House Japanese Curry untuk pertanyaan produk, kemitraan, dan distribusi di Indonesia.",
+    "privacyPolicy": "Cara House Japanese Curry mengumpulkan, menggunakan, dan melindungi data pribadi Anda di situs ini.",
+    "product": "Jelajahi produk House Kari ala Jepang: bumbu kari Jepang ukuran ritel dan food service, dengan tautan pembelian online.",
+    "recipe": "Resep kari Jepang mudah dengan House Kari: panduan langkah demi langkah untuk masakan sehari-hari dan favorit keluarga.",
+    "article": "Berita, acara, tips, dan siaran pers dari House Japanese Curry Indonesia.",
+    "event": "Kelas memasak, pameran, dan acara komunitas dari House Japanese Curry Indonesia.",
+    "mediaRelease": "Siaran pers dan rilis media resmi dari House Japanese Curry Indonesia.",
+    "tipsTricks": "Tips dan trik memasak agar kari Jepang House di rumah semakin lezat.",
+    "product_detail": "Detail produk House Kari ala Jepang, ukuran, dan tempat membeli.",
+    "recipe_detail": "Resep kari Jepang dengan House Kari.",
+    "article_detail": "Artikel dari House Japanese Curry Indonesia."
   }
 }

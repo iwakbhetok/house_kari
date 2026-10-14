@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
+import { buildTitle } from '@/lib/seo';
 import banner from '@/styles/Banner.module.css'
 import axios from 'axios';
 import { useRouter } from 'next/router';
@@ -131,13 +132,13 @@ export default function SearchPage({ id }) {
     return formattedWeight;
   };
 
-  const pageTitle = `House Kari | Search`;
+  const pageTitle = buildTitle('Search');
 
   return (
     <>
       <Head>
         <title>{pageTitle}</title>
-        <meta name="description" content="Learn more about us" />
+        <meta name="robots" content="noindex, follow" />
       </Head>
       <div className={banner.bannerStyle}>
         <img src="/images/company_profile_banner.png" alt="House Kari Website"/>

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styles from '@/styles/Header.module.css';
 import Head from 'next/head';
+import { SITE_NAME, localeUrl, trackOutbound } from '@/lib/seo';
 import { AiOutlineSearch } from "react-icons/ai";
 import { IoChevronDown } from "react-icons/io5";
 import { SlVolume2, SlVolumeOff } from "react-icons/sl";
@@ -93,6 +94,9 @@ const Header = () => {
     setOpenDropdown(null);
   };
 
+  // asPath is the real URL (pathname would be the route pattern, e.g. /product/[id]).
+  const cleanPath = asPath.split(/[?#]/)[0];
+
   const createAlternateLinks = () => {
     const locales = ['en', 'id', 'zh'];
     return locales.map((locale) => (
@@ -100,7 +104,7 @@ const Header = () => {
         key={locale}
         rel="alternate"
         hrefLang={locale}
-        href={`/${locale}${pathname}`}
+        href={localeUrl(locale, cleanPath)}
       />
     ));
   };
@@ -294,7 +298,7 @@ const Header = () => {
       id: 1,
       nameEcommerce: 'shopee',
       imageEcommerce: '/images/shopee_logo.png',
-      urlEcommerce: 'https://shopee.co.id/search?keyword=house%20kari%20ala%20jepang&trackingId=searchhint-1724033850-30172065-5dd1-11ef-bab4-da90c4249c1f'
+      urlEcommerce: 'https://shopee.co.id/search?keyword=house%20kari%20ala%20jepang'
     },
     {
         id: 2,
@@ -401,12 +405,12 @@ const Header = () => {
   return (
     <>
       <Head>
-        <title>House Kari</title>
-        <meta name="description" content="House Kari ala Jepang" />
+        <title>{SITE_NAME}</title>
+        <meta name="description" content={t('seo.home')} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         {createAlternateLinks()}
-        <link rel="alternate" hrefLang="x-default" href={asPath} />
+        <link rel="alternate" hrefLang="x-default" href={localeUrl('en', cleanPath)} />
       </Head>
       <div className={styles.heading_layout}>
       <div
@@ -600,7 +604,7 @@ const Header = () => {
               ))}
             </div>
           </div>
-          <Link href="https://wa.link/z7fxyc" target='blank_' style={{display: 'flex', alignItems: 'center'}}><button className={styles.bg_whatsapp}><FaWhatsapp /></button></Link>
+          <Link href="https://wa.link/z7fxyc" target='_blank' rel='noopener noreferrer' onClick={() => trackOutbound('whatsapp', 'https://wa.link/z7fxyc', 'header')} style={{display: 'flex', alignItems: 'center'}}><button className={styles.bg_whatsapp}><FaWhatsapp /></button></Link>
           <div className={styles.ecommerceDropdown}>
             <button onClick={toggleDropdownEcommerce} className={`${styles.bg_ecommerce} ${isDropdownOpen ? styles.active : ''}`}>
               <BsCart2 /> <span>{t('ecommerceText')}</span>
@@ -608,7 +612,7 @@ const Header = () => {
             </button>
             <div className={`${styles.dropdown} ${isDropdownOpen ? styles.active : ''}`}>
               {ecommerces.map((ecommerce) => (
-                  <Link href={ecommerce.urlEcommerce} key={ecommerce.id} target='blank_'><button className={styles[ecommerce.nameEcommerce]}><img src={ecommerce.imageEcommerce} alt="House Kari" /></button></Link>
+                  <Link href={ecommerce.urlEcommerce} key={ecommerce.id} target='_blank' rel='noopener noreferrer' onClick={() => trackOutbound(ecommerce.nameEcommerce, ecommerce.urlEcommerce, 'header')}><button className={styles[ecommerce.nameEcommerce]}><img src={ecommerce.imageEcommerce} alt="House Kari" /></button></Link>
               ))}
             </div>
           </div>

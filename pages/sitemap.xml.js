@@ -1,6 +1,5 @@
 // pages/sitemap.xml.js
-
-const BASE_URL = 'https://housejapanesecurry.com' // ← change this
+import { SITE_URL } from '@/lib/seo'
 
 /*
   Safe fetch helper
@@ -21,9 +20,10 @@ async function safeArray(url) {
   }
 }
 
-export async function getServerSideProps({ res }) {
+export async function getServerSideProps({ req, res }) {
   /*
-    STATIC ROUTES (from your project)
+    STATIC ROUTES
+    (search results and the empty lifestyle page are deliberately left out)
   */
   const staticPaths = [
     '',
@@ -31,36 +31,37 @@ export async function getServerSideProps({ res }) {
     '/company-profile',
     '/contact',
     '/privacy-policy',
+    '/rfq',
 
     '/article',
     '/article/event',
-    '/article/lifestyle',
     '/article/media-release',
     '/article/tips-trick',
 
     '/product',
     '/recipe',
-    '/search-page',
   ]
 
   /*
     DYNAMIC ROUTES (safe — never crashes)
+    Read from this app's own API routes, which proxy the CMS.
   */
+  const protocol = req.headers['x-forwarded-proto'] || 'http'
+  const apiBase = `${protocol}://${req.headers.host}/api`
+
   const [articles, products, recipes] = await Promise.all([
-    safeArray(`${BASE_URL}/api/articles`),
-    safeArray(`${BASE_URL}/api/products`),
-    safeArray(`${BASE_URL}/api/recipes`),
+    safeArray(`${apiBase}/list-article`),
+    safeArray(`${apiBase}/product`),
+    safeArray(`${apiBase}/all-recipes`),
   ])
 
-  const articlePaths = articles.map(i => `/article/${i.id}`)
-  const articleDetailPaths = articles.map(i => `/article-detail/${i.slug || i.id}`)
-  const productPaths = products.map(i => `/product/${i.id}`)
-  const recipePaths = recipes.map(i => `/recipe/${i.id}`)
+  const articlePaths = articles.filter(i => i.slug).map(i => `/article-detail/${i.slug}`)
+  const productPaths = products.filter(i => i.id).map(i => `/product/${i.id}`)
+  const recipePaths = recipes.filter(i => i.slug).map(i => `/recipe/${i.slug}`)
 
   const allPaths = [
     ...staticPaths,
     ...articlePaths,
-    ...articleDetailPaths,
     ...productPaths,
     ...recipePaths,
   ]
@@ -71,7 +72,7 @@ ${allPaths
   .map(
     path => `
   <url>
-    <loc>${BASE_URL}${path}</loc>
+    <loc>${SITE_URL}${encodeURI(path)}</loc>
     <changefreq>weekly</changefreq>
     <priority>${path === '' ? '1.0' : '0.8'}</priority>
   </url>`

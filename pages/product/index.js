@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { buildTitle } from '@/lib/seo';
 import styles from '@/styles/Product.module.css'
 import banner from '@/styles/Banner.module.css'
 import JapaneseProduct from "../components/japaneseProduct";
@@ -87,7 +88,7 @@ export default function Product() {
   }, []);
   
 
-  const pageTitle = `House Kari | ${t('menu.product')}`;
+  const pageTitle = buildTitle(t('menu.product'));
 
   const getCategoryName = (category) => {
     switch (i18n.language) {
@@ -168,7 +169,7 @@ export default function Product() {
     <>
       <Head>
         <title>{pageTitle}</title> 
-        <meta name="description" content="Learn more about us" />
+        <meta name="description" content={t('seo.product')} />
       </Head>
       <div className={banner.bannerStyle}>
         <img src="/images/product_page_banner.png" alt="House Kari Website"/>

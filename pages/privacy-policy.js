@@ -1,6 +1,7 @@
 import styles from '../styles/privacy.module.css'
 import banner from '@/styles/Banner.module.css'
 import Head from "next/head";
+import { buildTitle } from '@/lib/seo';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'; 
 
@@ -14,12 +15,12 @@ export async function getStaticProps({ locale }) {
 
 export default function PrivacyPolicy() {
     const { t } = useTranslation('common');
-    const pageTitle = `House Kari | ${t('privacyPolicy')}`;
+    const pageTitle = buildTitle(t('privacyPolicy'));
     return(
         <>
         <Head>
             <title>{pageTitle}</title> 
-            <meta name="description" content="Learn more about us" />
+            <meta name="description" content={t('seo.privacyPolicy')} />
         </Head>
         <div className={banner.bannerStyle}>
             <img src="/images/company_profile_banner.png" alt="House Kari Website"/> 

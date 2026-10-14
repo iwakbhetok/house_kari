@@ -4,6 +4,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useState, useEffect } from 'react';
 import banner from '@/styles/Banner.module.css';
 import Head from 'next/head';
+import { buildTitle, metaDescription } from '@/lib/seo';
 import axios from 'axios';
 import styles from '@/styles/Article.module.css';
 import SlideArticlesSecond from "../components/slide_articles_second";
@@ -61,7 +62,7 @@ export default function ArticleDetail({ recipe }) {
     const { t, i18n } = useTranslation('common');
     const router = useRouter();
     const { id } = router.query;
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(!recipe?.data);
     const [detail, setDetail] = useState(recipe?.data || null);
     const [articlesSlide, setArticlesSlide] = useState([]);
 
@@ -165,7 +166,7 @@ export default function ArticleDetail({ recipe }) {
         return formattedDate.replace(/\b(\w)/g, char => char.toUpperCase());
     };
 
-    const pageTitle = detail ? `House Kari | ${stripH1Tags(getProductName(detail), 'h1')}` : 'House Kari';
+    const pageTitle = buildTitle(stripH1Tags(getProductName(detail)));
 
     const formattedMeta = `POSTED BY : ${detail.penulis} / ON : ${formatDate(detail.date)} / IN : ${getProductCategory(detail)}`;
 
@@ -185,7 +186,7 @@ export default function ArticleDetail({ recipe }) {
         <>
             <Head>
                 <title>{pageTitle}</title>
-                <meta name="description" content="Learn more about us" />
+                <meta name="description" content={metaDescription(modifiedContent, t('seo.article_detail'))} />
             </Head>
             <div className={banner.bannerStyle}>
                 <img src="/images/recipe_banner.png" alt="House Kari Website" />

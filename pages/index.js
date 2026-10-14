@@ -1,4 +1,6 @@
 import styles from '@/styles/Home.module.css'
+import Head from 'next/head';
+import { buildTitle } from '@/lib/seo';
 import Slide from './components/slide';
 import Link from 'next/link';
 import { IoChevronDown } from "react-icons/io5";
@@ -475,6 +477,10 @@ const getProductDesc = (item) => {
 
   return (
     <>
+      <Head>
+        <title>{buildTitle(t('seo.homeTitle'))}</title>
+        <meta name="description" content={t('seo.home')} />
+      </Head>
       <Slide banners={banners} showNavigation={false} showPagination={true} />
       <div className={styles.section_2}>
         <div className={styles.section_2_box}>

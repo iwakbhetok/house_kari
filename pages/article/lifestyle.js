@@ -6,7 +6,7 @@ export default function Lifestyle() {
     <>
       <Head>
         <title>Lifestyle</title>
-        <meta name="description" content="Learn more about us" />
+        <meta name="robots" content="noindex" />
       </Head>
       <h1 className={styles.heading}>Lifestyle</h1>
       <p>This is the About Us page.</p>

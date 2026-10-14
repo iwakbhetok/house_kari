@@ -60,7 +60,7 @@
   "by": "By",
   "address": "Atria @ Sudirman 17th Floor. Jendral Sudirman, Kav. 33A, Karet Tengsin, Tanah Abang, Jakarta Pusat 10220",
   "privacyPolicy": "Privacy Policy",
-  "copyright": "Copyright © 2024 House Japanese Curry | All Rights Reserved",
+  "copyright": "Copyright © {{year}} House Japanese Curry | All Rights Reserved",
   "profileSubHeading": "A Group Company of House Foods Group INC",
   "profiledesc1": "House Foods is a well-known food manufacturer that dominates the Japanese-style curry sales market in Japan. House Foods entered the Indonesian market in 2016 by introducing their flagship product, House Japanese Curry, which has received halal certification from LPPOM MUI. This halal Japanese curry is not only marketed in Indonesia but has also expanded to neighboring countries such as Singapore and Malaysia.",
   "profiledesc2": "The uniqueness of Japanese Curry lies in the absence of coconut milk and its mild taste that can be enjoyed by all family members. The 935 gr halal Japanese curry can serve 50 portions and is mainly targeted at the horeca market. In addition to being available through the main distributor, this product can now be found in several supermarkets in Jakarta, such as Grand Lucky, and on various online shopping sites in Indonesia.",
@@ -307,7 +307,7 @@
   "teksPrivacy92": "Ensure that your computer's operating system and applications are protected with the latest protection systems.",
   "rfq": {
     "meta": {
-      "title": "Request for Quotation — House of Japanese Curry",
+      "title": "Request for Quotation | House Japanese Curry",
       "description": "Submit a bulk purchase request and receive a formal quotation from our sales team."
     },
     "hero": {
@@ -403,5 +403,22 @@
     "whatsapp": {
       "message": "Hello, I have submitted an RFQ on your website. My Quotation Number is *{{quoteNumber}}*. Please assist me further."
     }
+  },
+  "seo": {
+    "homeTitle": "Japanese Curry Roux, Recipes & Bulk Orders",
+    "home": "Japanese curry roux, recipes and bulk orders from House Foods Indonesia. Discover House Kari ala Jepang products and request a B2B quotation.",
+    "companyProfile": "About House Foods Indonesia: our company, philosophy and commitment to bringing authentic Japanese curry to Indonesian homes.",
+    "companyHistory": "The history of House Foods, from the first curry roux in Japan to House Kari ala Jepang in Indonesia.",
+    "contact": "Contact House Japanese Curry for product questions, partnerships and distribution enquiries in Indonesia.",
+    "privacyPolicy": "How House Japanese Curry collects, uses and protects your personal data on this website.",
+    "product": "Browse House Kari ala Jepang products: Japanese curry roux in retail and food-service sizes, with links to buy online.",
+    "recipe": "Easy Japanese curry recipes made with House Kari: step-by-step guides for everyday meals and family favourites.",
+    "article": "News, events, tips and media releases from House Japanese Curry Indonesia.",
+    "event": "Cooking classes, exhibitions and community events from House Japanese Curry Indonesia.",
+    "mediaRelease": "Official press and media releases from House Japanese Curry Indonesia.",
+    "tipsTricks": "Cooking tips and tricks for getting the best out of House Japanese curry at home.",
+    "product_detail": "House Kari ala Jepang product details, sizes and where to buy.",
+    "recipe_detail": "Japanese curry recipe made with House Kari.",
+    "article_detail": "Article from House Japanese Curry Indonesia."
   }
 }

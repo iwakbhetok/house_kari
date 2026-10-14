@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { buildTitle } from '@/lib/seo';
 import styles from '@/styles/Recipe.module.css'
 import banner from '@/styles/Banner.module.css'
 import { useState, useEffect, useRef } from "react";
@@ -59,7 +60,7 @@ export default function Recipe() {
 
   const secondColor = 'creamColor'
   const paginationStyle = 'old_red_color'
-  const pageTitle = `House Kari | ${t('menu.recipe')}`;
+  const pageTitle = buildTitle(t('menu.recipe'));
 
   const [recipes, setRecipes] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -236,7 +237,7 @@ useEffect(() => {
     <>
       <Head>
         <title>{pageTitle}</title>
-        <meta name="description" content="Learn more about us" />
+        <meta name="description" content={t('seo.recipe')} />
       </Head>
       <div className={banner.bannerStyle}>
         <img src="/images/recipe_banner.png" alt="House Kari Website"/>

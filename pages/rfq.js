@@ -7,6 +7,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation, Trans } from "next-i18next";
 import { FaWhatsapp, FaPlus } from "react-icons/fa";
 import { IoCheckmark } from "react-icons/io5";
+import { trackOutbound } from "@/lib/seo";
 
 export async function getStaticProps({ locale }) {
   return {
@@ -814,6 +815,7 @@ export default function RFQPage() {
                 <div className={styles.successActions}>
                   <a
                     href={waUrl}
+                    onClick={() => trackOutbound('whatsapp', waUrl, 'rfq_confirmation')}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={styles.btnWhatsApp}

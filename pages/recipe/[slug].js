@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import banner from '@/styles/Banner.module.css'
 import Head from 'next/head';
+import { buildTitle, metaDescription } from '@/lib/seo';
 import styles from '@/styles/Recipe.module.css'
 import SlideArticles from '../components/slide_articles';
 import Link from 'next/link';
@@ -67,13 +68,13 @@ export async function getServerSideProps(context) {
   }
 }
 
-const RecipeDetail = () => {
+const RecipeDetail = ({ recipe }) => {
     const { t, i18n } = useTranslation('common');
     const router = useRouter();
     const { slug } = router.query;
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(!recipe?.data);
     const [isActive, setIsActive] = useState(false);
-    const [detail, setDetail] = useState(null);
+    const [detail, setDetail] = useState(recipe?.data || null);
 
     const [recipeList, setRecipeList] = useState([]);
     const [articlesSlide, setArticlesSlide] = useState([]);
@@ -271,8 +272,7 @@ const RecipeDetail = () => {
 
       const section4VideoClass = detail.link_youtube ? styles.section4_video : styles.hidden_image;
 
-      // const pageTitle = `House Kari | ${t('menu.recipe')} A`;
-      const pageTitle = detail ? `House Kari | ${stripH1Tags(getProductName(detail))}` : 'House Kari';
+      const pageTitle = buildTitle(stripH1Tags(getProductName(detail)));
 
       
 
@@ -280,7 +280,7 @@ const RecipeDetail = () => {
         <>
         <Head>
         <title>{pageTitle}</title>
-        <meta name="description" content="Learn more about us" />
+        <meta name="description" content={metaDescription(getDescName(detail), t('seo.recipe_detail'))} />
         </Head>
         <div className={banner.bannerStyle}>
             <img src="/images/recipe_banner.png" alt="House Kari Website"/>

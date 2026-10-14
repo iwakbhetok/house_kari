@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { buildTitle } from '@/lib/seo';
 import styles from '@/styles/Article.module.css';
 import banner from '@/styles/Banner.module.css';
 import Link from "next/link";
@@ -215,7 +216,7 @@ useEffect(() => {
 
   const activeMenu = detail.find(menu => parseInt(id) === menu.id);
 
-  const pageTitle = `House Kari | ${activeMenu ? activeMenu.name : ''}`;
+  const pageTitle = buildTitle(activeMenu ? activeMenu.name : t('menu.article'));
 
   const secondColor = 'creamColor'
   const paginationStyle = 'old_red_color'
@@ -226,7 +227,7 @@ useEffect(() => {
     <>
       <Head>
         <title>{pageTitle}</title>
-        <meta name="description" content="Learn more about us" />
+        <meta name="description" content={t('seo.article')} />
       </Head>
       <div className={banner.bannerStyle}>
         <img src="/images/product_page_banner.png" alt="House Kari Website" />
