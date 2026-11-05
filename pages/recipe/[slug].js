@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { buildTitle, toDescription } from '@/lib/seo';
 import banner from '@/styles/Banner.module.css'
 import Head from 'next/head';
 import styles from '@/styles/Recipe.module.css'
@@ -271,8 +272,7 @@ const RecipeDetail = () => {
 
       const section4VideoClass = detail.link_youtube ? styles.section4_video : styles.hidden_image;
 
-      // const pageTitle = `House Kari | ${t('menu.recipe')} A`;
-      const pageTitle = detail ? `House Kari | ${stripH1Tags(getProductName(detail))}` : 'House Kari';
+      const pageTitle = buildTitle(detail ? stripH1Tags(getProductName(detail)) : '');
 
       
 
@@ -280,7 +280,7 @@ const RecipeDetail = () => {
         <>
         <Head>
         <title>{pageTitle}</title>
-        <meta name="description" content="Learn more about us" />
+        <meta name="description" content={toDescription(detail ? getDescName(detail) : '', t('seo.recipeFallback'))} />
         </Head>
         <div className={banner.bannerStyle}>
             <img src="/images/recipe_banner.png" alt="House Kari Website"/>

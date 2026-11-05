@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { buildTitle } from '@/lib/seo';
 import styles from '@/styles/Article.module.css'
 import banner from '@/styles/Banner.module.css'
 import Link from "next/link";
@@ -315,13 +316,13 @@ const formatDate = (dateString) => {
   return new Intl.DateTimeFormat('en-GB', options).format(new Date(dateString));
 };
 
-  const pageTitle = `House Kari | ${t('menu.article')}`;
+  const pageTitle = buildTitle(t('menu.article'));
 
   return (
     <>
       <Head>
         <title>{pageTitle}</title>
-        <meta name="description" content="Learn more about us" />
+        <meta name="description" content={t('seo.article')} />
       </Head>
       <div className={banner.bannerStyle}>
         <img src="/images/article_banner.png" alt="House Kari Website"/>

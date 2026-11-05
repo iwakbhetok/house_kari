@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import { buildTitle, toDescription } from '@/lib/seo';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useState, useEffect } from 'react';
@@ -165,7 +166,7 @@ export default function ArticleDetail({ recipe }) {
         return formattedDate.replace(/\b(\w)/g, char => char.toUpperCase());
     };
 
-    const pageTitle = detail ? `House Kari | ${stripH1Tags(getProductName(detail), 'h1')}` : 'House Kari';
+    const pageTitle = buildTitle(detail ? stripH1Tags(getProductName(detail), 'h1') : '');
 
     const formattedMeta = `POSTED BY : ${detail.penulis} / ON : ${formatDate(detail.date)} / IN : ${getProductCategory(detail)}`;
 
@@ -185,7 +186,7 @@ export default function ArticleDetail({ recipe }) {
         <>
             <Head>
                 <title>{pageTitle}</title>
-                <meta name="description" content="Learn more about us" />
+                <meta name="description" content={toDescription(detail ? getProductDesc(detail) : '', t('seo.articleFallback'))} />
             </Head>
             <div className={banner.bannerStyle}>
                 <img src="/images/recipe_banner.png" alt="House Kari Website" />

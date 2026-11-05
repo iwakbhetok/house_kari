@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { buildTitle } from '@/lib/seo';
 import styles from '@/styles/Contact.module.css'
 import banner from '@/styles/Banner.module.css'
 import { LuPhoneCall } from "react-icons/lu";
@@ -120,13 +121,13 @@ export default function Contact() {
     }
   };
 
-  const pageTitle = `House Kari | ${t('menu.contact')}`;
+  const pageTitle = buildTitle(t('menu.contact'));
 
   return (
     <>
       <Head>
         <title>{pageTitle}</title>
-        <meta name="description" content="Learn more about us" /> 
+        <meta name="description" content={t('seo.contact')} /> 
       </Head>
       <div className={banner.bannerStyle}>
           <img src="/images/banner_contact.png" alt="House Kari Website"/>

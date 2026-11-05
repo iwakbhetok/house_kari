@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { buildTitle } from '@/lib/seo';
 import styles from '@/styles/Article.module.css'
 import banner from '@/styles/Banner.module.css'
 import Link from "next/link";
@@ -315,13 +316,13 @@ const stripPTags = (html) => {
       .trim(); // Remove leading/trailing whitespace
   }
 
-  const pageTitle = `House Kari | ${t('menu.event')}`;
+  const pageTitle = buildTitle(t('menu.event'));
 
   return (
     <>
       <Head>
         <title>{pageTitle}</title>
-        <meta name="description" content="Learn more about us" />
+        <meta name="description" content={t('seo.event')} />
       </Head>
       <div className={banner.bannerStyle}>
         <img src="/images/event_banner.png" alt="House Kari Website"/>

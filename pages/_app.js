@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import posthog from "posthog-js";
 import { Montserrat } from "next/font/google";
 import { createTrafficTracker } from "@/lib/webTraffic";
+import { installOutboundTracking } from "@/lib/outbound";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -39,6 +40,13 @@ function App({ Component, pageProps }) {
       router.events.off("routeChangeComplete", handleRouteChange);
     };
   }, [router.events]);
+
+  useEffect(() => {
+    const capture = process.env.NEXT_PUBLIC_POSTHOG_KEY
+      ? (event, props) => posthog.capture(event, props)
+      : null;
+    return installOutboundTracking(capture);
+  }, []);
 
   useEffect(() => {
     const tracker = createTrafficTracker();

@@ -814,6 +814,7 @@ export default function RFQPage() {
                 <div className={styles.successActions}>
                   <a
                     href={waUrl}
+                    data-track-location="rfq_continue_purchase"
                     target="_blank"
                     rel="noopener noreferrer"
                     className={styles.btnWhatsApp}

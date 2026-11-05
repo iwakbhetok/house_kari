@@ -1,29 +1,35 @@
 // pages/sitemap.xml.js
 
-const BASE_URL = 'https://housejapanesecurry.com' // ← change this
+import { CMS_URL } from '@/lib/cmsArticle'
+
+const BASE_URL = 'https://housejapanesecurry.com'
 
 /*
-  Safe fetch helper
-  ALWAYS returns array
+  Fetch published docs straight from the CMS (Payload).
+  ALWAYS returns an array so the sitemap never crashes.
 */
-async function safeArray(url) {
+async function fetchDocs(collection, where) {
   try {
-    const res = await fetch(url)
+    const params = new URLSearchParams({ limit: '1000', depth: '0', ...where })
+    const res = await fetch(`${CMS_URL}/api/${collection}?${params}`, {
+      signal: AbortSignal.timeout(8000),
+    })
+    if (!res.ok) return []
     const json = await res.json()
-
-    if (Array.isArray(json)) return json
-    if (Array.isArray(json.data)) return json.data
-    if (Array.isArray(json.items)) return json.items
-
-    return []
+    return Array.isArray(json?.docs) ? json.docs : []
   } catch {
     return []
   }
 }
 
+const isoDate = (doc) => {
+  const d = new Date(doc?.updatedAt || doc?.publishedAt || doc?.createdAt || NaN)
+  return Number.isNaN(d.getTime()) ? null : d.toISOString()
+}
+
 export async function getServerSideProps({ res }) {
   /*
-    STATIC ROUTES (from your project)
+    STATIC ROUTES (search page intentionally excluded — internal results are noindex)
   */
   const staticPaths = [
     '',
@@ -31,36 +37,36 @@ export async function getServerSideProps({ res }) {
     '/company-profile',
     '/contact',
     '/privacy-policy',
+    '/rfq',
 
     '/article',
     '/article/event',
-    '/article/lifestyle',
     '/article/media-release',
     '/article/tips-trick',
 
     '/product',
     '/recipe',
-    '/search-page',
-  ]
+  ].map((path) => ({ path, lastmod: null }))
 
   /*
-    DYNAMIC ROUTES (safe — never crashes)
+    DYNAMIC ROUTES — same URL shapes the site itself links to
   */
   const [articles, products, recipes] = await Promise.all([
-    safeArray(`${BASE_URL}/api/articles`),
-    safeArray(`${BASE_URL}/api/products`),
-    safeArray(`${BASE_URL}/api/recipes`),
+    fetchDocs('articles', { 'where[status][equals]': 'published' }),
+    fetchDocs('products', { 'where[status][equals]': 'active' }),
+    fetchDocs('recipes', { 'where[status][equals]': 'published' }),
   ])
 
-  const articlePaths = articles.map(i => `/article/${i.id}`)
-  const articleDetailPaths = articles.map(i => `/article-detail/${i.slug || i.id}`)
-  const productPaths = products.map(i => `/product/${i.id}`)
-  const recipePaths = recipes.map(i => `/recipe/${i.id}`)
+  const articlePaths = articles.map((i) => ({ path: `/article-detail/${i.slug || i.id}`, lastmod: isoDate(i) }))
+  const productPaths = products.map((i) => ({ path: `/product/${i.id}`, lastmod: isoDate(i) }))
+  // Recipe detail pages resolve by slug only, so skip recipes without one.
+  const recipePaths = recipes
+    .filter((i) => i.slug)
+    .map((i) => ({ path: `/recipe/${i.slug}`, lastmod: isoDate(i) }))
 
   const allPaths = [
     ...staticPaths,
     ...articlePaths,
-    ...articleDetailPaths,
     ...productPaths,
     ...recipePaths,
   ]
@@ -69,9 +75,10 @@ export async function getServerSideProps({ res }) {
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${allPaths
   .map(
-    path => `
+    ({ path, lastmod }) => `
   <url>
-    <loc>${BASE_URL}${path}</loc>
+    <loc>${BASE_URL}${encodeURI(path).replace(/&/g, '&amp;')}</loc>${lastmod ? `
+    <lastmod>${lastmod}</lastmod>` : ''}
     <changefreq>weekly</changefreq>
     <priority>${path === '' ? '1.0' : '0.8'}</priority>
   </url>`
