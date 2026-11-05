@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { tagUrl } from '@/lib/outbound';
+import { SITE_NAME } from '@/lib/seo';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styles from '@/styles/Header.module.css';
@@ -401,8 +403,7 @@ const Header = () => {
   return (
     <>
       <Head>
-        <title>House Kari</title>
-        <meta name="description" content="House Kari ala Jepang" />
+        <title>{SITE_NAME}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         {createAlternateLinks()}
@@ -593,7 +594,7 @@ const Header = () => {
             <div className={`${styles.dropdown} ${isDropdownOpenShare ? styles.active : ''}`}>
               {shareLinks.map((share) => (
                 <Link href={share.link || '#'} key={share.id} legacyBehavior>
-                  <a onClick={share.action ? (e) => { e.preventDefault(); share.action(); } : null} className={`${styles.share_box} ${styles[share.nameMedia]}`}>
+                  <a onClick={share.action ? (e) => { e.preventDefault(); share.action(); } : null} data-track-location="share" className={`${styles.share_box} ${styles[share.nameMedia]}`}>
                     {share.imageMedia}
                   </a>
                 </Link>
@@ -608,7 +609,7 @@ const Header = () => {
             </button>
             <div className={`${styles.dropdown} ${isDropdownOpen ? styles.active : ''}`}>
               {ecommerces.map((ecommerce) => (
-                  <Link href={ecommerce.urlEcommerce} key={ecommerce.id} target='blank_'><button className={styles[ecommerce.nameEcommerce]}><img src={ecommerce.imageEcommerce} alt="House Kari" /></button></Link>
+                  <Link href={tagUrl(ecommerce.urlEcommerce, 'header')} key={ecommerce.id} target='_blank' rel='noopener noreferrer' data-track-location='header'><button className={styles[ecommerce.nameEcommerce]}><img src={ecommerce.imageEcommerce} alt="House Kari" /></button></Link>
               ))}
             </div>
           </div>

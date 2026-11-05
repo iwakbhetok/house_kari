@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { buildTitle } from '@/lib/seo';
 import styles from '@/styles/CompanyProfile.module.css';
 import banner from '@/styles/Banner.module.css';
 import { IoChevronDown } from "react-icons/io5";
@@ -229,13 +230,13 @@ export default function CompanyProfile() {
     window.location.href = mailtoUrl;
 };
 
-  const pageTitle = `House Kari | ${t('menu.companyProfile')}`;
+  const pageTitle = buildTitle(t('menu.companyProfile'));
 
   return (
     <>
       <Head>
         <title>{pageTitle}</title>
-        <meta name="description" content="Learn more about us" />
+        <meta name="description" content={t('seo.companyProfile')} />
       </Head>
       <div className={banner.bannerStyle}>
         <img src="/images/company_profile_banner.png" alt="House Kari Website"/>

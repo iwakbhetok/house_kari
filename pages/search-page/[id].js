@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { buildTitle, toDescription } from '@/lib/seo';
 import Head from 'next/head';
 import banner from '@/styles/Banner.module.css'
 import axios from 'axios';
@@ -131,13 +132,14 @@ export default function SearchPage({ id }) {
     return formattedWeight;
   };
 
-  const pageTitle = `House Kari | Search`;
+  const pageTitle = buildTitle(t('seo.searchLabel'));
 
   return (
     <>
       <Head>
         <title>{pageTitle}</title>
-        <meta name="description" content="Learn more about us" />
+        <meta name="description" content={toDescription(t('seo.search', { query: id || '' }))} />
+        <meta name="robots" content="noindex, follow" />
       </Head>
       <div className={banner.bannerStyle}>
         <img src="/images/company_profile_banner.png" alt="House Kari Website"/>

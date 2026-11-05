@@ -1,4 +1,6 @@
 import Head from "next/head";
+import { buildTitle, toDescription } from '@/lib/seo';
+import { tagUrl } from '@/lib/outbound';
 import styles from '@/styles/Product.module.css';
 import banner from '@/styles/Banner.module.css';
 import Link from "next/link";
@@ -232,7 +234,7 @@ const ProductDetails = () => {
       .trim(); // Remove leading/trailing whitespace
   }
 
-  const pageTitle = detail ? `House Kari | ${getProductName(detail)}` : 'House Kari';
+  const pageTitle = buildTitle(detail ? getProductName(detail) : '');
 
   const PLATFORM_META = {
     shopee:    { color: '#F05D40', logo: '/images/shopee_logo.png' },
@@ -248,7 +250,7 @@ const ProductDetails = () => {
     <>
       <Head>
         <title>{pageTitle}</title> 
-        <meta name="description" content="Learn more about us" />
+        <meta name="description" content={toDescription(detail ? getProductDesc(detail) : '', t('seo.productFallback'))} />
       </Head>
       <div className={banner.bannerStyle}>
         <img src="/images/product_page_banner.png" alt="House Kari Website" />
@@ -279,8 +281,8 @@ const ProductDetails = () => {
                   ecommerceLinks.filter((item) => item.url).map((item, idx) => {
                     const meta = PLATFORM_META[item.platform] || { color: '#333', logo: null };
                     return (
-                      <Link href={item.url} key={idx} passHref legacyBehavior>
-                        <a target="_blank" rel="noopener noreferrer">
+                      <Link href={tagUrl(item.url, 'product_page')} key={idx} passHref legacyBehavior>
+                        <a target="_blank" data-track-location="product_page" rel="noopener noreferrer">
                           <button style={{ backgroundColor: meta.color }}>
                             {meta.logo
                               ? <img src={meta.logo} alt={item.platform} />
@@ -324,8 +326,8 @@ const ProductDetails = () => {
                       ecommerceLinks.filter((item) => item.url).map((item, idx) => {
                         const meta = PLATFORM_META[item.platform] || { color: '#333', logo: null };
                         return (
-                          <Link href={item.url} key={idx} passHref legacyBehavior>
-                            <a target="_blank" rel="noopener noreferrer">
+                          <Link href={tagUrl(item.url, 'product_page')} key={idx} passHref legacyBehavior>
+                            <a target="_blank" data-track-location="product_page" rel="noopener noreferrer">
                               <button style={{ backgroundColor: meta.color }}>
                                 {meta.logo
                                   ? <img src={meta.logo} alt={item.platform} />
